@@ -2,8 +2,12 @@ package questiondb;
 import java.util.Collection;
 /**
  * The Question class is the superclass of all question types
+ *
+ * @author RJ Almada (rjalmada@calpoly.edu)
+ * @version 14apr14
+ *
  */
-public abstract class Question {
+public class Question {
 	/**
 	 * The question text is the actual question that is being asked in
 	 * a question
