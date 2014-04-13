@@ -7,6 +7,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import java.models.*;
+import java.models.testdb.*;
 
 
 public class TestDatabaseGUI {
