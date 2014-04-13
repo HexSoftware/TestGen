@@ -6,8 +6,12 @@ import java.util.Collection;
  * The user will choose 0-n answers that they believe to be correct
  * and will then simply compare the answers that they put with the
  * instructor defined correct answers
+ *
+ * @author RJ Almada (rjalmada@calpoly.edu)
+ * @version 14apr14
+ *
  */
-public abstract class MCQuestion extends Question {
+public class MCQuestion extends Question {
 	/**
 	 * The collection of answers that are defined by the
 	 * Instructor as options

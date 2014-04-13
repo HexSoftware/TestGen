@@ -1,13 +1,19 @@
 package questiondb;
 
+import java.lang.System.out;
+
 /**
  * This class is for the popup dialogue that will show up
  * when an Instructor hovers their mouse over a question
  * while viewing a Test. It will reveal more data than the
  * table view will be able to display.
+ *
+ * @author RJ Almada (rjalmada@calpoly.edu)
+ * @version 14apr14
+ *
  */
 
-public abstract class QuestionPopup {
+public class QuestionPopup {
 	/**
 	 * The Question that the popup is referring to
 	 */
@@ -27,7 +33,9 @@ public abstract class QuestionPopup {
 			 * A QuestionPopup is now open
 			 *);
 	 */
-	abstract void displayQuestion();
+	public void displayQuestion() {
+		System.out.println("In QuestionPopup.displayQuestion.");
+	}
 	/**
 	 * This method will close the popup dialogue for
 	 * the specified question
@@ -42,5 +50,7 @@ public abstract class QuestionPopup {
 			 * The QuestionPopup dialogue is closed
 			 *);
 	 */
-	abstract void close();
+	public void close() {
+		System.out.println("In QuestionPopup.close.");
+	}
 }
