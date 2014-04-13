@@ -1,5 +1,6 @@
 package grader;
 import java.util.Collection;
+import java.lang.System.out;
 
 import testdb.Test;
 /**
