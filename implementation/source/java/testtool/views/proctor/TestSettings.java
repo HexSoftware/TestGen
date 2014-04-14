@@ -30,9 +30,15 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import java.models.*;
+import java.models.userdb.*;
+
 public class TestSettings {
+	public TestSettings testSettings;
 	public static JDialog guiFrame;
-    public TestSettings() {
+	pulic Test t;
+    public TestSettings(TestSettings ts) {
+    	testSettings = ts;
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -232,7 +238,7 @@ public class TestSettings {
       		}
       		public void actionPerformed(ActionEvent e){
       			//System.exit(0);
-      			System.out.println("In TestSettings.publish.");
+      			testSettings.publish(t);
       			guiFrame.dispose();
       		}
       	}
