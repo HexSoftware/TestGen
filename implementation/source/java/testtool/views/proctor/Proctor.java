@@ -4,17 +4,21 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import java.models.*;
+import java.models.userdb.*;
+
 public class Proctor {
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 600;
 	private static final String TITLE = "Test Tool";
-
+   Proctor proctor;
    String[ ] fileItems = new String[ ] { "New", "Open", "Save", "Exit" };
    String[ ] editItems = new String[ ] { "Undo", "Cut", "Copy", "Paste" };
    char[ ] fileShortcuts = { 'N','O','S','X' };
    char[ ] editShortcuts = { 'Z','X','C','V' };
 
-   public Proctor() {
+   public Proctor(Proctor p) {
+   	proctor = p;
 	 JFrame frame = new JFrame("Simple Menu Example");
       frame.setSize(WIDTH, HEIGHT);
       frame.setTitle(TITLE);
@@ -130,7 +134,7 @@ public class Proctor {
 			//this.logic = logic;
 		}
 		public void actionPerformed(ActionEvent e){
-			System.out.println("In Proctor.ListOfTests.");
+			proctor.ListOfTests();
 			new ListOfTests();
 		}
 	}
@@ -140,7 +144,7 @@ public class Proctor {
 			
 		}
 		public void actionPerformed(ActionEvent e){
-			System.out.println("In Proctor.grades.");
+			proctor.grades();
 		}
 	}
 	static class optionsListener implements ActionListener {
@@ -149,7 +153,7 @@ public class Proctor {
 			
 		}
 		public void actionPerformed(ActionEvent e){
-			 System.out.println("In Proctor.options.");
+			proctor.options();
 		}
 	}
 }
