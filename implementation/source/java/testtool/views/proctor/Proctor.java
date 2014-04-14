@@ -11,7 +11,7 @@ public class Proctor {
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 600;
 	private static final String TITLE = "Test Tool";
-   Proctor proctor;
+   static Proctor proctor;
    String[ ] fileItems = new String[ ] { "New", "Open", "Save", "Exit" };
    String[ ] editItems = new String[ ] { "Undo", "Cut", "Copy", "Paste" };
    char[ ] fileShortcuts = { 'N','O','S','X' };
