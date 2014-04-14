@@ -10,7 +10,7 @@ import testdb.Test;
 /**
  * This class displays the settings for a particular test.
  */
-public abstract class Settings {
+public abstract class TestSettings {
 	String type;
 	Date start;
 	Date end;
