@@ -44,8 +44,8 @@ import java.models.userdb.*;
 public class ListOfTests {
 	static JButton CloseButton;
 	Dialog d;
-	Test t;
-	ListOfTest listTests;
+	static Test t;
+	static ListOfTest listTests;
 	static String[] columnNames = {"Test",
             "Topic",
             "Difficulty",
