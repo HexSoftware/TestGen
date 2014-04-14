@@ -37,9 +37,15 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+
+import java.models.*;
+import java.models.userdb.*;
+
 public class ListOfTests {
 	static JButton CloseButton;
 	Dialog d;
+	Test t;
+	ListOfTest listTests;
 	static String[] columnNames = {"Test",
             "Topic",
             "Difficulty",
@@ -58,7 +64,8 @@ public class ListOfTests {
     	  	};
 
 
-    public ListOfTests() {
+    public ListOfTests(ListOfTests lot) {
+    	listTests = lot;
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -190,7 +197,7 @@ public class ListOfTests {
    		public gradeListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-			System.out.println("In ListOfTests.grade.");  			
+			listTests.grade(t);  			
    		}
    	}
     static class optionsListener implements ActionListener {
@@ -198,7 +205,7 @@ public class ListOfTests {
    		public optionsListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			System.out.println("In ListOfTests.options.");
+   			listTests.options(t);
    			new TestSettings();
    		}
    	}
@@ -215,7 +222,7 @@ public class ListOfTests {
    				if(b == 1){
    					CloseButton.setText("Close");
    					data[0][6] = "Open";
-   					System.out.println("In ListOfTests.close.");
+   					listTests.close(t);
 
    				}
    			}
@@ -225,7 +232,7 @@ public class ListOfTests {
    				if(b == 1){
    					data[0][6] = "Closed";
    					CloseButton.setText("Open");
-					System.out.println("In ListOfTest.open.");
+					listTest.open(t);
    				}
    			}
    		}
