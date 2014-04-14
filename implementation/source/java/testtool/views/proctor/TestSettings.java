@@ -34,9 +34,9 @@ import java.models.*;
 import java.models.userdb.*;
 
 public class TestSettings {
-	public TestSettings testSettings;
+	static TestSettings testSettings;
 	public static JDialog guiFrame;
-	pulic Test t;
+	static pulic Test t;
     public TestSettings(TestSettings ts) {
     	testSettings = ts;
         EventQueue.invokeLater(new Runnable() {
