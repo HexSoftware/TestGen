@@ -2,7 +2,7 @@
 *@author Grant Pickett
 */
 
-package testdb;
+package testtool.models.testdb;
 import java.util.Collection;
 /**
 *   This class manages and stores Tests. The test parameter is a selected test.
@@ -23,7 +23,7 @@ public abstract class TestDatabase {
 		//
 	 */
 	void createTest(){
-	  System.out.println("in TestDatabase.createTest);
+	  System.out.println("in TestDatabase.createTest");
 	}
 	/**
 	 * This method will begin the process of editting a test
@@ -40,7 +40,7 @@ public abstract class TestDatabase {
     //
     @*/
 	void editTest(Test t){
-	  System.out.println("in TestDatabase.editTest);
+	  System.out.println("in TestDatabase.editTest");
 	}
 	/**
 	 * This method will begin the process of removing a test
@@ -58,7 +58,7 @@ public abstract class TestDatabase {
     (Test test = null)
   @*/
 	void removeTest(Test t){
-	  System.out.println("in TestDatabase.removeTest);
+	  System.out.println("in TestDatabase.removeTest");
 	}
 	/**
 	 * This method will begin the process of taking a test
@@ -75,7 +75,7 @@ public abstract class TestDatabase {
     //
   @*/
 	void takeTest(Test t){
-	  System.out.println("in TestDatabase.takeTest);
+	  System.out.println("in TestDatabase.takeTest");
 	}
 	/**
 	 * This method will begin the process of publishing a test
@@ -92,6 +92,6 @@ public abstract class TestDatabase {
     //
   @*/
 	void publishTest(Test t){
-	  System.out.println("in TestDatabase.publishTest);
+	  System.out.println("in TestDatabase.publishTest");
 	}
 }

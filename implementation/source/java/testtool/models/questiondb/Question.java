@@ -1,4 +1,4 @@
-package questiondb;
+package testtool.models.questiondb;
 import java.util.Collection;
 /**
  * The Question class is the superclass of all question types

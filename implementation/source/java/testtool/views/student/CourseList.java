@@ -1,3 +1,5 @@
+package testtool.views.student;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -6,9 +8,14 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import testtool.models.student.MyCourses;
+import testtool.models.userdb.Student;
+import testtool.models.courses.Course;
+
 public class CourseList {
 	public CourseList() {
-	JFrame frame = new JFrame("My Courses");
+		
+		JFrame frame = new JFrame("My Courses");
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -36,9 +43,15 @@ public class CourseList {
         category1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         category1.addMouseListener(new MouseAdapter() {
         	public void mouseClicked(MouseEvent e) {
+        		MyCourses myCourses = new MyCourses();
+        		
+        		Student exStudent = new Student();
+        		Course exCourse = new Course();
+        		
         		int count = e.getClickCount();
         		if (count == 1) {
-                                System.out.println("In CourseList.mouseClicked.");
+        			myCourses.viewTests(exCourse, exStudent);
+                    System.out.println("In CourseList.mouseClicked.");
         			new TestList();
         		}
         	}
