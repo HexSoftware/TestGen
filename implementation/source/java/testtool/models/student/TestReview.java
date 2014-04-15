@@ -7,7 +7,7 @@ import testtool.models.questiondb.*;
  * that is being shown an overview. Graded informs if the test is graded or
  * not.
  */
- public abstract class TestReview {
+ public class TestReview {
    int currentQuestion;
    
    /**
@@ -27,5 +27,7 @@ import testtool.models.questiondb.*;
     //
     result currentQuestion = number
   @*/
-  public abstract Question getQuestion(int number);
+  public Question getQuestion(int number) {
+      System.out.println("In TestReview.getQuestion.");
+  }
  }
