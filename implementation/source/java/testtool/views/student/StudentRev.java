@@ -33,7 +33,9 @@ public class StudentRev extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Midterm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     	
-    	jButton1.addActionListener(new ActionListener() {
+        initComponents();
+        
+        jButton1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				TestReview t = new TestReview();
@@ -161,8 +163,6 @@ public class StudentRev extends javax.swing.JFrame {
 		        t.getQuestion(16);
 			}
 		});
-    	
-        initComponents();
     }
 
     /**
