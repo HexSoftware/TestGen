@@ -636,6 +636,31 @@ public class AddQuestion extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+   	private void finishButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        System.out.println("Data will be saved.");
+        QuestionDatabank qdb = new QuestionDatabank();
+        switch ((String) oldQTItem) {
+                case "Multiple Choice":
+                    qdb.add(new MCQuestion());;
+                    break;
+                case "True/False":
+                    qdb.add(new TFQuestion());
+                    break;
+                case "Short Answer":
+                    qdb.add(new SAQuestion());
+                    break;
+                case "Essay":
+                    qdb.add(new EssayQuestion());
+                    break;
+                case "Graphics":
+                    qdb.add(new GraphicsQuestion());
+                    break;
+                case "Code":
+                    qdb.add(new CodeQuestion());
+                    break;
+            }
+    }   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Answer1;

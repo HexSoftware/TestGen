@@ -7,12 +7,12 @@ import javax.swing.ButtonGroup;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import java.models.*;
 import java.models.testdb.*;
 
 
 public class TestDatabaseGUI {
-	static Test t
+	static Test t;
+	static TestDatabase tdb;
 	static JButton takeButton;
 	static String[] columnNames = {"Test",
             "Class",
@@ -38,7 +38,8 @@ public class TestDatabaseGUI {
     	     {"", "", "", " ", "", "", ""},
     	     {"", "", "", " ", "", "", ""},
     	  	};
-    public TestDatabaseGUI(final int setting) {
+    public TestDatabaseGUI(final int setting, TestDatabase Tdb) {
+        tdb = Tdb;
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -168,7 +169,7 @@ public class TestDatabaseGUI {
    		}
    		public void actionPerformed(ActionEvent e){
    			new GenerateTypeGUI();
-			TestDatabase.createTest();
+			tdb.createTest();
    		}
    	}
    	static class removeListener implements ActionListener {
@@ -176,7 +177,7 @@ public class TestDatabaseGUI {
    		public removeListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			TestDatabase.remove(Test t);
+   			tdb.remove(Test t);
    		}
    	}
    	static class editListener implements ActionListener {
@@ -184,7 +185,7 @@ public class TestDatabaseGUI {
    		public editListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			TestDatabase.edit(Test t);
+   			tdb.edit(Test t);
    		}
    	}
     static class publishListener implements ActionListener {
@@ -192,7 +193,7 @@ public class TestDatabaseGUI {
    		public publishListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			TestDatabase.publish(Test t);
+   			tdb.publish(Test t);
    		}
    	}
    static class takeListener implements ActionListener {
@@ -200,7 +201,7 @@ public class TestDatabaseGUI {
    		public takeListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-			TestDatabase.take(Test t);
+			tdb.take(Test t);
    		}
    	}
 }

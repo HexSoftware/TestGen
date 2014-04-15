@@ -287,6 +287,102 @@ public class StudentRev extends javax.swing.JFrame {
         setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(1);
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(2);
+    }
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(3);
+    }
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(4);
+    }
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(5);
+    }
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(6);
+    }
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(7);
+    }
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(8);
+    }
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(9);
+    }
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(10);
+    }
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(11);
+    }
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(12);
+    }
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(13);
+    }
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(14);
+    }
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(15);
+    }
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        TestReview t = new TestReview();
+
+        t.getQuestion(16);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
