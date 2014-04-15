@@ -10,8 +10,11 @@ import userdb.Student;
  * answers is the collection of answers submitted by the student
  * student is the student who submitted the answers
  * test is the test for which the answers are for
+ *
+ * @author Kevin Pham (kpham11@calpoly.edu)
+ * version 14apr14
  */
-public abstract class StudentAnswers {
+public class StudentAnswers {
    Collection<Answer> answers;
    Student student;
    Test test;
@@ -20,17 +23,23 @@ public abstract class StudentAnswers {
     * adds an answer to the Collection of answers
     * @param answer - the answer to add to the collection
     */
-   abstract void addAnswer(Answer answer);
+   public void addAnswer(Answer answer) {
+      System.out.println("In Student.addAnswer."); 
+   }
 
    /**
     * removes an answer from the Collection of answers
     * @param answer - the answer to remove from the collection
     */
-   abstract void removeAnswer(Answer answer);
+   public void removeAnswer(Answer answer) {
+      System.out.println("In Student.removeAnswer."); 
+   }
 
    /**
     * updates the existing answer from the collection of answers
     * @param answer - the answer to update
     */
-   abstract void updateAnswer(Answer answer);
+   public void updateAnswer(Answer answer){
+      System.out.println("In Student.updateAnswer."); 
+   }
 }
