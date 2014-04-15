@@ -1,14 +1,17 @@
+package testtool.views.student;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+//import javax.swing.*;
 
-import javax.swing.event.*;
+//import javax.swing.event.*;
 
 /**
  *
  * @author Robert Almada
  */
+@SuppressWarnings("serial")
 public class Midterm1 extends javax.swing.JFrame {
 
     /**

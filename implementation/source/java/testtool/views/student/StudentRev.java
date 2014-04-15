@@ -1,8 +1,10 @@
+package testtool.views.student;
 
 /**
  *
  * @author Robert Almada
  */
+@SuppressWarnings("serial")
 public class StudentRev extends javax.swing.JFrame {
 
     /**

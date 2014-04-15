@@ -1,10 +1,11 @@
-package student;
+package testtool.models.student;
 import java.util.Collection;
 
-import testdb.Test;
-import userdb.Student;
+import testtool.models.testdb.Test;
+import testtool.models.userdb.Student;
 
 /**
+ * @author Alvin
  * StudentAnswers is a class designed to store a collection of answers
  * linked to the appropriate test and student
  * answers is the collection of answers submitted by the student
@@ -20,17 +21,17 @@ public abstract class StudentAnswers {
     * adds an answer to the Collection of answers
     * @param answer - the answer to add to the collection
     */
-   abstract void addAnswer(Answer answer);
+   public abstract void addAnswer(Answer answer);
 
    /**
     * removes an answer from the Collection of answers
     * @param answer - the answer to remove from the collection
     */
-   abstract void removeAnswer(Answer answer);
+   public abstract void removeAnswer(Answer answer);
 
    /**
     * updates the existing answer from the collection of answers
     * @param answer - the answer to update
     */
-   abstract void updateAnswer(Answer answer);
+   public abstract void updateAnswer(Answer answer);
 }

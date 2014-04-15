@@ -1,9 +1,10 @@
-package student;
-import userdb.*;
+package testtool.models.student;
+import testtool.models.userdb.*;
 
-import courses.Course;
+import testtool.models.courses.Course;
 
 /**
+ * @author Alvin
  * MyCourses is the repository of courses for a student and their homepage. It is 
  * derived from Section 2.1.3 of the requirements.
  */
@@ -34,6 +35,7 @@ import courses.Course;
   @*/
    public boolean login (String username, String password) {
       System.out.println("In MyCourses.login.");
+      return true;
    }
    
    /**
@@ -78,6 +80,6 @@ import courses.Course;
     //
   @*/
    public void viewTests(Course course, Student student) {
-      System.out.println("In MyCourses.viewTests.")
+      System.out.println("In MyCourses.viewTests.");
    }
 }

@@ -1,10 +1,11 @@
-package student;
+package testtool.models.student;
 
 import java.util.List;
 
-import questiondb.*;
+import testtool.models.questiondb.*;
 
 /**
+ * @author Alvin
  * TakeTest is the test the student is currently taking. 
  * TimeRemaining is the time before the test is closed. 
  * The List AnsweredQuestions keeps track of which questions were answered. 
@@ -12,7 +13,7 @@ import questiondb.*;
  * StudentAnswers is the list of all answers the student submits as well as
  *  the student's information and test for which the answers are for
  */
-public abstract class TakeTest {
+public class TakeTest {
   double timeRemaining;
   List<Boolean> answeredQuestions;
   int currentQuestion;
@@ -35,7 +36,10 @@ public abstract class TakeTest {
     //
     result currentQuestion = number
   @*/
-  abstract Question getQuestion(int number);
+  public Question getQuestion(int number) {
+	  System.out.println("In TakeTest.getQuestion.");
+	  return null;
+  }
 
   /**
   * Submits the selected or inputed answer to the currently selected 
@@ -54,7 +58,9 @@ public abstract class TakeTest {
     //
     (\exists AnswerDB.contains(answer))
   @*/
-  abstract void submitAnswer(Answer answer);
+  public void submitAnswer(Answer answer) {
+	  System.out.println("In TakeTest.submitAnswer.");
+  }
 
   /**
   * Submits the StudentAnswers to be graded.
@@ -72,5 +78,7 @@ public abstract class TakeTest {
     //
     (\exists AnswerDB.studentAnswers.contains(studentanswer))
   @*/
-  abstract void submitTest(StudentAnswers studentanswer);
+  public void submitTest(StudentAnswers studentanswer) {
+	  System.out.println("In TakeTest.submitTest.");
+  }
 }

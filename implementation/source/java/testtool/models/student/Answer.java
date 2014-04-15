@@ -1,6 +1,7 @@
-package student;
+package testtool.models.student;
 
 /**
+ * @author Alvin
  * Answer is a class that defines a question's answer.
  * mcAnswer is a String of numbers that defines the correct index answers.
  * tfAnswer is a boolean, true representing the correct answer as true, false otherwise
@@ -8,7 +9,7 @@ package student;
  * fileAnswer is the name of the file submitted for graphics questions.
  * index is the Question number for which the answer corresponds to
  */
-public abstract class Answer {
+public class Answer {
    String mcAnswer;
    boolean tfAnswer;
    String answerFill;

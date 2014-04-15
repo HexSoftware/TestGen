@@ -1,6 +1,11 @@
+package testtool.views.student;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.Font;
+
+import testtool.models.student.*;
+import testtool.models.userdb.*;
 
 public class Login {
 
@@ -57,6 +62,9 @@ public class Login {
     }
 
     static class Action1 implements ActionListener {
+    	MyCourses myCourses = new MyCourses();
+    	Student exStudent = new Student();
+    	
     	JFrame mainframe;
     	
     	public Action1 (JFrame frame) {
@@ -64,6 +72,8 @@ public class Login {
     	}
     	
     	public void actionPerformed (ActionEvent e) {
+    		myCourses.login ("username", "password");
+    		myCourses.viewCourses(exStudent);
     		new CourseList();
     		mainframe.dispose();
             System.out.println("In Login.actionPerformed.");

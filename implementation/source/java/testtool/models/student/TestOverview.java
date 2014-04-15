@@ -1,11 +1,12 @@
-package student;
+package testtool.models.student;
 
 import java.util.Collection;
 
-import testdb.*;
-import userdb.*;
+import testtool.models.testdb.*;
+import testtool.models.userdb.*;
 
 /**
+ * @author Alvin
  * TestOverview is the limited information about a test. Test is the test
  * that is being shown an overview. Graded informs if the test is graded or
  * not.
@@ -37,6 +38,7 @@ import userdb.*;
    @*/
    public boolean checkPassword(String password) {
       System.out.println("In TestOverview.checkPassword");
+      return true;
    }
    
    /**
@@ -57,6 +59,7 @@ import userdb.*;
    @*/
    public boolean beginTest(Test test) {
       System.out.println("In TestOverview.beginTest.");
+      return true;
    }
    
   /**
@@ -81,5 +84,6 @@ import userdb.*;
   @*/
   public boolean reviewTest(Test test) {
     System.out.println("In TestOverview.reviewTest");
+    return true;
   }
 }
