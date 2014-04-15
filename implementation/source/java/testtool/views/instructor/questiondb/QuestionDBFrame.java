@@ -9,8 +9,17 @@ import java.awt.event.ActionListener;
 import javax.swing.*;        
 import javax.swing.table.*;
 
+import questiondb.*;
+
+/**
+ * @author Neil Nordhof (nnordhof@calpoly.edu)
+ * @version 14apr14
+ */
+
 @SuppressWarnings("serial")
 public class QuestionDBFrame extends JMenuBar {
+    
+  private QuestionDatabank qdb;
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
@@ -70,18 +79,33 @@ public class QuestionDBFrame extends JMenuBar {
         qdbpanel.add(scrollpane);
         
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        searchPanel.add(new JTextField(20), BorderLayout.EAST);
-        searchPanel.add(new JButton("Search"), BorderLayout.EAST);
+        final JTextField searchField = new JTextField(20);
+        searchPanel.add(searchField, BorderLayout.EAST);
+        JButton searchButton = new JButton("Search");
+        searchButton.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent arg0) {
+            qdb.search(searchField.getText());
+          }
+        });
+        searchPanel.add(searchButton, BorderLayout.EAST);
         
         JPanel buttonPanel = new JPanel(new GridLayout());
-        buttonPanel.add(new JButton("Add"));
+        JButton addButton = new JButton("Add");
+        addButton.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent arg0) {
+            new AddQuestion();
+          }
+        });
+        buttonPanel.add(addButton);
         buttonPanel.add(new JButton("Edit"));
         JButton removeButton = new JButton("Remove");
         removeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new RemoveFrame();
+				new RemoveFrame(qdb);
 				
 			}
         	
@@ -92,7 +116,7 @@ public class QuestionDBFrame extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new FilterFrame();
+				new FilterFrame(qdb);
 				
 			}
         	
