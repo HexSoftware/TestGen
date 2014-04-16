@@ -1,3 +1,4 @@
+package testtool.views.instructor.questiondb;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GraphicsConfiguration;
@@ -6,12 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JComboBox; 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import questiondb.*;
+import testtool.models.questiondb.*;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)

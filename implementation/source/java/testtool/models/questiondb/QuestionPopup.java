@@ -1,6 +1,5 @@
-package questiondb;
+package testtool.models.questiondb;
 
-import java.lang.System.out;
 
 /**
  * This class is for the popup dialogue that will show up

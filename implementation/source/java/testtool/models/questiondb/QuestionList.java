@@ -1,4 +1,4 @@
-package questiondb;
+package testtool.models.questiondb;
 import java.util.Collection;
 
 /**

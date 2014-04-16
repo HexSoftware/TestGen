@@ -16,7 +16,7 @@ public abstract class TestDatabase {
 	/**
 	 * This method will begin the process of creating a new test
 	 */
-	/*@
+	public /*@
 		ensures
 		//
 		// The generation dialouge will appear
@@ -39,7 +39,7 @@ public abstract class TestDatabase {
     // test will be put into edit mode
     //
     @*/
-	void editTest(Test t){
+	public void editTest(Test t){
 	  System.out.println("in TestDatabase.editTest");
 	}
 	/**
@@ -57,7 +57,7 @@ public abstract class TestDatabase {
     //
     (Test test = null)
   @*/
-	void removeTest(Test t){
+	public void removeTest(Test t){
 	  System.out.println("in TestDatabase.removeTest");
 	}
 	/**
@@ -74,7 +74,7 @@ public abstract class TestDatabase {
     // test will be taken
     //
   @*/
-	void takeTest(Test t){
+	public void takeTest(Test t){
 	  System.out.println("in TestDatabase.takeTest");
 	}
 	/**
@@ -91,7 +91,7 @@ public abstract class TestDatabase {
     // test will be published
     //
   @*/
-	void publishTest(Test t){
+	public void publishTest(Test t){
 	  System.out.println("in TestDatabase.publishTest");
 	}
 }

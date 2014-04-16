@@ -2,8 +2,10 @@
 *@author Grant Pickett
 */
 
-package testdb;
+package testtool.models.testdb;
 import java.util.Collection;
+
+import testtool.models.questiondb.Question;
 /**
 *   This class manages manual generation of a test.
 */
@@ -23,9 +25,9 @@ public abstract class AutomaticGeneration {
 			 * That settings are setup with the input information
 			 *);
 	@*/
-	abstract void getParams(){
-      System.out.println("in AutomaticGeneration.getParams);
-        };
+	void getParams(){
+      System.out.println("in AutomaticGeneration.getParams");
+     };
    /**
 	 * add takes a question from the add a question dialog, and adds it into
 	 * the question list.
@@ -41,7 +43,7 @@ public abstract class AutomaticGeneration {
 			 *);
 	@*/
 	void add(Question q){
-           System.out.println("in AutomaticGeneration.add);
+           System.out.println("in AutomaticGeneration.add");
    }
 
 	/**
@@ -61,7 +63,7 @@ public abstract class AutomaticGeneration {
 			 *);
 	@*/
 	void edit(Question q){
-           System.out.println("in AutomaticGeneration.edit);
+           System.out.println("in AutomaticGeneration.edit");
         }
 
 	/**
@@ -96,7 +98,7 @@ public abstract class AutomaticGeneration {
 			 *);
 	@*/
    void Take(){
-      System.out.println("in AutomaticGeneration.take);
+      System.out.println("in AutomaticGeneration.take");
    }
    /**
 	 * Lets an instructor finish this step and add the test to the test database
@@ -112,6 +114,6 @@ public abstract class AutomaticGeneration {
 			 *);
 	@*/
    void Generate(){
-      System.out.println("in AutomaticGeneration.generate);
+      System.out.println("in AutomaticGeneration.generate");
    }
 }
