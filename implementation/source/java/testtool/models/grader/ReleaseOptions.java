@@ -1,4 +1,4 @@
- 
+package testtool.models.grader;
 import testtool.models.testdb.Test;
 import java.util.Collection;
 /**
