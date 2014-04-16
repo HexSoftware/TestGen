@@ -1,3 +1,4 @@
+package testtool.views.instructor.questiondb;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -11,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import questiondb.QuestionDatabank;
+import testtool.models.questiondb.QuestionDatabank;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
@@ -21,7 +22,7 @@ import questiondb.QuestionDatabank;
 @SuppressWarnings("serial")
 public class RemoveFrame extends JFrame {
 
-	public RemoveFrame(QuestionDatabank qdb) {
+	public RemoveFrame(final QuestionDatabank qdb) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Warning!");
 		setLayout(new BorderLayout());

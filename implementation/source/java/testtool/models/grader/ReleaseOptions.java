@@ -1,8 +1,6 @@
-package grader;
+package testtool.models.grader;
+import testtool.models.testdb.Test;
 import java.util.Collection;
-import java.lang.System.out;
-
-import testdb.Test;
 /**
  * The ReleaseOptions class is meant to be a dialogue to
  * allow the Instructor or Proctor to decide what sorts of
@@ -60,6 +58,6 @@ public class ReleaseOptions {
 			 *);
 	 */
 	void removeOption(String option) {
-		System.out.println("In ReleaseOptions.removeOption.")
+		System.out.println("In ReleaseOptions.removeOption.");
 	}
 }

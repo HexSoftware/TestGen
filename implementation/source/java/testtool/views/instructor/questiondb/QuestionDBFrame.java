@@ -1,3 +1,4 @@
+package testtool.views.instructor.questiondb;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,7 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import questiondb.*;
+import testtool.models.questiondb.*;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)

@@ -1,4 +1,4 @@
-package questiondb;
+package testtool.models.questiondb;
 
 /**
  * Filter is the filter that is applied to the question list. The keyword 
