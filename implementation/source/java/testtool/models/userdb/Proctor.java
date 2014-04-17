@@ -1,19 +1,22 @@
-package userdb;
-@author Yuliya Levitskaya
+package implementation.source.java.testtool.models.userdb;
+/*@author Yuliya Levitskaya*/
 
 /**
  * Class defines a Proctor user
  */
-public abstract class Proctor {
+public class Proctor {
 	static int permission = 2;
+	public Proctor(){
+		
+	}
 
-	abstract void Options(){
+	public void options(){
 		System.out.println("In Proctor.options.");
 	}
-	abstract void ListOfTests(){
+	public void listOfTests(){
 		System.out.println("In Proctor.ListOfTests.");
 	}
-	abstract void Grades(){
+	public void grades(){
 		System.out.println("In Proctor.grades.");
 	}
 }
