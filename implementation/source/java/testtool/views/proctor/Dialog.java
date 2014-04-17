@@ -1,4 +1,4 @@
-@author Yuliya Levitskaya
+/*@author Yuliya Levitskaya*/
 
 import java.awt.BorderLayout;
 import java.awt.Color;
