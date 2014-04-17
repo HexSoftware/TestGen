@@ -4,7 +4,7 @@ package implementation.source.java.testtool.models.userdb;
 
 import java.util.Date;
 
-import testtool.models.testdb.Test;
+import implementation.source.java.testtool.models.testdb.Test;
 
 
 /**
