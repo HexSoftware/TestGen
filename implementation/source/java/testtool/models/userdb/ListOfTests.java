@@ -2,7 +2,7 @@ package implementation.source.java.testtool.models.userdb;
 /*author Yuliya Levitskaya*/
 import java.util.Collection;
 
-import testtool.models.testdb.Test;
+import implementation.source.java.testtool.models.testdb.Test;
 
 /**
  * This class displays the list of tests that the instructor had generated.
