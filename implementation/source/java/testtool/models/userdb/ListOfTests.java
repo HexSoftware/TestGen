@@ -1,4 +1,4 @@
-package testtool.models.userdb;
+package implementation.source.java.testtool.models.userdb;
 /*author Yuliya Levitskaya*/
 import java.util.Collection;
 
