@@ -1,12 +1,13 @@
-package student;
-import testdb.*;
-import courses.*;
+package testtool.models.student;
+import testtool.models.testdb.*;
+import testtool.models.courses.*;
 
 import java.util.Collection;
 
-import userdb.*;
+import testtool.models.userdb.*;
 
 /**
+ * @author Alvin
  * MyTests is a list of tests for a course. It is 
  * derived from Section 2.4 of the requirements.
  */
@@ -45,7 +46,7 @@ import userdb.*;
     // The test overview to be shown of the test. 
     //
   @*/
-   abstract void viewTestOverview(Test test, Student student) {
+   public void viewTestOverview(Test test, Student student) {
       System.out.println("In MyTests.viewTestOverview.");
    }
 }

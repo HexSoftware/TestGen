@@ -1,3 +1,5 @@
+package testtool.views.student;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -90,8 +92,12 @@ public class TestOverview {
         startTest.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         startTest.addMouseListener(new MouseAdapter() {
         	public void mouseClicked(MouseEvent e) {
+        		testtool.models.student.TestOverview overview = new testtool.models.student.TestOverview();
+        		
         		int count = e.getClickCount();
         		if (count == 1) {
+        			overview.checkPassword("password");
+        			overview.beginTest(null);
         			new Midterm1();
         		}
         	}

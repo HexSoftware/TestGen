@@ -1,14 +1,19 @@
+package testtool.views.student;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import testtool.models.student.TakeTest;
 
-import javax.swing.event.*;
+//import javax.swing.*;
+
+//import javax.swing.event.*;
 
 /**
  *
  * @author Robert Almada
  */
+@SuppressWarnings("serial")
 public class Midterm1 extends javax.swing.JFrame {
 
     /**
@@ -40,6 +45,11 @@ public class Midterm1 extends javax.swing.JFrame {
 
     class Action1 implements ActionListener {
     	public void actionPerformed (ActionEvent e) {
+    		TakeTest testLayout = new TakeTest();
+    		
+    		testLayout.submitAnswer(null);
+    		testLayout.submitTest(null);
+    		
     		new TestOverviewSubmitted();
     		dispose();
     	}

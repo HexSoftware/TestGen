@@ -2,7 +2,7 @@
 *@author Grant Pickett
 */
 
-package testdb;
+package testtool.models.testdb;
 import java.util.Collection;
 /**
 *   This class manages and stores Tests. The test parameter is a selected test.
@@ -16,14 +16,14 @@ public abstract class TestDatabase {
 	/**
 	 * This method will begin the process of creating a new test
 	 */
-	/*@
+	public /*@
 		ensures
 		//
 		// The generation dialouge will appear
 		//
 	 */
 	void createTest(){
-	  System.out.println("in TestDatabase.createTest);
+	  System.out.println("in TestDatabase.createTest");
 	}
 	/**
 	 * This method will begin the process of editting a test
@@ -39,8 +39,8 @@ public abstract class TestDatabase {
     // test will be put into edit mode
     //
     @*/
-	void editTest(Test t){
-	  System.out.println("in TestDatabase.editTest);
+	public void editTest(Test t){
+	  System.out.println("in TestDatabase.editTest");
 	}
 	/**
 	 * This method will begin the process of removing a test
@@ -57,8 +57,8 @@ public abstract class TestDatabase {
     //
     (Test test = null)
   @*/
-	void removeTest(Test t){
-	  System.out.println("in TestDatabase.removeTest);
+	public void removeTest(Test t){
+	  System.out.println("in TestDatabase.removeTest");
 	}
 	/**
 	 * This method will begin the process of taking a test
@@ -74,8 +74,8 @@ public abstract class TestDatabase {
     // test will be taken
     //
   @*/
-	void takeTest(Test t){
-	  System.out.println("in TestDatabase.takeTest);
+	public void takeTest(Test t){
+	  System.out.println("in TestDatabase.takeTest");
 	}
 	/**
 	 * This method will begin the process of publishing a test
@@ -91,7 +91,7 @@ public abstract class TestDatabase {
     // test will be published
     //
   @*/
-	void publishTest(Test t){
-	  System.out.println("in TestDatabase.publishTest);
+	public void publishTest(Test t){
+	  System.out.println("in TestDatabase.publishTest");
 	}
 }

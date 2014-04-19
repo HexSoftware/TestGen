@@ -1,12 +1,13 @@
-package student;
-import questiondb.*;
+package testtool.models.student;
+import testtool.models.questiondb.*;
 
 /**
+ * @author Alvin
  * TestReview is the released information about a graded test. Test is the test
  * that is being shown an overview. Graded informs if the test is graded or
  * not.
  */
- public abstract class TestReview {
+ public class TestReview {
    int currentQuestion;
    
    /**
@@ -26,5 +27,7 @@ import questiondb.*;
     //
     result currentQuestion = number
   @*/
-  abstract Question getQuestion(int number);
+  public Question getQuestion(int number) {
+      System.out.println("In TestReview.getQuestion.");
+  }
  }

@@ -1,8 +1,14 @@
+package testtool.views.student;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 
 import javax.swing.*;
+
+import testtool.models.student.MyTests;
+import testtool.models.userdb.Student;
+
 import java.awt.event.*;
 
 public class TestList {
@@ -51,9 +57,15 @@ public class TestList {
         Test2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Test2.addMouseListener(new MouseAdapter() {
         	public void mouseClicked(MouseEvent e) {
+        		MyTests myTests = new MyTests();
+        		
+        		Student student = new Student();
+        		
+        		
         		int count = e.getClickCount();
         		if (count == 1) {
                     System.out.println("In TestList.mouseClicked.");
+                    myTests.viewTestOverview(null, student);
         			new TestOverview();
         		}
         	}
