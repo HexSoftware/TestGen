@@ -1,4 +1,4 @@
-@author Yuliya Levitskaya
+/*author Yuliya Levitskaya*/
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -37,15 +37,17 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import implementation.source.java.testtool.models.*;
+import implementation.source.java.testtool.models.testdb.*;
+import implementation.source.java.testtool.models.userdb.*;
 
-import java.models.*;
-import java.models.userdb.*;
+
 
 public class ListOfTests {
 	static JButton CloseButton;
 	Dialog d;
-	static Test t;
-	static ListOfTest listTests;
+	static public Test t;
+	static  testtool.models.userdb.ListOfTests listTests;
 	static String[] columnNames = {"Test",
             "Topic",
             "Difficulty",
@@ -64,8 +66,8 @@ public class ListOfTests {
     	  	};
 
 
-    public ListOfTests(ListOfTests lot) {
-    	listTests = lot;
+    public ListOfTests() {
+    	listTests = new testtool.models.userdb.ListOfTests();
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -206,6 +208,7 @@ public class ListOfTests {
    		}
    		public void actionPerformed(ActionEvent e){
    			listTests.options(t);
+   			
    			new TestSettings();
    		}
    	}
@@ -232,7 +235,7 @@ public class ListOfTests {
    				if(b == 1){
    					data[0][6] = "Closed";
    					CloseButton.setText("Open");
-					listTest.open(t);
+					listTests.open(t);
    				}
    			}
    		}
