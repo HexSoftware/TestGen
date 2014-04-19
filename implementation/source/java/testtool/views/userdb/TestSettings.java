@@ -1,4 +1,4 @@
-@author Yuliya Levitskaya
+/*@author Yuliya Levitskaya*/
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -30,15 +30,17 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import java.models.*;
-import java.models.userdb.*;
+import imlementation.source.java.testtool.models.*;
+import imlementation.source.java.testtool.models.testdb.*;
+import imlementation.source.java.testtool.models.userdb.*;
+
 
 public class TestSettings {
-	static TestSettings testSettings;
+	static testtool.models.userdb.TestSettings testSettings;
 	public static JDialog guiFrame;
-	static pulic Test t;
-    public TestSettings(TestSettings ts) {
-    	testSettings = ts;
+	static public Test t;
+    public TestSettings() {
+    	testSettings  = new imlementation.source.java.testtool.models.userdb.TestSettings();
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -238,7 +240,7 @@ public class TestSettings {
       		}
       		public void actionPerformed(ActionEvent e){
       			//System.exit(0);
-      			testSettings.publish(t);
+      			boolean s = testSettings.publish(t);
       			guiFrame.dispose();
       		}
       	}

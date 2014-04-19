@@ -1,31 +1,26 @@
-@author Yuliya Levitskaya
+/* author: Yuliya Levitskaya*/
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import java.models.*;
-import java.models.userdb.*;
-
 public class Proctor {
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 600;
 	private static final String TITLE = "Test Tool";
-   static Proctor proctor;
+    public static testtool.models.userdb.Proctor proctor;
    String[ ] fileItems = new String[ ] { "New", "Open", "Save", "Exit" };
    String[ ] editItems = new String[ ] { "Undo", "Cut", "Copy", "Paste" };
    char[ ] fileShortcuts = { 'N','O','S','X' };
    char[ ] editShortcuts = { 'Z','X','C','V' };
 
-   public Proctor(Proctor p) {
-   	proctor = p;
+   public Proctor() {
+   	  proctor = new implementation.source.java.testtool.models.userdb.Proctor();
 	 JFrame frame = new JFrame("Simple Menu Example");
       frame.setSize(WIDTH, HEIGHT);
       frame.setTitle(TITLE);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      frame.setJMenuBar(Menu(  ));
-      
-      
+      frame.setJMenuBar(Menu(  ));    
       
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
@@ -36,7 +31,7 @@ public class Proctor {
       
       frame.setVisible(true);
 
-}
+	}
        public JMenuBar Menu() {
     	   JMenuBar menuBar = new JMenuBar();
     	  JMenu fileMenu = new JMenu("File");
@@ -134,7 +129,7 @@ public class Proctor {
 			//this.logic = logic;
 		}
 		public void actionPerformed(ActionEvent e){
-			proctor.ListOfTests();
+			proctor.listOfTests();
 			new ListOfTests();
 		}
 	}
@@ -156,4 +151,8 @@ public class Proctor {
 			proctor.options();
 		}
 	}
+	public static void main(String s[ ]) {
+		new Proctor();
+	}
+
 }
