@@ -1,4 +1,4 @@
-package questiondb;
+package testtool.models.questiondb;
 
 /**
  * QuestionEntry is a modified version of a Question, that adds a boolean and

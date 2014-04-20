@@ -1,4 +1,4 @@
-package questiondb;
+package testtool.models.questiondb;
 
 /**
  * The Category class allows more functionality with sorting, applying 

@@ -1,4 +1,4 @@
-package questiondb;
+package testtool.models.questiondb;
 
 /**
  * Question type corresponding with a True/False question

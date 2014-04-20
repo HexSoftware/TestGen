@@ -1,3 +1,4 @@
+package testtool.views.instructor.testdb;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,11 +8,11 @@ import javax.swing.ButtonGroup;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import java.models.testdb.*;
+import testtool.models.testdb.*;
 
 
 public class TestDatabaseGUI {
-	static Test t;
+	public static Test t;
 	static TestDatabase tdb;
 	static JButton takeButton;
 	static String[] columnNames = {"Test",
@@ -177,7 +178,7 @@ public class TestDatabaseGUI {
    		public removeListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			tdb.remove(Test t);
+   			tdb.removeTest(t);
    		}
    	}
    	static class editListener implements ActionListener {
@@ -185,7 +186,7 @@ public class TestDatabaseGUI {
    		public editListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			tdb.edit(Test t);
+   			tdb.editTest(t);
    		}
    	}
     static class publishListener implements ActionListener {
@@ -193,7 +194,7 @@ public class TestDatabaseGUI {
    		public publishListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			tdb.publish(Test t);
+   			tdb.publishTest(t);
    		}
    	}
    static class takeListener implements ActionListener {
@@ -201,7 +202,7 @@ public class TestDatabaseGUI {
    		public takeListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-			tdb.take(Test t);
+			tdb.takeTest(t);
    		}
    	}
 }

@@ -1,4 +1,4 @@
-package questiondb;
+package testtool.models.questiondb;
 
 /**
  * Question type corresponding to a Coding question
