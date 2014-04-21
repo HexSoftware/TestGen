@@ -1,11 +1,12 @@
-package implementation.source.java.testtool.models.userdb;
-/*author Yuliya Levitskaya*/
+package testtool.models.userdb;
+/**/
 import java.util.Collection;
 
-import implementation.source.java.testtool.models.testdb.Test;
+import testtool.models.testdb.Test;
 
 /**
  * This class displays the list of tests that the instructor had generated.
+ * @author Yuliya Levitskaya
  */
 public class ListOfTests {
 	Collection<Test> tests;

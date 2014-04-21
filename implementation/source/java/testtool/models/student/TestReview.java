@@ -29,5 +29,6 @@ import testtool.models.questiondb.*;
   @*/
   public Question getQuestion(int number) {
       System.out.println("In TestReview.getQuestion.");
+      return new Question();
   }
  }
