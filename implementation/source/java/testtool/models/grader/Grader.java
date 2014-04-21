@@ -1,6 +1,6 @@
-package grader;
-import testdb.Test;
-import userdb.Student;
+package testtool.models.grader;
+import testtool.models.testdb.Test;
+import testtool.models.userdb.Student;
 
 
 public class Grader {
@@ -10,7 +10,7 @@ public class Grader {
 		System.out.println("In grader.Constructor.");
 	}	
 	
-    public void releaseTest(Test test, grader options) {
+    public void releaseTest(Test test, Grader options) {
 		System.out.println("In grader.releaseTest.");
 	}
 	

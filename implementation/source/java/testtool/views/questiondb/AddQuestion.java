@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package testtool.views.instructor.questiondb;
+package testtool.views.questiondb;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

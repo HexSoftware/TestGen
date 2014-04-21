@@ -1,4 +1,4 @@
-package file;
+package testtool.models.commandmenu;
 import java.util.Collection;
 
 /**
@@ -49,6 +49,7 @@ public class CommandMenu {
 	 */
 	public boolean checkState(CommandMenuOption o){
 		System.out.println("In file.checkState");
+		return true;
 	}
 	
 }

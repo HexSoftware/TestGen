@@ -1,9 +1,8 @@
-package testtool.views.student;
+package testtool.views.courses;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -11,6 +10,7 @@ import javax.swing.*;
 import testtool.models.student.MyCourses;
 import testtool.models.userdb.Student;
 import testtool.models.courses.Course;
+import testtool.views.student.TestList;
 
 public class CourseList {
 	public CourseList() {
