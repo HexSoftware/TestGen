@@ -12,6 +12,13 @@ import testtool.models.userdb.Student;
 import testtool.models.courses.Course;
 import testtool.views.student.TestList;
 
+/**
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
+ * GUI of the list of courses. The constructor builds the text to display
+ * A course can be selected to list the list of tests in that course.
+ */
 public class CourseList {
 	public CourseList() {
 		
