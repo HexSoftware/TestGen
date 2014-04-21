@@ -1,3 +1,5 @@
+package testtool.views.commandmenu;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -51,7 +53,7 @@ public class CMBuilder {
 	
 	//static char[] editShortcuts = { 'Z', 'X', 'C', 'V' };
 	
-	static JMenuBar createMenuBar(JMenuBar menu) {
+	public static JMenuBar createMenuBar(JMenuBar menu) {
 		JMenu fileMenu = new JMenu("File");
 		JMenu editMenu = new JMenu("Edit");
 		JMenu viewMenu = new JMenu("View");
