@@ -7,6 +7,14 @@ import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * @author Alvin Lam (aqlam@calpoly.edu)
+ * @version 20apr14
+ * 
+ * GUI of the test overview displaying the information of a test.
+ * A test overview may prompt the user for a password if required.
+ * If opened, a test may be taken by the student.
+ */
 public class TestOverview {
 
     public TestOverview() {

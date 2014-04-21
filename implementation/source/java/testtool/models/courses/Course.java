@@ -4,7 +4,9 @@ import java.util.Collection;
 import testtool.models.userdb.Student;
 
 /**
- * @author Alvin
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
  * A Course is the information stored about a course. 
  * The name field is a unique course name and section of any length.
  * instructor is a string of any length containing a name. 

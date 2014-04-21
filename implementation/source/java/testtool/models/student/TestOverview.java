@@ -6,7 +6,9 @@ import testtool.models.testdb.*;
 import testtool.models.userdb.*;
 
 /**
- * @author Alvin
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
  * TestOverview is the limited information about a test. Test is the test
  * that is being shown an overview. Graded informs if the test is graded or
  * not.

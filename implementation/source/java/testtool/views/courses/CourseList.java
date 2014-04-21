@@ -1,4 +1,4 @@
-package testtool.views.student;
+package testtool.views.courses;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -11,7 +11,15 @@ import javax.swing.*;
 import testtool.models.student.MyCourses;
 import testtool.models.userdb.Student;
 import testtool.models.courses.Course;
+import testtool.views.student.*;
 
+/**
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
+ * GUI of the list of courses. The constructor builds the text to display
+ * A course can be selected to list the list of tests in that course.
+ */
 public class CourseList {
 	public CourseList() {
 		

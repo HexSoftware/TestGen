@@ -4,7 +4,9 @@ import testtool.models.userdb.*;
 import testtool.models.courses.Course;
 
 /**
- * @author Alvin
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
  * MyCourses is the repository of courses for a student and their homepage. It is 
  * derived from Section 2.1.3 of the requirements.
  */

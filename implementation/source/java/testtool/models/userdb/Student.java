@@ -1,9 +1,12 @@
 package testtool.models.userdb;
 /**
- * @author Yuliya Levitskaya, Alvin Lam
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
  * Class defines a student
- * permission level of a student is set as 1
  */
 public class Student {
-	static int permission = 1;
+	String name;
+	String username;
+	String pass;
 }

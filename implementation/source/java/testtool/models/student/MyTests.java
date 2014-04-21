@@ -7,7 +7,9 @@ import java.util.Collection;
 import testtool.models.userdb.*;
 
 /**
- * @author Alvin
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
  * MyTests is a list of tests for a course. It is 
  * derived from Section 2.4 of the requirements.
  */

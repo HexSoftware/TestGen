@@ -1,7 +1,9 @@
 package testtool.models.student;
 
 /**
- * @author Alvin
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
  * Answer is a class that defines a question's answer.
  * mcAnswer is a String of numbers that defines the correct index answers.
  * tfAnswer is a boolean, true representing the correct answer as true, false otherwise
