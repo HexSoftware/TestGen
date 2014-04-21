@@ -2,13 +2,14 @@ package testtool.models.questiondb;
 import java.util.Collection;
 
 /**
+ * @author Neil Nordhof (nnordhof@calpoly.edu)
+ * @version 20apr14
+ * 
  * QuestionList allows more detailed interactions with the graphical list of
  * Questions. This includes selecting questions for editing, removal, or
  * generation of a test, along with bringing up the question popup. The 
  * questions element is a list of Questions that keep track of being selected 
  * popup status information.
- * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 14apr14
  */
 public class QuestionList {
 	Collection<QuestionEntry> questions;

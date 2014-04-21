@@ -1,12 +1,21 @@
 package testtool.views.student;
 
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.Font;
 
 import testtool.models.student.*;
 import testtool.models.userdb.*;
+import testtool.views.courses.CourseList;
 
+/**
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
+ * Login Window. The Login screen is the first to be shown when a student
+ * runs the testtool applciation. It takes in a username and password
+ */
 public class Login {
 
     public static void main(String[] args) {

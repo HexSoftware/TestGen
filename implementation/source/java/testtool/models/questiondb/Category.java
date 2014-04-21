@@ -1,6 +1,9 @@
 package testtool.models.questiondb;
 
 /**
+ * @author Neil Nordhof (nnordhof@calpoly.edu)
+ * @version 20apr14	
+ * 
  * The Category class allows more functionality with sorting, applying 
  * filters, and searching through the Question list. It also allows adding
  * and hiding of Categories in the the graphical view of the databank. The 
@@ -9,8 +12,6 @@ package testtool.models.questiondb;
  * descending) or not. The hidden field states if the category is hidden from
  * being shown in the databank or not.
  * More details to come later.
- * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 14apr14	
  */
 public class Category{
 	String title;

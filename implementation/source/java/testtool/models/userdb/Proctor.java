@@ -1,8 +1,8 @@
-package implementation.source.java.testtool.models.userdb;
-/*@author Yuliya Levitskaya*/
+package testtool.models.userdb;
 
 /**
  * Class defines a Proctor user
+ * @author Yuliya Levitskaya
  */
 public class Proctor {
 	static int permission = 2;

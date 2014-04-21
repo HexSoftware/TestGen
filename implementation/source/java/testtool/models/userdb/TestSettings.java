@@ -1,10 +1,14 @@
-package implementation.source.java.testtool.models.userdb;
+package testtool.models.userdb;
 
-/*@author Yuliya Levitskaya*/
+/**
+ * @author Yuliya Levitskaya
+ * 
+ */
+
 
 import java.util.Date;
 
-import implementation.source.java.testtool.models.testdb.Test;
+import testtool.models.testdb.Test;
 
 
 /**

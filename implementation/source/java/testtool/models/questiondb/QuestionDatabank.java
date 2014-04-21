@@ -3,13 +3,13 @@ package testtool.models.questiondb;
 import java.util.Collection;
 
 /**
+ * @author Neil Nordhof (nnordhof@calpoly.edu)
+ * @version 20apr14
+ * 
  * The Question Bank is the main focus of the question database, and is the view
  * from section 2.3. It displays the list of questions, which is represented by
  * the questions component. It also handles the management of these questions,
- * which involves adding, editing, removing, search and filter.
- * 
- * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 14apr14
+ * which involves adding, editing, removing, search and filter. * 
  */
 public class QuestionDatabank {
 	QuestionList questions;
