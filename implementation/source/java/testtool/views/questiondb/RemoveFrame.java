@@ -1,4 +1,4 @@
-package testtool.views.instructor.questiondb;
+package testtool.views.questiondb;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,7 +16,9 @@ import testtool.models.questiondb.QuestionDatabank;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 14apr14
+ * @version 20apr14
+ * 
+ * View class for the remove confirmation dialog.
  */
 
 @SuppressWarnings("serial")
@@ -34,11 +36,19 @@ public class RemoveFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				qdb.remove();
-				
+				dispose();
 			}
 		});
 		bPanel.add(removeButton);
-		bPanel.add(new JButton("Cancel"));
+		
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		bPanel.add(cancelButton);
 		getContentPane().add(bPanel, BorderLayout.SOUTH);
 		
 

@@ -1,42 +1,68 @@
 package testtool.views.commandmenu;
 
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.KeyStroke;
+//import javax.swing.KeyStroke;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 19apr14
+ * @version 20apr14
  * 
  * Tool to build a menu bar for any of the windows in the application. 
  * Usage : yourFrameHere.setJMenuBar(CMBuilder.createMenuBar(new JMenuBar()));
  * TODO: expand to adapt for different windows. 
+ * TODO: add keyboard shortcuts
  **/
 
 public class CMBuilder {
 
-	static String[] fileItems = new String[] { "New", "Open", "Save", "Exit" };
-	static String[] editItems = new String[] { "Undo", "Cut", "Copy", "Paste" };
-	static char[] fileShortcuts = { 'N', 'O', 'S', 'X' };
-	static char[] editShortcuts = { 'Z', 'X', 'C', 'V' };
+	static String[] fileItems = new String[] { 
+		"New", "Open", "Close", 
+		"Save", "Save As", 
+		"Print", "Print Preview", 
+		"Sign Out", "Exit" };
+	//static char[] fileShortcuts = { 'N', 'O', 'Q', 'S', 'S', 'P', 'P', 'L', 'W'};
 	
-	static JMenuBar createMenuBar(JMenuBar menu) {
+	static String[] editItems = new String[] { 
+		"Undo", 
+		"Cut", "Copy", "Paste", "Delete", 
+		"Find...", "Find Next",  "Replace...", "Go To...",
+		"Select All"};
+	static String[] viewItems = new String[] {
+		"Refresh",
+		"Actual Size", "Zoom In", "Zoom Out", "Fullscreen",
+		"Show Hints"};
+	static String[] testsItems = new String[] {
+		"Add", "Remove", "Edit", "Take",
+		"Edit Flags"
+	};
+	static String[] questionsItems = new String[] {
+		"Add", "Remove", "Edit", "Filter"
+	};
+	static String[] adminItems = new String[] {
+		"Proctor",
+		"Release Test", " Close Test", "Edit Test Options" 
+	};
+	static String[] optionsItems = new String[] {
+		
+	};
+	
+	//static char[] editShortcuts = { 'Z', 'X', 'C', 'V' };
+	
+	public static JMenuBar createMenuBar(JMenuBar menu) {
 		JMenu fileMenu = new JMenu("File");
 		JMenu editMenu = new JMenu("Edit");
 		JMenu viewMenu = new JMenu("View");
-		JMenu subMenu = new JMenu("SubMenu");
-		JMenu subMenu2 = new JMenu("SubMenu2");
+		JMenu testsMenu = new JMenu("Tests");
+		JMenu questionsMenu = new JMenu("Questions");
+		JMenu adminMenu = new JMenu("Admin");
+		JMenu optionsMenu = new JMenu("Options");
 
-		// Assemble the File menus with mnemonics.
+		// Assemble the File menu.
 		ActionListener printListener = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				System.out.println("Menu item [" + event.getActionCommand()
@@ -44,53 +70,67 @@ public class CMBuilder {
 			}
 		};
 		for (int i = 0; i < fileItems.length; i++) {
-			JMenuItem item = new JMenuItem(fileItems[i], fileShortcuts[i]);
+			JMenuItem item = new JMenuItem(fileItems[i]/*, fileShortcuts[i]*/);
 			item.addActionListener(printListener);
 			fileMenu.add(item);
 		}
+		fileMenu.insertSeparator(3);
+		fileMenu.insertSeparator(6);
+		fileMenu.insertSeparator(9);
 
-		// Assemble the File menus with keyboard accelerators.
+		// Assemble the Edit menu.
 		for (int i = 0; i < editItems.length; i++) {
 			JMenuItem item = new JMenuItem(editItems[i]);
-			item.setAccelerator(KeyStroke
+			/*item.setAccelerator(KeyStroke
 					.getKeyStroke(editShortcuts[i], Toolkit.getDefaultToolkit()
-							.getMenuShortcutKeyMask(), false));
+							.getMenuShortcutKeyMask(), false));*/
 			item.addActionListener(printListener);
 			editMenu.add(item);
 		}
-
-		// Insert a separator in the Edit menu in Position 1 after "Undo".
 		editMenu.insertSeparator(1);
+		editMenu.insertSeparator(6);
+		editMenu.insertSeparator(11);
 
-		// Assemble the submenus of the Other menu.
-		JMenuItem item;
-		subMenu2.add(item = new JMenuItem("Extra 2"));
-		item.addActionListener(printListener);
-		subMenu.add(item = new JMenuItem("Extra 1"));
-		item.addActionListener(printListener);
-		subMenu.add(subMenu2);
+		// Assemble the View menu.
+		for (int i = 0; i < viewItems.length; i++) {
+			JMenuItem item = new JMenuItem(viewItems[i]);
+			item.addActionListener(printListener);
+			viewMenu.add(item);
+		}
+		viewMenu.insertSeparator(1);
+		viewMenu.insertSeparator(6);
 
-		// Assemble the Other menu itself.
-		viewMenu.add(subMenu);
-		viewMenu.add(item = new JCheckBoxMenuItem("Check Me"));
-		item.addActionListener(printListener);
-		viewMenu.addSeparator();
-		ButtonGroup buttonGroup = new ButtonGroup();
-		viewMenu.add(item = new JRadioButtonMenuItem("Radio 1"));
-		item.addActionListener(printListener);
-		buttonGroup.add(item);
-		viewMenu.add(item = new JRadioButtonMenuItem("Radio 2"));
-		item.addActionListener(printListener);
-		buttonGroup.add(item);
-		viewMenu.addSeparator();
-		viewMenu.add(item = new JMenuItem("Potted Plant", new ImageIcon(
-				"image.gif")));
-		item.addActionListener(printListener);
+		// Assemble the View menu.
+		for (int i = 0; i < testsItems.length; i++) {
+			JMenuItem item = new JMenuItem(testsItems[i]);
+			item.addActionListener(printListener);
+			testsMenu.add(item);
+		}
+		testsMenu.insertSeparator(4);
+
+		// Assemble the View menu.
+		for (int i = 0; i < questionsItems.length; i++) {
+			JMenuItem item = new JMenuItem(questionsItems[i]);
+			item.addActionListener(printListener);
+			questionsMenu.add(item);
+		}
+
+		// Assemble the View menu.
+		for (int i = 0; i < adminItems.length; i++) {
+			JMenuItem item = new JMenuItem(adminItems[i]);
+			item.addActionListener(printListener);
+			adminMenu.add(item);
+		}
+		adminMenu.insertSeparator(1);
 
 		// Finally, add all the menus to the menu bar.
 		menu.add(fileMenu);
 		menu.add(editMenu);
 		menu.add(viewMenu);
+		menu.add(testsMenu);
+		menu.add(questionsMenu);
+		menu.add(adminMenu);
+		menu.add(optionsMenu);
 
 		return menu;
 	}

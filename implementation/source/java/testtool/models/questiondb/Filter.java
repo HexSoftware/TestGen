@@ -1,11 +1,12 @@
 package testtool.models.questiondb;
 
 /**
+ * @author Neil Nordhof (nnordhof@calpoly.edu)
+ * @version 20apr14
+ * 
  * Filter is the filter that is applied to the question list. The keyword 
  * component is the word that is being filtered in the category component.
  * More details to come later.
- * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 14apr14
  */
 public class Filter {
 	String keyword;

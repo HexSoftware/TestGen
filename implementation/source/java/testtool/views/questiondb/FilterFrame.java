@@ -1,4 +1,4 @@
-package testtool.views.instructor.questiondb;
+package testtool.views.questiondb;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GraphicsConfiguration;
@@ -16,7 +16,9 @@ import testtool.models.questiondb.*;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 14apr14
+ * @version 20apr14
+ * 
+ * View class for the creating a filter dialog.
  */
 
 @SuppressWarnings("serial")
@@ -36,9 +38,10 @@ public class FilterFrame extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				qdb.filter(new Filter(filterText.getText(), (String)filterCategory.getSelectedItem()));
+				dispose();
 			}
 		});
-		getContentPane().add(new JButton("Filter"));
+		getContentPane().add(filterButton);
 		
 		pack();
 		GraphicsConfiguration gc = getGraphicsConfiguration();  
