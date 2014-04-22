@@ -1,6 +1,6 @@
 package testtool.models.questiondb;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 /**
  * Question type corresponding to a graphics question
@@ -9,13 +9,13 @@ import java.util.Collection;
  * This type of question must be graded manually
  *
  * @author RJ Almada (rjalmada@calpoly.edu)
- * @version 14apr14
+ * @version 21apr14
  *
  */
 public class GraphicsQuestion extends Question {
 	
 	public GraphicsQuestion(String qt, String auth, String lu, String course,
-			Collection<String> topics, int time, int diff) {
+			ArrayList<String> topics, int time, int diff) {
 		this.questionText = qt;
 		this.author = auth;
 		this.lastUsed = lu;

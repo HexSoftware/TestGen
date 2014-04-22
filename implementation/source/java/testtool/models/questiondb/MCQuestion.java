@@ -1,4 +1,5 @@
 package testtool.models.questiondb;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Collection;
  * instructor defined correct answers
  *
  * @author RJ Almada (rjalmada@calpoly.edu)
- * @version 14apr14
+ * @version 21apr14
  *
  */
 public class MCQuestion extends Question {
@@ -24,7 +25,7 @@ public class MCQuestion extends Question {
 	Collection<Integer> correctAnswerIndexes;
 
 	public MCQuestion(String qt, String auth, String lu, String course,
-		Collection<String> topics, int time, int diff, Collection<String> pa,
+		ArrayList<String> topics, int time, int diff, Collection<String> pa,
 		Collection<Integer> cai) {
 		this.questionText = qt;
 		this.author = auth;
