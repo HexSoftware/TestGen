@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 20apr14
+ * @version 21apr14
  * 
  * The Question Bank is the main focus of the question database, and is the view
  * from section 2.3. It displays the list of questions, which is represented by

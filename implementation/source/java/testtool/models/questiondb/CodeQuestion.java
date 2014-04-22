@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * be taken and fed through STDIN to the instructor defined script
  * which will run and output a number from 0-100
  *
- * @author RJ Almada (rjalmada@calpoly.edu)
+ * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
  * @version 21apr14
  *
  */
@@ -29,5 +29,6 @@ public class CodeQuestion extends Question {
 		this.time = time;
 		this.difficulty = diff;
 		this.scriptPath = path;
+		this.type = "Code";
 	}
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * program and then upload it to this program
  * This type of question must be graded manually
  *
- * @author RJ Almada (rjalmada@calpoly.edu)
+ * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
  * @version 21apr14
  *
  */
@@ -23,5 +23,6 @@ public class GraphicsQuestion extends Question {
 		this.topics = topics;
 		this.time = time;
 		this.difficulty = diff;
+		this.type = "Graphic";
 	}
 }

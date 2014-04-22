@@ -2,7 +2,7 @@ package testtool.models.questiondb;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 20apr14
+ * @version 21apr14
  * 
  * QuestionEntry is a modified version of a Question, that adds a boolean and
  * an int to help manage QuestionList interactions. The component selected is 

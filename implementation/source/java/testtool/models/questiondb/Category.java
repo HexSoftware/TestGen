@@ -2,7 +2,7 @@ package testtool.models.questiondb;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 20apr14	
+ * @version 21apr14	
  * 
  * The Category class allows more functionality with sorting, applying 
  * filters, and searching through the Question list. It also allows adding
