@@ -5,7 +5,9 @@ import java.util.List;
 import testtool.models.questiondb.*;
 
 /**
- * @author Alvin
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
  * TakeTest is the test the student is currently taking. 
  * TimeRemaining is the time before the test is closed. 
  * The List AnsweredQuestions keeps track of which questions were answered. 

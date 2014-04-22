@@ -11,6 +11,13 @@ import testtool.models.userdb.Student;
 
 import java.awt.event.*;
 
+/**
+ * @author Alvin Lam (aqlam@calpoly.edu)
+ * @version 20apr14
+ * 
+ * GUI of the list of tests for a course. The constructor builds the GUI
+ * to display. A test can be selected to view its test overview.
+ */
 public class TestList {
 	
 	public TestList() {

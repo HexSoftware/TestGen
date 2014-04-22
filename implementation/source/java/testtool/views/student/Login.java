@@ -1,13 +1,12 @@
 package testtool.views.student;
 
 import javax.swing.*;
-
 import java.awt.event.*;
 import java.awt.Font;
 
 import testtool.models.student.*;
 import testtool.models.userdb.*;
-import testtool.views.courses.CourseList;
+import testtool.views.courses.*;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu
