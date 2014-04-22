@@ -115,7 +115,7 @@ JMenuItem item;
 		public testsListener(){
 		}
 		public void actionPerformed(ActionEvent e){
-			new TestDatabaseGUI(2, null);
+			new TestDatabaseGUI(2);
 		}
 	}
 }

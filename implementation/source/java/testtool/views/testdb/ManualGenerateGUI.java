@@ -12,9 +12,7 @@ import javax.swing.table.*;
 
 
 public class ManualGenerateGUI {
-   public static void main (String[] args){
-      new ManualGenerateGUI();
-   }
+  
 	static JButton takeButton;
 	TableModel dataModel = new AbstractTableModel() {
                 private String[][] texts = new String[][]{
