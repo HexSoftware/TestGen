@@ -4,16 +4,20 @@
  * and open the template in the editor.
  */
 
-package testtool.views.instructor.questiondb;
+package testtool.views.questiondb;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+
 import testtool.models.questiondb.*;
 
 /**
@@ -23,9 +27,6 @@ import testtool.models.questiondb.*;
  *
  */
 public class AddQuestion extends JMenuBar {
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Object oldQTItem;
     private JPanel prevPanel;
@@ -34,7 +35,7 @@ public class AddQuestion extends JMenuBar {
     /**
      * Creates new form NewJPanel
      */
-    public AddQuestion() {
+    public AddQuestion(final QuestionDatabank qdb) {
     	frame = new JFrame("QuestionDB");
     	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setJMenuBar(this);
@@ -52,25 +53,41 @@ public class AddQuestion extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Data will be saved.");
-		        QuestionDatabank qdb = new QuestionDatabank();
 		        switch ((String) oldQTItem) {
 		                case "Multiple Choice":
-		                    qdb.add(new MCQuestion());;
+		                    qdb.add(new MCQuestion(MCQuestionText.getText(), "Gene Fisher", "Never", Course.getText(),
+		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
+		                    		collectMCAnswers(), collectMCCorAnswers()));
 		                    break;
 		                case "True/False":
-		                    qdb.add(new TFQuestion());
+		                    qdb.add(new TFQuestion(TFQuestionText.getText(), "Gene Fisher", "Never", Course.getText(),
+		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
+		                    		TFAnswer.isSelected()));
 		                    break;
 		                case "Short Answer":
-		                    qdb.add(new SAQuestion());
+		                    qdb.add(new SAQuestion(SAQuestion.getText(), "Gene Fisher", "Never", Course.getText(),
+		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
+		                    		parseStuff(SAAnswer.getText())));
 		                    break;
 		                case "Essay":
-		                    qdb.add(new EssayQuestion());
+		                    qdb.add(new EssayQuestion(SAQuestion.getText(), "Gene Fisher", "Never", Course.getText(),
+		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
+		                    		parseStuff(EssayAnswer.getText())));
 		                    break;
 		                case "Graphics":
-		                    qdb.add(new GraphicsQuestion());
+		                    qdb.add(new GraphicsQuestion(GraphicsQuestionText.getText(), "Gene Fisher", "Never",
+		                    		Course.getText(), new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()));
 		                    break;
 		                case "Code":
-		                    qdb.add(new CodeQuestion());
+		                    qdb.add(new CodeQuestion(SAQuestion.getText(), "Gene Fisher", "Never", Course.getText(),
+		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
+		                    		CodeScriptPath.getText()));
 		                    break;
 		        }
 				frame.dispose();
@@ -82,6 +99,65 @@ public class AddQuestion extends JMenuBar {
 		frame.setVisible(true);
     }
 
+    /**
+     * This method will collect the multiple choice question answers
+     */
+    @SuppressWarnings("null")
+	private static Collection<String> collectMCAnswers() {
+    	Collection<String> r = null;
+    	
+    	if(!MCAnswerText1.getText().equals("Answer 1")) {
+    		r.add(MCAnswerText1.getText());
+    	}
+    	if(!MCAnswerText2.getText().equals("Answer 2")) {
+    		r.add(MCAnswerText2.getText());
+    	}
+    	if(!MCAnswerText3.getText().equals("Answer 3")) {
+    		r.add(MCAnswerText3.getText());
+    	}
+    	if(!MCAnswerText4.getText().equals("Answer 4")) {
+    		r.add(MCAnswerText4.getText());
+    	}
+    	if(!MCAnswerText5.getText().equals("Answer 5")) {
+    		r.add(MCAnswerCheck5.getText());
+    	}
+    	
+    	return r;
+    }
+    
+    @SuppressWarnings({ "null" })
+	private static Collection<Integer> collectMCCorAnswers() {
+    	Collection<Integer> r = null;
+    	
+    	if(MCAnswerCheck1.isSelected()) {
+    		r.add(new Integer(1));
+    	}
+    	if(MCAnswerCheck2.isSelected()) {
+    		r.add(new Integer(2));
+    	}
+    	if(MCAnswerCheck3.isSelected()) {
+    		r.add(new Integer(3));
+    	}
+    	if(MCAnswerCheck4.isSelected()) {
+    		r.add(new Integer(4));
+    	}
+    	if(MCAnswerCheck5.isSelected()) {
+    		r.add(new Integer(5));
+    	}
+    	
+    	return r;
+    }
+    
+    
+    
+    private static Collection<String> parseStuff(String toParse) {
+    	Collection<String> r = null;
+    	
+    	r = Arrays.asList(toParse.split(","));
+    	
+    	return r;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,20 +180,20 @@ public class AddQuestion extends JMenuBar {
         minLabel = new javax.swing.JLabel();
         MCQPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
+        MCQuestionText = new javax.swing.JTextArea();
+        MCQuestionLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        check1 = new javax.swing.JCheckBox();
-        check2 = new javax.swing.JCheckBox();
-        check3 = new javax.swing.JCheckBox();
-        check4 = new javax.swing.JCheckBox();
-        Answer1 = new javax.swing.JTextField();
-        Answer3 = new javax.swing.JTextField();
-        Answer4 = new javax.swing.JTextField();
-        Answer2 = new javax.swing.JTextField();
-        check5 = new javax.swing.JCheckBox();
-        Answer5 = new javax.swing.JTextField();
-        addanswerbutton = new javax.swing.JButton();
+        MCAnswerCheck1 = new javax.swing.JCheckBox();
+        MCAnswerCheck2 = new javax.swing.JCheckBox();
+        MCAnswerCheck3 = new javax.swing.JCheckBox();
+        MCAnswerCheck4 = new javax.swing.JCheckBox();
+        MCAnswerText1 = new javax.swing.JTextField();
+        MCAnswerText3 = new javax.swing.JTextField();
+        MCAnswerText4 = new javax.swing.JTextField();
+        MCAnswerText2 = new javax.swing.JTextField();
+        MCAnswerCheck5 = new javax.swing.JCheckBox();
+        MCAnswerText5 = new javax.swing.JTextField();
+        MCAddAnswerButton = new javax.swing.JButton();
         finishButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
         ImagePath = new javax.swing.JTextField();
@@ -125,32 +201,32 @@ public class AddQuestion extends JMenuBar {
         FilePathButton = new javax.swing.JButton();
         TFPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        TFQuestionText = new javax.swing.JTextArea();
         TFQuestion = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        TFAnswer = new javax.swing.JCheckBox();
         SAPanel = new javax.swing.JPanel();
-        TFQuestion1 = new javax.swing.JLabel();
+        SAQuestionLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        SAQuestion = new javax.swing.JTextArea();
+        SAAnswer = new javax.swing.JTextField();
+        SAAnswerLabel = new javax.swing.JLabel();
         EQPanel = new javax.swing.JPanel();
-        TFQuestion2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        EssayQuestionLabel = new javax.swing.JLabel();
+        EssayAnswer = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
+        EssayQuestionText = new javax.swing.JTextArea();
+        EssayAnswerLabel = new javax.swing.JLabel();
         GQPanel = new javax.swing.JPanel();
-        TFQuestion3 = new javax.swing.JLabel();
+        GraphicsQuestionLabel = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea5 = new javax.swing.JTextArea();
+        GraphicsQuestionText = new javax.swing.JTextArea();
         CQPanel = new javax.swing.JPanel();
-        TFQuestion4 = new javax.swing.JLabel();
+        CodeQuestionLabel = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextArea6 = new javax.swing.JTextArea();
+        CodeQuestionText = new javax.swing.JTextArea();
         CodeScriptPath = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        CodeAnswerLabel = new javax.swing.JLabel();
+        CodeUploadButton = new javax.swing.JButton();
 
         QuestionType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Multiple Choice", "True/False", "Short Answer", "Essay", "Graphics", "Code"}));
         QuestionType.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -194,31 +270,31 @@ public class AddQuestion extends JMenuBar {
 
         minLabel.setText("min");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        MCQuestionText.setColumns(20);
+        MCQuestionText.setRows(5);
+        jScrollPane1.setViewportView(MCQuestionText);
 
-        jLabel1.setText("Question Text");
+        MCQuestionLabel.setText("Question Text");
 
-        check1.setText("A)");
+        MCAnswerCheck1.setText("A)");
 
-        check2.setText("B)");
+        MCAnswerCheck2.setText("B)");
 
-        check3.setText("C)");
+        MCAnswerCheck3.setText("C)");
 
-        check4.setText("D)");
+        MCAnswerCheck4.setText("D)");
 
-        Answer1.setText("Answer 1");
+        MCAnswerText1.setText("Answer 1");
 
-        Answer3.setText("Answer 3");
+        MCAnswerText3.setText("Answer 3");
 
-        Answer4.setText("Answer 4");
+        MCAnswerText4.setText("Answer 4");
 
-        Answer2.setText("Answer 2");
+        MCAnswerText2.setText("Answer 2");
 
-        check5.setText("E)");
+        MCAnswerCheck5.setText("E)");
 
-        Answer5.setText("Answer 5");
+        MCAnswerText5.setText("Answer 5");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -228,26 +304,26 @@ public class AddQuestion extends JMenuBar {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(check1)
+                        .addComponent(MCAnswerCheck1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Answer1))
+                        .addComponent(MCAnswerText1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(check2)
+                        .addComponent(MCAnswerCheck2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Answer2))
+                        .addComponent(MCAnswerText2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(check3)
+                        .addComponent(MCAnswerCheck3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Answer3, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MCAnswerText3, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(check5)
+                        .addComponent(MCAnswerCheck5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Answer5))
+                        .addComponent(MCAnswerText5))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(check4)
+                        .addComponent(MCAnswerCheck4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Answer4)))
+                        .addComponent(MCAnswerText4)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -255,28 +331,28 @@ public class AddQuestion extends JMenuBar {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(check1)
-                    .addComponent(Answer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MCAnswerCheck1)
+                    .addComponent(MCAnswerText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(check2)
-                    .addComponent(Answer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MCAnswerCheck2)
+                    .addComponent(MCAnswerText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Answer3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(check3))
+                    .addComponent(MCAnswerText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MCAnswerCheck3))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(check4)
-                    .addComponent(Answer4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MCAnswerCheck4)
+                    .addComponent(MCAnswerText4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(check5)
-                    .addComponent(Answer5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MCAnswerCheck5)
+                    .addComponent(MCAnswerText5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        addanswerbutton.setText("Add another Answer");
+        MCAddAnswerButton.setText("Add another Answer");
 
         javax.swing.GroupLayout MCQPanelLayout = new javax.swing.GroupLayout(MCQPanel);
         MCQPanel.setLayout(MCQPanelLayout);
@@ -285,9 +361,9 @@ public class AddQuestion extends JMenuBar {
             .addGroup(MCQPanelLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(MCQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addanswerbutton)
+                    .addComponent(MCAddAnswerButton)
                     .addGroup(MCQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1)
+                        .addComponent(MCQuestionLabel)
                         .addComponent(jScrollPane1)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -296,13 +372,13 @@ public class AddQuestion extends JMenuBar {
             MCQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MCQPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(MCQuestionLabel)
                 .addGap(1, 1, 1)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addanswerbutton)
+                .addComponent(MCAddAnswerButton)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -320,13 +396,13 @@ public class AddQuestion extends JMenuBar {
 
         FilePathButton.setText("Choose File");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        TFQuestionText.setColumns(20);
+        TFQuestionText.setRows(5);
+        jScrollPane2.setViewportView(TFQuestionText);
 
         TFQuestion.setText("Question Text");
 
-        jCheckBox1.setText("True?");
+        TFAnswer.setText("True?");
 
         javax.swing.GroupLayout TFPanelLayout = new javax.swing.GroupLayout(TFPanel);
         TFPanel.setLayout(TFPanelLayout);
@@ -337,7 +413,7 @@ public class AddQuestion extends JMenuBar {
                 .addGroup(TFPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TFPanelLayout.createSequentialGroup()
                         .addGap(153, 153, 153)
-                        .addComponent(jCheckBox1))
+                        .addComponent(TFAnswer))
                     .addComponent(TFQuestion)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
@@ -350,23 +426,23 @@ public class AddQuestion extends JMenuBar {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox1)
+                .addComponent(TFAnswer)
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        TFQuestion1.setText("Question Text");
+        SAQuestion.setText("Question Text");
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
+        SAQuestion.setColumns(20);
+        SAQuestion.setRows(5);
+        jScrollPane3.setViewportView(SAQuestion);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        SAAnswer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                SAAnswerActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Keywords (separated by a semicolon)");
+        SAAnswerLabel.setText("Keywords (separated by a comma)");
 
         javax.swing.GroupLayout SAPanelLayout = new javax.swing.GroupLayout(SAPanel);
         SAPanel.setLayout(SAPanelLayout);
@@ -376,39 +452,39 @@ public class AddQuestion extends JMenuBar {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(SAPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SAPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TFQuestion1)
+                        .addComponent(SAQuestion)
                         .addComponent(jScrollPane3)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3))
+                        .addComponent(SAAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SAAnswerLabel))
                 .addGap(26, 26, 26))
         );
         SAPanelLayout.setVerticalGroup(
             SAPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SAPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TFQuestion1)
+                .addComponent(SAQuestion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(SAAnswerLabel)
                 .addGap(3, 3, 3)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SAAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        TFQuestion2.setText("Question Text");
+        EssayQuestionLabel.setText("Question Text");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        EssayAnswer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                EssayAnswerActionPerformed(evt);
             }
         });
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane4.setViewportView(jTextArea4);
+        EssayQuestionText.setColumns(20);
+        EssayQuestionText.setRows(5);
+        jScrollPane4.setViewportView(EssayQuestionText);
 
-        jLabel4.setText("Ordered Keywords (separated by a semicolon)");
+        EssayAnswerLabel.setText("Ordered Keywords (separated by a comma)");
 
         javax.swing.GroupLayout EQPanelLayout = new javax.swing.GroupLayout(EQPanel);
         EQPanel.setLayout(EQPanelLayout);
@@ -418,31 +494,31 @@ public class AddQuestion extends JMenuBar {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(EQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TFQuestion2)
+                        .addComponent(EssayQuestionLabel)
                         .addComponent(jScrollPane4)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
+                        .addComponent(EssayAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EssayAnswerLabel))
                 .addGap(25, 25, 25))
         );
         EQPanelLayout.setVerticalGroup(
             EQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EQPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TFQuestion2)
+                .addComponent(EssayQuestionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
+                .addComponent(EssayAnswerLabel)
                 .addGap(3, 3, 3)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(EssayAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        TFQuestion3.setText("Question Text");
+        GraphicsQuestionLabel.setText("Question Text");
 
-        jTextArea5.setColumns(20);
-        jTextArea5.setRows(5);
-        jScrollPane5.setViewportView(jTextArea5);
+        GraphicsQuestionText.setColumns(20);
+        GraphicsQuestionText.setRows(5);
+        jScrollPane5.setViewportView(GraphicsQuestionText);
 
         javax.swing.GroupLayout GQPanelLayout = new javax.swing.GroupLayout(GQPanel);
         GQPanel.setLayout(GQPanelLayout);
@@ -451,7 +527,7 @@ public class AddQuestion extends JMenuBar {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GQPanelLayout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
                 .addGroup(GQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TFQuestion3)
+                    .addComponent(GraphicsQuestionLabel)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
@@ -459,21 +535,21 @@ public class AddQuestion extends JMenuBar {
             GQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GQPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TFQuestion3)
+                .addComponent(GraphicsQuestionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        TFQuestion4.setText("Question Text");
+        CodeQuestionLabel.setText("Question Text");
 
-        jTextArea6.setColumns(20);
-        jTextArea6.setRows(5);
-        jScrollPane6.setViewportView(jTextArea6);
+        CodeQuestionText.setColumns(20);
+        CodeQuestionText.setRows(5);
+        jScrollPane6.setViewportView(CodeQuestionText);
 
-        jLabel5.setText("Path to Grading Script");
+        CodeAnswerLabel.setText("Path to Grading Script");
 
-        jButton1.setText("Choose File");
+        CodeUploadButton.setText("Choose File");
 
         javax.swing.GroupLayout CQPanelLayout = new javax.swing.GroupLayout(CQPanel);
         CQPanel.setLayout(CQPanelLayout);
@@ -485,25 +561,25 @@ public class AddQuestion extends JMenuBar {
                     .addGroup(CQPanelLayout.createSequentialGroup()
                         .addComponent(CodeScriptPath, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addComponent(TFQuestion4)
+                        .addComponent(CodeUploadButton))
+                    .addComponent(CodeQuestionLabel)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(CodeAnswerLabel))
                 .addContainerGap())
         );
         CQPanelLayout.setVerticalGroup(
             CQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CQPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TFQuestion4)
+                .addComponent(CodeQuestionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addComponent(CodeAnswerLabel)
                 .addGap(1, 1, 1)
                 .addGroup(CQPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CodeScriptPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(CodeUploadButton))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -676,21 +752,21 @@ public class AddQuestion extends JMenuBar {
         // TODO add your handling code here:
     }//GEN-LAST:event_ImagePathActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void SAAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SAAnswerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_SAAnswerActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void EssayAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EssayAnswerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed 
+    }//GEN-LAST:event_EssayAnswerActionPerformed 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Answer1;
-    private javax.swing.JTextField Answer2;
-    private javax.swing.JTextField Answer3;
-    private javax.swing.JTextField Answer4;
-    private javax.swing.JTextField Answer5;
+    private static javax.swing.JTextField MCAnswerText1;
+    private static javax.swing.JTextField MCAnswerText2;
+    private static javax.swing.JTextField MCAnswerText3;
+    private static javax.swing.JTextField MCAnswerText4;
+    private static javax.swing.JTextField MCAnswerText5;
     private javax.swing.JPanel CQPanel;
     private javax.swing.JButton CancelButton;
     private javax.swing.JTextField CodeScriptPath;
@@ -710,26 +786,26 @@ public class AddQuestion extends JMenuBar {
     private javax.swing.JPanel SAPanel;
     private javax.swing.JPanel TFPanel;
     private javax.swing.JLabel TFQuestion;
-    private javax.swing.JLabel TFQuestion1;
-    private javax.swing.JLabel TFQuestion2;
-    private javax.swing.JLabel TFQuestion3;
-    private javax.swing.JLabel TFQuestion4;
-    private javax.swing.JTextField Topic;
+    private javax.swing.JLabel SAQuestionLabel;
+    private javax.swing.JLabel EssayQuestionLabel;
+    private javax.swing.JLabel GraphicsQuestionLabel;
+    private javax.swing.JLabel CodeQuestionLabel;
+    private static javax.swing.JTextField Topic;
     private javax.swing.JLabel TopicLabel;
-    private javax.swing.JButton addanswerbutton;
-    private javax.swing.JCheckBox check1;
-    private javax.swing.JCheckBox check2;
-    private javax.swing.JCheckBox check3;
-    private javax.swing.JCheckBox check4;
-    private javax.swing.JCheckBox check5;
+    private javax.swing.JButton MCAddAnswerButton;
+    private static javax.swing.JCheckBox MCAnswerCheck1;
+    private static javax.swing.JCheckBox MCAnswerCheck2;
+    private static javax.swing.JCheckBox MCAnswerCheck3;
+    private static javax.swing.JCheckBox MCAnswerCheck4;
+    private static javax.swing.JCheckBox MCAnswerCheck5;
     private javax.swing.JButton finishButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton CodeUploadButton;
+    private javax.swing.JCheckBox TFAnswer;
+    private javax.swing.JLabel MCQuestionLabel;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel SAAnswerLabel;
+    private javax.swing.JLabel EssayAnswerLabel;
+    private javax.swing.JLabel CodeAnswerLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -737,14 +813,14 @@ public class AddQuestion extends JMenuBar {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextArea jTextArea5;
-    private javax.swing.JTextArea jTextArea6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextArea MCQuestionText;
+    private javax.swing.JTextArea TFQuestionText;
+    private javax.swing.JTextArea SAQuestion;
+    private javax.swing.JTextArea EssayQuestionText;
+    private javax.swing.JTextArea GraphicsQuestionText;
+    private javax.swing.JTextArea CodeQuestionText;
+    private javax.swing.JTextField SAAnswer;
+    private javax.swing.JTextField EssayAnswer;
     private javax.swing.JLabel minLabel;
     // End of variables declaration//GEN-END:variables
 }

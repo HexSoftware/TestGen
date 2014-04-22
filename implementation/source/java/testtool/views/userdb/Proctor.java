@@ -1,7 +1,13 @@
-/* author: Yuliya Levitskaya*/
+package testtool.views.userdb;
+
+/**
+ * @author: Yuliya Levitskaya
+ */
 
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.instrument.Instrumentation;
+
 import javax.swing.*;
 
 public class Proctor {
@@ -15,7 +21,7 @@ public class Proctor {
    char[ ] editShortcuts = { 'Z','X','C','V' };
 
    public Proctor() {
-   	  proctor = new implementation.source.java.testtool.models.userdb.Proctor();
+   	  proctor = new testtool.models.userdb.Proctor();
 	 JFrame frame = new JFrame("Simple Menu Example");
       frame.setSize(WIDTH, HEIGHT);
       frame.setTitle(TITLE);

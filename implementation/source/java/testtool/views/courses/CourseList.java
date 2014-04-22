@@ -1,18 +1,31 @@
-package testtool.views.student;
+package testtool.views.courses;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 import testtool.models.student.MyCourses;
 import testtool.models.userdb.Student;
 import testtool.models.courses.Course;
+import testtool.views.student.*;
 
+/**
+ * @author Alvin Lam (aqlam@calpoly.edu
+ * @version 20apr14
+ * 
+ * GUI of the list of courses. The constructor builds the text to display
+ * A course can be selected to list the list of tests in that course.
+ */
 public class CourseList {
+	private int curXposition = 20;
+	private int curYposition = 20;
+	
 	public CourseList() {
 		
 		JFrame frame = new JFrame("My Courses");
@@ -35,6 +48,20 @@ public class CourseList {
         directoryPath.setForeground(Color.BLUE);
         directoryPath.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel.add(directoryPath);
+        
+        MyCourses courseMethods = new MyCourses();
+		try {
+			ArrayList<Course> allCourses = courseMethods.getAllCourses(null);
+			int length = allCourses.size();
+			   
+		   for (int i = 0; i < length; i++) {
+			   System.out.println("Course 1 is " + allCourses.get(i).getCourseName());
+			   System.out.println("Instructor is " + allCourses.get(i).getCourseInstructor());
+		   }
+		} 
+		catch (FileNotFoundException e1) {
+			System.out.println("No Course Database");
+		}
 
         JLabel category1 = new JLabel("CPE101-01");
         category1.setBounds(50, 75, 150, 25);

@@ -1,4 +1,8 @@
-/*author Yuliya Levitskaya*/
+package testtool.views.userdb;
+
+/**
+ * author Yuliya Levitskaya
+ */
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -37,9 +41,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import implementation.source.java.testtool.models.*;
-import implementation.source.java.testtool.models.testdb.*;
-import implementation.source.java.testtool.models.userdb.*;
+import testtool.models.testdb.Test;
 
 
 
