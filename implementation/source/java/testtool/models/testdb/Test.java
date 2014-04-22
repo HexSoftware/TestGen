@@ -4,17 +4,18 @@ import java.util.Collection;
 import testtool.models.courses.Course;
 import testtool.models.questiondb.Question;
 
-public abstract class Test {
-	boolean published;
-	boolean opened;
-	boolean graded;
-	Collection<Question> questions;
-	String testTitle;
-	String author;
-	String lastUsed;
-	int totalQuestions;
-	int totalPoints;
-	int totalTime;
-	int avgDifficulty;
-	Course course;
+public class Test {
+	public int uniqueId;
+	public boolean published;
+	public boolean opened;
+	public boolean graded;
+	public Collection<Question> questions;
+	public String testTitle;
+	public String author;
+	public String lastUsed;
+	public int totalQuestions;
+	public int totalPoints;
+	public int totalTime;
+	public int avgDifficulty;
+	public Course course;
 }
