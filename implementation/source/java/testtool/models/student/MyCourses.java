@@ -1,10 +1,17 @@
 package testtool.models.student;
-import testtool.models.userdb.*;
 
-import testtool.models.courses.Course;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+import testtool.models.userdb.*;
+import testtool.models.courses.*;
 
 /**
- * @author Alvin
+ * @author Alvin Lam (aqlam@calpoly.edu)
+ * @version 20apr14
+ * 
  * MyCourses is the repository of courses for a student and their homepage. It is 
  * derived from Section 2.1.3 of the requirements.
  */
@@ -13,6 +20,23 @@ import testtool.models.courses.Course;
     * The current student user
    */
    Student user;
+   
+   public ArrayList<Course> getAllCourses (Student username) throws FileNotFoundException {
+	   
+	   ArrayList<Course> courseList = new ArrayList<Course>();
+	   Course c = new Course();
+	   
+	   File file = new File("CourseDB.txt");
+	   Scanner inFile = new Scanner(file);
+	   
+	   while (inFile.hasNext()) {
+		   c.setCourseName(inFile.nextLine());
+		   c.setCourseInstructor(inFile.nextLine());
+		   courseList.add(c);
+	   }
+	   
+	   return courseList;
+   }
    
    /**
     * Checks username and password to login student
