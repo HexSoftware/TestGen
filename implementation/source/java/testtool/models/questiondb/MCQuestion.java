@@ -21,5 +21,19 @@ public class MCQuestion extends Question {
 	 * The collection of answers that are considered the
 	 * right answer by the Instructor
 	 */
-	Collection<String> correctAnswerIndexes;
+	Collection<Integer> correctAnswerIndexes;
+
+	public MCQuestion(String qt, String auth, String lu, String course,
+		Collection<String> topics, int time, int diff, Collection<String> pa,
+		Collection<Integer> cai) {
+		this.questionText = qt;
+		this.author = auth;
+		this.lastUsed = lu;
+		this.course = course;
+		this.topics = topics;
+		this.time = time;
+		this.difficulty = diff;
+		this.possibleAnswers = pa;
+		this.correctAnswerIndexes = cai;
+	}
 }

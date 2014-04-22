@@ -17,4 +17,16 @@ public class SAQuestion extends Question {
 	 * grader should be looking for, in any order.
 	 */
 	Collection<String> correctKWs;
+	
+	public SAQuestion(String qt, String auth, String lu, String course,
+		Collection<String> topics, int time, int diff, Collection<String> ckws) {
+		this.questionText = qt;
+		this.author = auth;
+		this.lastUsed = lu;
+		this.course = course;
+		this.topics = topics;
+		this.time = time;
+		this.difficulty = diff;
+		this.correctKWs = ckws;
+	}
 }

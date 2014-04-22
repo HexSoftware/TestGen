@@ -1,5 +1,7 @@
 package testtool.models.questiondb;
 
+import java.util.Collection;
+
 /**
  * Question type corresponding to a graphics question
  * A student will be asked to create an image in a different
@@ -11,5 +13,15 @@ package testtool.models.questiondb;
  *
  */
 public class GraphicsQuestion extends Question {
-
+	
+	public GraphicsQuestion(String qt, String auth, String lu, String course,
+			Collection<String> topics, int time, int diff) {
+		this.questionText = qt;
+		this.author = auth;
+		this.lastUsed = lu;
+		this.course = course;
+		this.topics = topics;
+		this.time = time;
+		this.difficulty = diff;
+	}
 }

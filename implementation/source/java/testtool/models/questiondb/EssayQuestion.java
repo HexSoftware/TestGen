@@ -17,4 +17,16 @@ public class EssayQuestion extends Question {
 	 * should be looking for in order.
 	 */
 	Collection<String> correctKWs;
+	
+	public EssayQuestion(String qt, String auth, String lu, String course,
+			Collection<String> topics, int time, int diff, Collection<String> ckws) {
+			this.questionText = qt;
+			this.author = auth;
+			this.lastUsed = lu;
+			this.course = course;
+			this.topics = topics;
+			this.time = time;
+			this.difficulty = diff;
+			this.correctKWs = ckws;
+		}
 }

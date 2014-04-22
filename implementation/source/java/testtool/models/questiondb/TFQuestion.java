@@ -1,5 +1,7 @@
 package testtool.models.questiondb;
 
+import java.util.Collection;
+
 /**
  * Question type corresponding with a True/False question
  * the student will simply specify whether or not a statement was true
@@ -13,4 +15,16 @@ public class TFQuestion extends Question {
 	 * The correct answer : Either True or False
 	 */
 	boolean correctAnswer;
+	
+	public TFQuestion(String qt, String auth, String lu, String course,
+		Collection<String> topics, int time, int diff, boolean corAns) {
+		this.questionText = qt;
+		this.author = auth;
+		this.lastUsed = lu;
+		this.course = course;
+		this.topics = topics;
+		this.time = time;
+		this.difficulty = diff;
+		this.correctAnswer = corAns;
+	}
 }

@@ -1,5 +1,7 @@
 package testtool.models.questiondb;
 
+import java.util.Collection;
+
 /**
  * Question type corresponding to a Coding question
  * Students will be asked to fill in some code which will then
@@ -16,4 +18,16 @@ public class CodeQuestion extends Question {
 	 * against is stored
 	 */
 	String scriptPath;
+	
+	public CodeQuestion(String qt, String auth, String lu, String course,
+			Collection<String> topics, int time, int diff, String path) {
+		this.questionText = qt;
+		this.author = auth;
+		this.lastUsed = lu;
+		this.course = course;
+		this.topics = topics;
+		this.time = time;
+		this.difficulty = diff;
+		this.scriptPath = path;
+	}
 }
