@@ -2,9 +2,10 @@ package testtool.views.testdb;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 
-import javax.swing.ButtonGroup;
 import javax.swing.*;
 import javax.swing.table.*;
 
@@ -39,8 +40,7 @@ public class TestDatabaseGUI {
     	     {"", "", "", " ", "", "", ""},
     	     {"", "", "", " ", "", "", ""},
     	  	};
-    public TestDatabaseGUI(final int setting, TestDatabase Tdb) {
-        tdb = Tdb;
+    public TestDatabaseGUI(final int setting) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -113,6 +113,16 @@ public class TestDatabaseGUI {
                 guiFrame.add(guiPanel, BorderLayout.NORTH);
                 guiFrame.setJMenuBar(Menu());
                 guiFrame.setVisible(true);
+                table.addMouseListener(new MouseAdapter() {
+                	  public void mouseClicked(MouseEvent e) {
+                	    if (e.getClickCount() == 2) {
+                	      JTable target = (JTable)e.getSource();
+                	      int row = target.getSelectedRow();
+                	      int column = target.getSelectedColumn();
+                	      TestDatabase.getTest("any", "test");
+                	    }
+                	  }
+                	});
             }
         });
         
