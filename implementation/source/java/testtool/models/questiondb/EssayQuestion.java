@@ -8,7 +8,7 @@ import java.util.Collection;
  * keywords and a grade will be based on the correctness and
  * order of those words in the answer
  *
- * @author RJ Almada (rjalmada@calpoly.edu)
+ * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
  * @version 21apr14
  *
  */
@@ -29,5 +29,6 @@ public class EssayQuestion extends Question {
 			this.time = time;
 			this.difficulty = diff;
 			this.correctKWs = ckws;
+			this.type = "Essay";
 		}
 }

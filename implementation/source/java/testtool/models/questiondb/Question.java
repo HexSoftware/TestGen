@@ -24,20 +24,43 @@ public class Question {
 	/**
 	 * The course is the class that a question was originally made for
 	 */
-	String course;
+	public String course;
 	/**
 	 * topics is a collection of strings that are tags to easily
 	 * filter through the question databank for
 	 */
-	Collection<String> topics;
+	public Collection<String> topics;
 	/**
 	 * The time is the amount of the author believes this question should take
 	 */
-	int time;
+	public int time;
 	/**
 	 * The difficulty is in a range of 1-5;
 	 * 1 being easy and 5 being hard
 	 */
-	int difficulty;
+	public int difficulty;
+	/**
+	 * The type of the question. Used only for display purposes.
+	 */
+	public String type;
+	
+	public String get(int i) {
+		switch (i) {
+		case 0: return course;
+		case 1:
+			String topic = "";
+			for (String s : topics) {
+				topic += s + "; ";
+	 		}
+	 		return topic; 
+	 	case 2: return type;
+	 	case 3: return questionText;
+	 	case 4: return new Integer(difficulty).toString();
+	 	case 5: return new Integer(time).toString();
+	 	case 6: return lastUsed;
+	 	case 7: return author;
+	 	default: return "error: invalid field";
+	 	}
+	 }
 	
 }

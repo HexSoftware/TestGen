@@ -7,11 +7,11 @@
 package testtool.views.questiondb;
 
 import java.awt.BorderLayout;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -22,8 +22,8 @@ import testtool.models.questiondb.*;
 
 /**
  *
- * @author RJ Almada (rjalmada@calpoly.edu)
- * @version 14apr14
+ * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
+ * @version 21apr14
  *
  */
 public class AddQuestion extends JMenuBar {
@@ -102,9 +102,8 @@ public class AddQuestion extends JMenuBar {
     /**
      * This method will collect the multiple choice question answers
      */
-    @SuppressWarnings("null")
-	private static Collection<String> collectMCAnswers() {
-    	Collection<String> r = null;
+    private static ArrayList<String> collectMCAnswers() {
+    	ArrayList<String> r = new ArrayList<String>();
     	
     	if(!MCAnswerText1.getText().equals("Answer 1")) {
     		r.add(MCAnswerText1.getText());
@@ -124,10 +123,9 @@ public class AddQuestion extends JMenuBar {
     	
     	return r;
     }
-    
-    @SuppressWarnings({ "null" })
-	private static Collection<Integer> collectMCCorAnswers() {
-    	Collection<Integer> r = null;
+ 
+	private static ArrayList<Integer> collectMCCorAnswers() {
+    	ArrayList<Integer> r = new ArrayList<Integer>();
     	
     	if(MCAnswerCheck1.isSelected()) {
     		r.add(new Integer(1));
@@ -150,12 +148,8 @@ public class AddQuestion extends JMenuBar {
     
     
     
-    private static Collection<String> parseStuff(String toParse) {
-    	Collection<String> r = null;
-    	
-    	r = Arrays.asList(toParse.split(","));
-    	
-    	return r;
+    private static List<String> parseStuff(String toParse) {
+    	return new ArrayList<String>(Arrays.asList(toParse.split(",")));
     }
     
     /**

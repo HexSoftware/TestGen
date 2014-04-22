@@ -16,7 +16,7 @@ import testtool.views.testdb.GenerateTypeGUI;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 20apr14
+ * @version 21apr14
  * 
  * The main view class for the Question Databank. 
  */
@@ -33,7 +33,7 @@ public class QuestionDBFrame {
 	public QuestionDBFrame() {
 		qdb = new QuestionDatabank();
 		// Create and set up the window.
-		JFrame frame = new JFrame("QuestionDB");
+		final JFrame frame = new JFrame("QuestionDB");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setJMenuBar(CMBuilder.createMenuBar(new JMenuBar()));
 		frame.setLayout(new BorderLayout());
@@ -42,7 +42,7 @@ public class QuestionDBFrame {
 		// qdbpanel.setPreferredSize(new Dimension(800, 600));
 
 		// Add a table
-		final TableModel dataModel = new AbstractTableModel() {
+		final AbstractTableModel dataModel = new AbstractTableModel() {
 
 			public int getColumnCount() {
 				return 8;
@@ -102,7 +102,7 @@ public class QuestionDBFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new AddQuestion(qdb);
-				table.setModel(dataModel);
+				dataModel.fireTableDataChanged();
 			}
 		});
 		buttonPanel.add(addButton);
