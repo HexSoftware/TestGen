@@ -1,6 +1,6 @@
 package testtool.models.questiondb;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
@@ -12,12 +12,14 @@ import java.util.Collection;
  * which involves adding, editing, removing, search and filter. * 
  */
 public class QuestionDatabank {
-	QuestionList questions;
-	Collection<Filter> filters;
+	public ArrayList<QuestionEntry> questions;
+	public ArrayList<Filter> filters;
+	public QuestionEntry newestQ;
+	public Filter newestF;
 
 	public QuestionDatabank() {
-		questions = null;
-		filters = null;
+		questions = new ArrayList<QuestionEntry>();
+		filters = new ArrayList<Filter>();
 	}
 
 	/**
@@ -31,6 +33,10 @@ public class QuestionDatabank {
 	 * @
 	 */
 	public void add(Question q) {
+		QuestionEntry qe = new QuestionEntry(q, false, false);
+		newestQ = qe;
+		//TODO: check is question is filtered upon creation;		
+		questions.add(qe);
 		System.out.println("in QuestionDatabank.add");
 	}
 
@@ -107,6 +113,7 @@ public class QuestionDatabank {
 	 * @
 	 */
 	public void filter(Filter fil) {
+		newestF = fil;
 		System.out.println("in QuestionDatabank.filter");
 	}
 
@@ -127,5 +134,49 @@ public class QuestionDatabank {
 	 */
 	public void unfilter(Filter fil) {
 		System.out.println("in QuestionDatabank.unfilter");
+	}
+	
+	/**
+	 * question popup will bring up the question popup dialogue when a 
+	 * QuestionEntry q moused over for a long enough amount of time. This will 
+	 * show more detailed information of the question, such as the full 
+	 * question text and answers, along with previews of any images.
+	 * @param q - question to show more detail of
+	 */
+	/*@
+		requires
+			(*
+			 * That q is a QuestionEntry that is in the databank, and that q is
+			 * a valid QuestionEntry.
+			 *);
+		ensures
+			(*
+			 * That a valid QuestionEntry with a question from the databank is
+			 * displayed.
+			 *);
+	@*/
+	public void questionPopup(QuestionEntry q) {
+		System.out.println("In QuestionList.questionPopup");
+	}
+	
+	/**
+	 * toggleQuestionSelect will toggle the QuestionEntry q as (un)marked, 
+	 * either for editing/removal or for being added to a test. 
+	 * @param q - question to select or deselect
+	 */
+	/*@
+		requires
+			(*
+			 * That QuestionEntry q is a valid QuestionEntry and is in the 
+			 * databank.
+			 *);
+		ensures
+			(*
+			 * That a valid questionEntry in the databank has its selction 
+			 * toggled.
+			 *);
+	@*/
+	public void toggleQuestionSelect(QuestionEntry q) {
+		System.out.println("In QuestionList.toggleQuestionSelect");
 	}
 }

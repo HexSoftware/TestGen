@@ -11,7 +11,13 @@ package testtool.models.questiondb;
  * More details to come later.
  */
 public class QuestionEntry {
-	Question question;
-	boolean selected;
-	boolean filtered;
+	public Question question;
+	public boolean selected;
+	public boolean filtered;
+	
+	public QuestionEntry(Question q, boolean s, boolean f) {
+		question = q;
+		selected = s;
+		filtered = f;
+	}
 }
