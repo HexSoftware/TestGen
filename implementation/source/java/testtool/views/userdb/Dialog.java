@@ -1,4 +1,8 @@
-/*@author Yuliya Levitskaya*/
+package testtool.views.userdb;
+
+/**
+ * @author Yuliya Levitskaya
+ */
 
 import java.awt.BorderLayout;
 import java.awt.Color;

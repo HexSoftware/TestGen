@@ -1,4 +1,4 @@
-package testtool.views.instructor.testdb;
+package testtool.views.testdb;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

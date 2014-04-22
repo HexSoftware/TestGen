@@ -4,7 +4,7 @@ import java.util.Collection;
 import testtool.models.userdb.Student;
 
 /**
- * @author Alvin Lam (aqlam@calpoly.edu
+ * @author Alvin Lam (aqlam@calpoly.edu)
  * @version 20apr14
  * 
  * A Course is the information stored about a course. 
@@ -13,7 +13,23 @@ import testtool.models.userdb.Student;
  * students is the list of students enrolled in the course.
  */
 public class Course {
-	String name;
-	String instructor;
-	Collection<Student> students;
+	private String name;
+	private String instructor;
+	private Collection<Student> students;
+	
+	public String getCourseName() {
+		return name;
+	}
+	
+	public String getCourseInstructor() {
+		return instructor;
+	}
+	
+	public void setCourseName(String name) {
+		this.name = name;
+	}
+	
+	public void setCourseInstructor(String instructor) {
+		this.instructor = instructor;
+	}
 }
