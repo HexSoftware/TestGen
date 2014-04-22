@@ -13,6 +13,16 @@ public abstract class TestDatabase {
 	 * The collection of Test Objects
 	 */
    ArrayList<Test> tests;
+/*@
+  ensures
+  //
+  // test will be added
+  //
+  (Test test = null)
+  @*/
+public static Test addTest(Test t){
+   tests.add(t);
+}
   /*@
   requires
   //
@@ -21,7 +31,7 @@ public abstract class TestDatabase {
   (\exists Test test && tests.length > 0)
   ensures
   //
-  // test will be removed
+  // tests will be found that match given
   //
   (Test test = null)
   @*/
