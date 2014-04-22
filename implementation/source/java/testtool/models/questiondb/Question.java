@@ -1,5 +1,5 @@
 package testtool.models.questiondb;
-import java.util.Collection;
+import java.util.ArrayList;
 /**
  * The Question class is the superclass of all question types
  *
@@ -29,7 +29,7 @@ public class Question {
 	 * topics is a collection of strings that are tags to easily
 	 * filter through the question databank for
 	 */
-	Collection<String> topics;
+	ArrayList<String> topics;
 	/**
 	 * The time is the amount of the author believes this question should take
 	 */
