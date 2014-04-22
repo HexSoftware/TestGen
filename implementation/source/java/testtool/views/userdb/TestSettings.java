@@ -41,7 +41,9 @@ public class TestSettings {
 	static testtool.models.userdb.TestSettings testSettings;
 	public static JDialog guiFrame;
 	static public Test t;
-    public TestSettings() {
+	static public testtool.models.userdb.TestSettings ts;
+    public TestSettings(Test t) {
+    	ts = t.getSetting();
     	testSettings  = new testtool.models.userdb.TestSettings();
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -54,7 +56,7 @@ public class TestSettings {
               //Create the combo box, select item at index 4.
               //Indices start at 0, so 4 specifies the pig.
               JComboBox testTypeList = new JComboBox(testTypes);
-              testTypeList.setSelectedIndex(0);
+              testTypeList.setSelectedItem(ts.getType());
              // testTypeList.addActionListener(this);
               
               JComboBox passwordTypeList = new JComboBox(ynTypes);
@@ -67,7 +69,7 @@ public class TestSettings {
               startDateTypeList.setSelectedIndex(0);
               
               JComboBox gradingTypeList = new JComboBox(gradingTypes);
-              gradingTypeList.setSelectedIndex(0);
+              gradingTypeList.setSelectedItem(ts.getGradeType());
               
               
                 guiFrame = new JDialog();
@@ -79,15 +81,15 @@ public class TestSettings {
                 
                 JLabel startDateLabel = new JLabel("Start Date & Time");
                 JTextField startDateField = new JTextField(15);
-                startDateField.setText("January 29, 2014");
+                startDateField.setText(ts.getStartDate());
                 JTextField startTimeField = new JTextField(15);
-                startTimeField.setText("9:00");
+                startTimeField.setText(ts.getsTime());
                 
                 JLabel endDateLabel = new JLabel("End Date & Time");
                 JTextField endDateField = new JTextField(15);
-                endDateField.setText("January 29, 2014");
+                endDateField.setText(ts.getEndDate());
                 JTextField endTimeField = new JTextField(15);
-                endTimeField.setText("10:00");
+                endTimeField.setText(ts.geteTime());
                 JButton publishButton = new JButton("Publish");
 
                 JLabel passwordLabel = new JLabel("Password Required");
@@ -97,7 +99,7 @@ public class TestSettings {
                 
                 JLabel notesLabel = new JLabel("Notes");
                 JTextField notesTextField = new JTextField(20);
-                notesTextField.setText("This is Midterm 1.");
+                notesTextField.setText(ts.getNotes());
                 JScrollPane scroll = new JScrollPane(notesTextField);
                 scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
                 
@@ -242,7 +244,7 @@ public class TestSettings {
       		}
       		public void actionPerformed(ActionEvent e){
       			//System.exit(0);
-      			boolean s = testSettings.publish(t);
+      			testSettings.publish(t);
       			guiFrame.dispose();
       		}
       	}

@@ -41,6 +41,7 @@ public class ListOfTests {
      	*/
 	public boolean open(Test t){
 		System.out.println("In ListOfTest.open.");
+		t.setOpen(true);
 		return true;
 	}
 
@@ -51,6 +52,7 @@ public class ListOfTests {
      	*/
 	public boolean close(Test t){
 		System.out.println("In ListOfTest.close.");
+		t.setOpen(false);
 		return true;
 	}
 	/**
