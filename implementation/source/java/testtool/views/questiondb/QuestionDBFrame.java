@@ -31,7 +31,7 @@ public class QuestionDBFrame {
 	 * invoked from the event-dispatching thread.
 	 */
 	public QuestionDBFrame() {
-    qdb = new QuestionDatabank();
+		qdb = new QuestionDatabank();
 		// Create and set up the window.
 		JFrame frame = new JFrame("QuestionDB");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -42,57 +42,21 @@ public class QuestionDBFrame {
 		// qdbpanel.setPreferredSize(new Dimension(800, 600));
 
 		// Add a table
-		TableModel dataModel = new AbstractTableModel() {
-			private String[][] texts = new String[][] {
-
-					{
-							"CPE101",
-							"Devlopment Flow",
-							"M.C",
-							"A ________ converts a source program into machine code.",
-							"E", "1min", "Never", "gfisher" },
-					{ "CPE101", "Types", "T/F",
-							"Strings are a standard library type in C.", "E",
-							"1min", "Never", "gfisher" },
-					{
-							"CPE101",
-							"I/O; Switch Statements",
-							"S.A.",
-							"Consider the following code: char input; {case '1': printf",
-							"E", "2min", "Never", "gfisher" },
-					{
-							"CPE101",
-							"Structures; Stacks",
-							"Essay",
-							"In 2-4 paragraphs, describe the advantages and disadvantages of using",
-							"E-M", "20min", "Never", "gfisher" },
-					{
-							"CPE101",
-							"UML",
-							"Graphics",
-							"Create a UML diagram for the following project: class Alpha{",
-							"E-M", "10min", "Never", "gfisher" },
-					{
-							"CPE101",
-							"Variables",
-							"Coding",
-							"Write C code to accomplish the following things in the space provided: A)",
-							"E", "5min", "Never", "gfisher" },
-					{ "", "", "", "", "", "", "", "" } };
+		final TableModel dataModel = new AbstractTableModel() {
 
 			public int getColumnCount() {
 				return 8;
 			}
 
 			public int getRowCount() {
-				return 7;
+				return qdb.questions.size();
 			}
 
 			public Object getValueAt(int row, int col) {
-				return texts[row][col];
+				return qdb.questions.get(row).question.get(col);
 			}
 		};
-		JTable table = new JTable(dataModel);
+		final JTable table = new JTable(dataModel);
 		table.setPreferredSize(new Dimension(700, 400));
 		table.getColumnModel().getColumn(0).setPreferredWidth(60);
 		table.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -137,7 +101,8 @@ public class QuestionDBFrame {
 		addButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new AddQuestion();
+				new AddQuestion(qdb);
+				table.setModel(dataModel);
 			}
 		});
 		buttonPanel.add(addButton);

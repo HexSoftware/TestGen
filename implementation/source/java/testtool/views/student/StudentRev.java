@@ -33,6 +33,135 @@ public class StudentRev extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Midterm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     	
+    	jButton1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(1);
+			}
+		});
+    	jButton2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(2);
+			}
+		});
+    	jButton3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(3);
+			}
+		});
+    	jButton4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(4);
+			}
+		});
+    	jButton5.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(5);
+			}
+		});
+    	jButton6.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(6);
+			}
+		});
+    	jButton7.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(7);
+			}
+		});
+    	jButton8.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(8);
+			}
+		});
+    	jButton9.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(9);
+			}
+		});
+    	jButton10.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(10);
+			}
+		});
+    	jButton11.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(11);
+			}
+		});
+    	jButton12.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(12);
+			}
+		});
+    	jButton13.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(13);
+			}
+		});
+    	jButton14.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(14);
+			}
+		});
+    	jButton15.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(15);
+			}
+		});
+    	jButton16.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TestReview t = new TestReview();
+
+		        t.getQuestion(16);
+			}
+		});
+    	
         initComponents();
         
         jButton1.addActionListener(new ActionListener() {
