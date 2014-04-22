@@ -17,6 +17,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
+import java.text.ParseException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -41,7 +42,9 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import testtool.models.courses.Course;
 import testtool.models.testdb.Test;
+import testtool.models.userdb.TestSettings;
 
 
 
@@ -49,6 +52,8 @@ public class ListOfTests {
 	static JButton CloseButton;
 	Dialog d;
 	static public Test t;
+	static public testtool.models.userdb.TestSettings ts;
+	static public Course c;
 	static  testtool.models.userdb.ListOfTests listTests;
 	static String[] columnNames = {"Test",
             "Topic",
@@ -68,8 +73,21 @@ public class ListOfTests {
     	  	};
 
 
-    public ListOfTests() {
+    public ListOfTests() throws ParseException {
     	listTests = new testtool.models.userdb.ListOfTests();
+    	ts = new testtool.models.userdb.TestSettings();
+    	c = new Course();
+    	c.setCourseName("CPE 101");
+    	t = new Test(false, false, false, 
+			(String)data[0][4], new Integer((int) data[0][5]), new Integer(60), 1, ts, c);
+    	ts.setNotes("This is Midterm 1");
+    	ts.setGradeType("Manual");
+    	ts.setPass(null);
+    	ts.setStartDate("January 14, 2014");
+    	ts.setEndDate("January 14, 2014");
+    	ts.seteTime("10:00");
+    	ts.setsTime("9:00");
+    	ts.setType("Take Home");
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -210,8 +228,7 @@ public class ListOfTests {
    		}
    		public void actionPerformed(ActionEvent e){
    			listTests.options(t);
-   			
-   			new TestSettings();
+   			new testtool.views.userdb.TestSettings(t);
    		}
    	}
     static class closeListener implements ActionListener {
@@ -225,9 +242,10 @@ public class ListOfTests {
    				b = d.getButton();
    				
    				if(b == 1){
+   					listTests.close(t);
    					CloseButton.setText("Close");
    					data[0][6] = "Open";
-   					listTests.close(t);
+   					
 
    				}
    			}
