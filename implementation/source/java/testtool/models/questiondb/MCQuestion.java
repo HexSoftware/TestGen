@@ -8,7 +8,7 @@ import java.util.Collection;
  * and will then simply compare the answers that they put with the
  * instructor defined correct answers
  *
- * @author RJ Almada (rjalmada@calpoly.edu)
+ * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
  * @version 21apr14
  *
  */
@@ -36,5 +36,6 @@ public class MCQuestion extends Question {
 		this.difficulty = diff;
 		this.possibleAnswers = pa;
 		this.correctAnswerIndexes = cai;
+		this.type = "MC";
 	}
 }

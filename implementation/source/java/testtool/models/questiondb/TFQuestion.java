@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Question type corresponding with a True/False question
  * the student will simply specify whether or not a statement was true
  *
- * @author RJ Almada (rjalmada@calpoly.edu)
+ * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
  * @version 21apr14
  *
  */
@@ -26,5 +26,6 @@ public class TFQuestion extends Question {
 		this.time = time;
 		this.difficulty = diff;
 		this.correctAnswer = corAns;
+		this.type = "TF";
 	}
 }
