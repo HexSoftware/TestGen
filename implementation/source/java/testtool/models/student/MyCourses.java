@@ -24,16 +24,18 @@ import testtool.models.courses.*;
    public ArrayList<Course> getAllCourses (Student username) throws FileNotFoundException {
 	   
 	   ArrayList<Course> courseList = new ArrayList<Course>();
-	   Course c = new Course();
 	   
 	   File file = new File("CourseDB.txt");
 	   Scanner inFile = new Scanner(file);
 	   
-	   while (inFile.hasNext()) {
-		   c.setCourseName(inFile.nextLine());
-		   c.setCourseInstructor(inFile.nextLine());
-		   courseList.add(c);
+	   for (int i = 0; inFile.hasNext(); i++) {
+		   courseList.add(new Course());
+		   courseList.get(i).setCourseName(inFile.nextLine());
+		   courseList.get(i).setCourseInstructor(inFile.nextLine());
 	   }
+	   //System.out.println("MYCourse 0 is " + courseList.get(0).getCourseName());
+	   
+	   inFile.close();
 	   
 	   return courseList;
    }
