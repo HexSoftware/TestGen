@@ -41,7 +41,7 @@ public class ListOfTests {
      	*/
 	public boolean open(Test t){
 		System.out.println("In ListOfTest.open.");
-		t.setOpen(true);
+		t.setTestParam("state", "Open");
 		return true;
 	}
 
@@ -52,7 +52,7 @@ public class ListOfTests {
      	*/
 	public boolean close(Test t){
 		System.out.println("In ListOfTest.close.");
-		t.setOpen(false);
+		t.setTestParam("state", "Closed");
 		return true;
 	}
 	/**
@@ -61,6 +61,7 @@ public class ListOfTests {
 *The given test must already be in the userdb
  	*/
 	public boolean grade(Test t){
+		t.setTestParam("state", "Graded");
 		System.out.println("In ListOfTest.grade.");
 		return true;
 	}
@@ -71,6 +72,7 @@ public class ListOfTests {
 	* The given test must already be in the userdb
      	*/
 	 public boolean options(Test t){
+		 
 		System.out.println("In ListOfTest.options.");
 		return true;
 	}

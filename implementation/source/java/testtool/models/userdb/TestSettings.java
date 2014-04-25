@@ -8,6 +8,8 @@ package testtool.models.userdb;
 
 import java.util.Date;
 
+import javax.swing.JComboBox;
+
 import testtool.models.testdb.Test;
 
 
@@ -15,67 +17,72 @@ import testtool.models.testdb.Test;
  * This class displays the settings for a particular test.
  */
 public  class TestSettings {
-	String type;
-	String start;
-	String end;
-	String startTime;
-	String endTime;
-	String password;
-	String notes;
-	String gradingType;
+	public Test t;
+	public TestSettings(Test test){
+		t = test;
+	}
 	public String getType(){
-		return this.type;
+		return t.getTestParam("testType");
 	}
 	public String getStartDate(){
-		return this.start;
+		return t.getTestParam("startDate");
 	}
 	public String getsTime(){
-		return this.startTime;
+		return t.getTestParam("startTime");
 	}
 	public String geteTime(){
-		return this.endTime;
+		return t.getTestParam("endTime");
 	}
 	public String getEndDate(){
-		return this.end;
+		return t.getTestParam("endDate");
 	}
 	public String getPass(){
-		return this.password;
+		return t.getTestParam("password");
 	}
 	public String getNotes(){
-		return this.notes;
+		return t.getTestParam("notes");
 	}
 	public String getGradeType(){
-		return this.gradingType;
+		return t.getTestParam("gradeType");
 	}
-	public void setsTime(String t){
-		this.startTime = t;
+	public void setsTime(String s){
+		t.setTestParam("startTime", s);
 	}
-	public void seteTime(String t){
-		this.endTime= t;
+	public void seteTime(String s){
+		t.setTestParam("endTime", s);
 	}
-	public void setGradeType(String t){
-		this.gradingType = t;
+	public void setGradeType(String s){
+		t.setTestParam("gradeType", s);
 	}
 	public void setNotes(String n){
-		this.notes =n;
+		t.setTestParam("notes", n);
 	}
 	public void setPass(String p){
-		this.password=p;
+		t.setTestParam("password", p);
 	}
-	public void setType(String t){
-		 this.type = t;
+	public void setType(String s){
+		t.setTestParam("testType", s);
 	}
 	public void setStartDate(String d){
-		 this.start = d;
+		t.setTestParam("startDate", d);
 	}
 	public void setEndDate(String d){
-		 this.end = d;
+		t.setTestParam("endDate", d);
 	}/**
      	* Method used in publishing the test.
 	* @param t - test to publish
-	* test must be already in thes userdb
+	* test must be already in the userdb
      	*/
-	 public void publish(Test t){
+	 public void publish(String startDateField, String endDateField, String startTimeField, 
+			 String endTimeField, String notesTextField,String passwordTextField, String testTypeList, String gradingTypeList){
+		 this.setStartDate(startDateField);
+		 this.setEndDate(endDateField);
+		 this.setsTime(startTimeField);
+		 this.seteTime(endTimeField);
+		 this.setNotes(notesTextField);
+		 this.setPass(passwordTextField);
+		 this.setType(testTypeList);
+		 this.setGradeType(gradingTypeList);
 		 System.out.println("In TestSettings.publish.");
 	}
 }
