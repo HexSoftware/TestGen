@@ -19,6 +19,9 @@ public class Test {
       testParams = testP;
       questionList = questionL;
    }
+  public Test(){
+	   
+   }
    public String getTestParam(String column) {
       return testParams.get(column);
    }
