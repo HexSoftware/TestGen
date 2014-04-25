@@ -22,6 +22,9 @@ public class Test {
    public String getTestParam(String column) {
       return testParams.get(column);
    }
+   public String setTestParam(String column, String data) {
+	      return testParams.put(column, data);
+	   }
    public ArrayList<Question> getQuestionList() {
       return questionList;
    }
