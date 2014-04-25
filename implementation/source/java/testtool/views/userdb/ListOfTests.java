@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -37,10 +38,12 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
 
 import testtool.models.courses.Course;
 import testtool.models.testdb.Test;
@@ -50,44 +53,41 @@ import testtool.models.userdb.TestSettings;
 
 public class ListOfTests {
 	static JButton CloseButton;
+	public static JTable jTable;
 	Dialog d;
+	static public testtool.models.userdb.ListOfTests lt;
 	static public Test t;
-	static public testtool.models.userdb.TestSettings ts;
-	static public Course c;
-	static  testtool.models.userdb.ListOfTests listTests;
 	static String[] columnNames = {"Test",
-            "Topic",
-            "Difficulty",
-            "Time",
-            "Last Used",
-            "Points",
-            "Status"};
-    
-   static Object[][] data = {
-    	    {"Midterm 1", "CPE 101", "Easy", "60 min", "January 29, 2014", new Integer(100), "Closed"},
-    	     {"", "", "", " ", "", "", ""},
-    	     {"", "", "", " ", "", "", ""},
-    	     {"", "", "", " ", "", "", ""},
-    	     {"", "", "", " ", "", "", ""},
-    	     {"", "", "", " ", "", "", ""},
-    	  	};
+        "Topic",
+        "Difficulty",
+        "Time",
+        "Last Used",
+        "Points",
+        "Status"};
+
+static Object[][] data = {
+	    {"Midterm 1", "CPE 101", "Easy", "60 min", "January 29, 2014", new Integer(100), "Closed"},
+	     {"", "", "", " ", "", "", ""},
+	     {"", "", "", " ", "", "", ""},
+	     {"", "", "", " ", "", "", ""},
+	     {"", "", "", " ", "", "", ""},
+	     {"", "", "", " ", "", "", ""},
+	  	};
 
 
     public ListOfTests() throws ParseException {
-    	listTests = new testtool.models.userdb.ListOfTests();
-    	ts = new testtool.models.userdb.TestSettings();
-    	c = new Course();
-    	c.setCourseName("CPE 101");
-    	t = new Test(false, false, false, 
-			(String)data[0][4], new Integer((int) data[0][5]), new Integer(60), 1, ts, c);
-    	ts.setNotes("This is Midterm 1");
-    	ts.setGradeType("Manual");
-    	ts.setPass(null);
-    	ts.setStartDate("January 14, 2014");
-    	ts.setEndDate("January 14, 2014");
-    	ts.seteTime("10:00");
-    	ts.setsTime("9:00");
-    	ts.setType("Take Home");
+    	lt = new testtool.models.userdb.ListOfTests();
+    	t = new Test();
+    	t.setTestParam("course", "CPE 101");
+    	t.setTestParam("notes", "This is Midterm 1");
+    	t.setTestParam("gradeType", "Manual");
+    	t.setTestParam("password", null);
+    	t.setTestParam("startDate", "January 14, 2014");
+    	t.setTestParam("endDate", "January 14, 2014");
+    	t.setTestParam("startTime", "10:00");
+    	t.setTestParam("endTime", "9:00");
+    	t.setTestParam("testType", "Take Home");
+    	t.setTestParam("state", "Closed");
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -96,9 +96,7 @@ public class ListOfTests {
               
                 JPanel guiPanel = new JPanel(new GridBagLayout());
                  
-                JTable table = new JTable(data, columnNames);
-                             
-                
+                jTable = new JTable(data, columnNames);
                 //guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 guiFrame.setTitle("Tests");
                 guiFrame.setSize(700, 700);
@@ -117,8 +115,8 @@ public class ListOfTests {
                 JButton OptionsButton = new JButton("Options");
                 OptionsButton.addActionListener(new optionsListener());
                 
-                fields.add(table.getTableHeader(), BorderLayout.PAGE_START);
-                fields.add(table);
+                fields.add(jTable.getTableHeader(), BorderLayout.PAGE_START);
+                fields.add(jTable);
                 //fields.add(gradeButton);
                 
                 JPanel fields2 = new JPanel( new GridBagLayout());
@@ -219,7 +217,7 @@ public class ListOfTests {
    		public gradeListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-			listTests.grade(t);  			
+			lt.grade(t);  			
    		}
    	}
     static class optionsListener implements ActionListener {
@@ -227,7 +225,7 @@ public class ListOfTests {
    		public optionsListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			listTests.options(t);
+   			lt.options(t);
    			new testtool.views.userdb.TestSettings(t);
    		}
    	}
@@ -242,20 +240,18 @@ public class ListOfTests {
    				b = d.getButton();
    				
    				if(b == 1){
-   					listTests.close(t);
-   					CloseButton.setText("Close");
+   					CloseButton.setText(t.getTestParam("state"));
+   					lt.close(t);
    					data[0][6] = "Open";
-   					
-
    				}
    			}
    			else{
    				Dialog d = new Dialog("Close");
    				int b = d.getButton();
    				if(b == 1){
-   					data[0][6] = "Closed";
-   					CloseButton.setText("Open");
-					listTests.open(t);
+   					CloseButton.setText(t.getTestParam("state"));
+					lt.open(t);
+					data[0][6] = "Closed";
    				}
    			}
    		}

@@ -53,10 +53,11 @@ public class TestDatabase {
     */
    public ArrayList<Test> getTest(String column, String data) {
       final ArrayList<Test> match = new ArrayList<Test>();
-      final ArrayList<String> column_names = new ArrayList<String>(
-            Arrays.asList("uniqueId", "state", "testTitle"
+      final ArrayList<String> column_names = new  Arrays.asList("uniqueId", "state", "testTitle"
                   , "author", "lastUsed", "totalQuestions",
-                  "totalPoints", "totalTime", "avgDifficulty", "ts", "course"));
+                  "totalPoints", "totalTime", "avgDifficulty", "notes", "course",
+                  "gradeType", "password", "startDate", "endDate", "startTime", "endTime",
+                  "testType"));
 
       if (column_names.contains(column)) {
          System.out.println("Number of tests in database: "
