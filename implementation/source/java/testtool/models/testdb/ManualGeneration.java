@@ -11,14 +11,14 @@ import testtool.models.questiondb.Question;
 /**
  * This class manages manual generation of a test.
  */
-public class AutomaticGeneration {
+public class ManualGeneration {
    /**
     * The collection of questions in the test.
     */
    ArrayList<Question> questions;
    Collection<String>  settings;
    TestDatabase        tdb;
-   public AutomaticGeneration(TestDatabase td) {
+   public ManualGeneration(TestDatabase td) {
       tdb = td;
    }
    /**
