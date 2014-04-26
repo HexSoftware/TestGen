@@ -1,5 +1,7 @@
 /*
+ * The Testdatabase Class holds all instances of test objects
  * @author Grant Pickett
+ * @version 4/26/2014
  */
 
 package testtool.models.testdb;
