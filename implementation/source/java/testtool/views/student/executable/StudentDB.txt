@@ -1,8 +1,8 @@
 rjalmada
-Orgie Almada
+RJ Almada
 Courses 3
 CPE101-01
-PRN101-03
+CSC430-03
 ENGL310-03
 
 aqlam
@@ -11,7 +11,6 @@ Courses 1
 CPE101-01
 
 nrnord
-Neil Nerdhof
+Neil Nordhof
 Courses 1
 ENGL310-03
-

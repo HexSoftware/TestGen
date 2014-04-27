@@ -1,6 +1,4 @@
 CPE101-01
 Gene Fisher
-PRN101-03
-Alfred Rosen
-CPE102-01
-Gene Fisher
+CSC430-03
+John Clements
