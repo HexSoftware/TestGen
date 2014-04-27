@@ -1,6 +1,5 @@
 package testtool.models.questiondb;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Question type corresponding with a short answer question
@@ -17,7 +16,7 @@ public class SAQuestion extends Question {
 	 * The collection of keywords that the automatic
 	 * grader should be looking for, in any order.
 	 */
-	Collection<String> correctKWs;
+	ArrayList<String> correctKWs;
 	
 	/**
 	 * The constructor will do data validation when creating a new Short Answer
@@ -35,7 +34,7 @@ public class SAQuestion extends Question {
 	 * is made and that all fields are non-null.);	  
 	 @*/
 	public SAQuestion(String qt, String auth, String course,
-		ArrayList<String> topics, int time, int diff, Collection<String> ckws) throws EmptyBoxException {
+		ArrayList<String> topics, int time, int diff, ArrayList<String> ckws) throws EmptyBoxException {
 		if (qt.equals("")) {
 			throw new EmptyBoxException("Question Text must be filled in.");
 		} else {

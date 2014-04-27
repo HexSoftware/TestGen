@@ -7,7 +7,6 @@
 package testtool.views.questiondb;
 
 import java.awt.BorderLayout;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -173,7 +172,7 @@ public class AddQuestion extends JMenuBar {
     
     
     
-    private static List<String> parseStuff(String toParse) {
+    private static ArrayList<String> parseStuff(String toParse) {
     	return new ArrayList<String>(Arrays.asList(toParse.split(",")));
     }
     
@@ -734,7 +733,8 @@ public class AddQuestion extends JMenuBar {
     }//GEN-LAST:event_QuestionTypeComponentShown
 
     private void QuestionTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuestionTypeActionPerformed
-        JComboBox cb = (JComboBox) evt.getSource();
+        @SuppressWarnings("rawtypes")
+		JComboBox cb = (JComboBox) evt.getSource();
         Object newItem = cb.getSelectedItem();
         
         boolean same = newItem.equals(oldQTItem);
@@ -797,7 +797,7 @@ public class AddQuestion extends JMenuBar {
     private javax.swing.JTextField CodeScriptPath;
     private javax.swing.JTextField Course;
     private javax.swing.JLabel CourseLabel;
-    private javax.swing.JComboBox Difficulty;
+    private javax.swing.JComboBox<Integer> Difficulty;
     private javax.swing.JLabel DifficultyLabel;
     private javax.swing.JPanel EQPanel;
     private javax.swing.JTextField EstTime;
@@ -806,12 +806,13 @@ public class AddQuestion extends JMenuBar {
     private javax.swing.JPanel GQPanel;
     private javax.swing.JTextField ImagePath;
     private javax.swing.JPanel MCQPanel;
-    private javax.swing.JComboBox QuestionType;
+    private javax.swing.JComboBox<String> QuestionType;
     private javax.swing.JLabel QuestionTypeLabel;
     private javax.swing.JPanel SAPanel;
     private javax.swing.JPanel TFPanel;
     private javax.swing.JLabel TFQuestion;
-    private javax.swing.JLabel SAQuestionLabel;
+    @SuppressWarnings("unused")
+	private javax.swing.JLabel SAQuestionLabel;
     private javax.swing.JLabel EssayQuestionLabel;
     private javax.swing.JLabel GraphicsQuestionLabel;
     private javax.swing.JLabel CodeQuestionLabel;
