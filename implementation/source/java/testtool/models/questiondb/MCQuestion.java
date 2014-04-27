@@ -1,6 +1,5 @@
 package testtool.models.questiondb;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Question type corresponding to a multiple choice question
@@ -17,12 +16,12 @@ public class MCQuestion extends Question {
 	 * The collection of answers that are defined by the
 	 * Instructor as options
 	 */
-	Collection<String> possibleAnswers;
+	ArrayList<String> possibleAnswers;
 	/**
 	 * The collection of answers that are considered the
 	 * right answer by the Instructor
 	 */
-	Collection<Integer> correctAnswerIndexes;
+	ArrayList<Integer> correctAnswerIndexes;
 
 	/**
 	 * The constructor will do data validation when creating a new Multiple Choice

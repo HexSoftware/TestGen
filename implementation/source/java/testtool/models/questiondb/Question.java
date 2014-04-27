@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * The Question class is the superclass of all question types
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 21apr14
+ * @version 27apr14
  */
 public class Question {
 	/**
@@ -29,11 +29,7 @@ public class Question {
 	 * topics is a collection of strings that are tags to easily
 	 * filter through the question databank for
 	 */
-<<<<<<< HEAD
 	ArrayList<String> topics;
-=======
-	public Collection<String> topics;
->>>>>>> 4369c2b5e8caa37e99e93a4ec3e3c54ea3dd4240
 	/**
 	 * The time is the amount of the author believes this question should take
 	 */
