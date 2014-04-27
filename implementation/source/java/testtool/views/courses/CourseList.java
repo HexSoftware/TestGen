@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 
@@ -26,7 +25,7 @@ public class CourseList {
 	private int curXposition = 50;
 	private int curYposition = 75;
 	
-	public CourseList() {
+	public CourseList(ArrayList<Course> myCourses) {
 		
 		JFrame frame = new JFrame("My Courses");
         frame.setSize(800, 600);
@@ -49,21 +48,14 @@ public class CourseList {
         directoryPath.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel.add(directoryPath);
         
-        MyCourses courseMethods = new MyCourses();
-		try {
-			ArrayList<Course> allCourses = courseMethods.getAllCourses(null);
-			
-			drawCourses(allCourses, panel, font, font1);
-		} catch (FileNotFoundException e1) {
-			System.out.println("No Course Database");
-		}
+        drawCourses(myCourses, panel, font, font1);
 	}
 	
 	public void drawCourses(ArrayList<Course> courses, JPanel panel, Font font, Font font1) {
 		ArrayList<JLabel> courseLinks = new ArrayList<JLabel>();
 		
 		int length = courses.size();
-		System.out.println("size is " + length);
+		System.out.println("drawing courses, size is " + length);
 		   
 		for (int i = 0; i < length; i++) {
 			curXposition = 50;

@@ -2,11 +2,10 @@ package testtool.views.student;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.Color;
 import java.awt.Font;
 
 import testtool.models.student.*;
-import testtool.models.userdb.*;
-import testtool.views.courses.*;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu
@@ -31,7 +30,7 @@ public class Login {
 
     private static void placeComponents(JPanel panel, JFrame frame) {
 
-        panel.setLayout(null);
+   	  panel.setLayout(null);
         
         Font font = new Font("Calibri", Font.BOLD, 24);
         Font font1 = new Font("Calibri", Font.PLAIN, 18);
@@ -59,7 +58,7 @@ public class Login {
         JButton loginButton = new JButton("login");
         loginButton.setBounds(375, 325, 80, 25);
         loginButton.setFont(font1);
-        loginButton.addActionListener(new Action1(frame));
+        loginButton.addActionListener(new Authentication(frame, panel, userText));
         loginButton.setActionCommand("Open");
         panel.add(loginButton);
         
@@ -69,23 +68,48 @@ public class Login {
         panel.add(appNameLabel);
     }
 
-    static class Action1 implements ActionListener {
+   private static class Authentication implements ActionListener {
+   	Font font = new Font("Calibri", Font.ITALIC, 18);
+   	boolean failed = false;
+   	
     	MyCourses myCourses = new MyCourses();
-    	Student exStudent = new Student();
     	
     	JFrame mainframe;
+    	JTextField usernameField;
+    	JPanel panel;
     	
-    	public Action1 (JFrame frame) {
+    	public Authentication (JFrame frame, JPanel panel, JTextField userText) {
     		mainframe = frame;
+    		usernameField = userText;
+    		this.panel = panel;
     	}
     	
     	public void actionPerformed (ActionEvent e) {
-    		myCourses.login ("username", "password");
-    		myCourses.viewCourses(exStudent);
-    		new CourseList();
-    		mainframe.dispose();
+    		if (!myCourses.login(usernameField.getText(), "password")) {
+    			System.out.println("failed to login");
+    			if (!failed) {
+    				failed = true;
+    				displayFailedLogin();
+    			}
+    			mainframe.pack();
+    			mainframe.revalidate();
+    			mainframe.setSize(800, 600);
+    		}
+    		else {
+    			System.out.println("Successfully Logged In");
+    			
+    			mainframe.dispose();
             System.out.println("In Login.actionPerformed.");
+    		}
     	}
-    }
+    	
+    	private void displayFailedLogin() {
+    		JLabel failedMessage = new JLabel("Invalid username or password.");
+   		failedMessage.setBounds(300, 500, 600, 25);
+   		failedMessage.setFont(font);
+   		failedMessage.setForeground(Color.RED);
+         panel.add(failedMessage);
+    	}
+   }
 }
 
