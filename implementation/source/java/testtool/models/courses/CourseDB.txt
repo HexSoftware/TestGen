@@ -1,4 +1,6 @@
 CPE101-01
 Gene Fisher
 PRN101-03
-Insert Name Here
+Alfred Rosen
+CPE102-01
+Gene Fisher
