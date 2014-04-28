@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 27apr14
+ * @version 28apr14
  * 
  * The Question Bank is the main focus of the question database, and is the view
  * from section 2.3. It displays the list of questions, which is represented by
@@ -55,7 +55,7 @@ public class QuestionDatabank {
 	 * @
 	 */
 	public void edit(Question q) {
-		System.out.println("in QuestionDatabank.edit");
+		System.out.println("In QuestionDatabank.edit");
 	}
 
 	/**
@@ -71,8 +71,11 @@ public class QuestionDatabank {
 	 * 
 	 * @
 	 */
-	public void remove() {
-		System.out.println("in QuestionDatabank.remove");
+	public void remove(int[] indices) {
+		for (int i : indices) {
+			questions.remove(i);
+		}
+		System.out.println("In QuestionDatabank.remove");
 	}
 
 	/**
@@ -93,7 +96,7 @@ public class QuestionDatabank {
 	 * @
 	 */
 	public void search(String keyword) {
-		System.out.println("in QuestionDatabank.search");
+		System.out.println("In QuestionDatabank.search");
 	}
 
 	/**
@@ -114,7 +117,7 @@ public class QuestionDatabank {
 	 */
 	public void filter(Filter fil) {
 		newestF = fil;
-		System.out.println("in QuestionDatabank.filter");
+		System.out.println("In QuestionDatabank.filter");
 	}
 
 	/**
@@ -156,7 +159,7 @@ public class QuestionDatabank {
 			 *);
 	@*/
 	public void questionPopup(QuestionEntry q) {
-		System.out.println("In QuestionList.questionPopup");
+		System.out.println("In QuestionDatabank.questionPopup");
 	}
 	
 	/**
@@ -177,6 +180,6 @@ public class QuestionDatabank {
 			 *);
 	@*/
 	public void toggleQuestionSelect(QuestionEntry q) {
-		System.out.println("In QuestionList.toggleQuestionSelect");
+		System.out.println("In QuestionDatabank.toggleQuestionSelect");
 	}
 }
