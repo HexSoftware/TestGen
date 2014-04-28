@@ -48,8 +48,7 @@ import javax.swing.table.DefaultTableModel;
 import testtool.models.courses.Course;
 import testtool.models.testdb.Test;
 import testtool.models.userdb.TestSettings;
-
-
+import testtool.views.commandmenu.CMBuilder;
 
 public class ListOfTests {
 	static JButton CloseButton;
@@ -136,7 +135,9 @@ static Object[][] data = {
                
 
                 guiFrame.add(guiPanel, BorderLayout.NORTH);
-                guiFrame.setJMenuBar(Menu());
+                
+                JMenuBar menu = new JMenuBar();
+                guiFrame.setJMenuBar(new CMBuilder().createMenuBar(menu));
                 guiFrame.setVisible(true);
             }
         });
