@@ -48,8 +48,7 @@ import javax.swing.table.DefaultTableModel;
 import testtool.models.courses.Course;
 import testtool.models.testdb.Test;
 import testtool.models.userdb.TestSettings;
-
-
+import testtool.views.commandmenu.CMBuilder;
 
 public class ListOfTests {
 	static JButton CloseButton;
@@ -136,7 +135,9 @@ static Object[][] data = {
                
 
                 guiFrame.add(guiPanel, BorderLayout.NORTH);
-                guiFrame.setJMenuBar(Menu());
+                
+                JMenuBar menu = new JMenuBar();
+                guiFrame.setJMenuBar(new CMBuilder().createMenuBar(menu));
                 guiFrame.setVisible(true);
             }
         });
@@ -225,8 +226,7 @@ static Object[][] data = {
    		public optionsListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			lt.options(t);
-   			new testtool.views.userdb.TestSettings(t);
+  			new testtool.views.userdb.TestSettings(t);
    		}
    	}
     static class closeListener implements ActionListener {
@@ -240,7 +240,7 @@ static Object[][] data = {
    				b = d.getButton();
    				
    				if(b == 1){
-   					CloseButton.setText(t.getTestParam("state"));
+   					CloseButton.setText("Close");
    					lt.close(t);
    					data[0][6] = "Open";
    				}
@@ -249,7 +249,7 @@ static Object[][] data = {
    				Dialog d = new Dialog("Close");
    				int b = d.getButton();
    				if(b == 1){
-   					CloseButton.setText(t.getTestParam("state"));
+   					CloseButton.setText("Open");
 					lt.open(t);
 					data[0][6] = "Closed";
    				}

@@ -1,6 +1,6 @@
 /*
  * The Testdatabase Class holds all instances of test objects
- * @author Grant Pickett
+ * @author Grant Pickett, Yuliya Levitskaya
  * @version 4/26/2014
  */
 
