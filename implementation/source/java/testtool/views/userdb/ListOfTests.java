@@ -239,7 +239,7 @@ static Object[][] data = {
    				b = d.getButton();
    				
    				if(b == 1){
-   					CloseButton.setText(t.getTestParam("state"));
+   					CloseButton.setText("Close");
    					lt.close(t);
    					data[0][6] = "Open";
    				}
@@ -248,7 +248,7 @@ static Object[][] data = {
    				Dialog d = new Dialog("Close");
    				int b = d.getButton();
    				if(b == 1){
-   					CloseButton.setText(t.getTestParam("state"));
+   					CloseButton.setText("Open");
 					lt.open(t);
 					data[0][6] = "Closed";
    				}
