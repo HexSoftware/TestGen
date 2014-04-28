@@ -16,7 +16,7 @@ import testtool.models.questiondb.QuestionDatabank;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 20apr14
+ * @version 28apr14
  * 
  * View class for the remove confirmation dialog.
  */
