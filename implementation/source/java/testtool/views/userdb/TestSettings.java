@@ -38,23 +38,26 @@ import testtool.models.testdb.Test;
 
 
 public class TestSettings {
-	static testtool.models.userdb.TestSettings testSettings;
+	//static testtool.models.userdb.TestSettings testSettings;
 	public static JDialog guiFrame;
-	static public Test t;
-    public TestSettings() {
-    	testSettings  = new testtool.models.userdb.TestSettings();
+	static public testtool.models.userdb.TestSettings ts;
+	static JTextField startDateField, endDateField, startTimeField, endTimeField, notesTextField,
+		passwordTextField;
+	static JComboBox gradingTypeList, testTypeList;
+    public TestSettings(Test t) {
+    	ts  = new testtool.models.userdb.TestSettings(t);
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
             
-                String[] testTypes = { "Take Home", "Proctored", "Quiz" };
+                String[] testTypes = {"Take Home", "In Class", "Practice"};
                 String[] ynTypes = { "Yes", "No"};
                 String[] amPm = { "AM", "PM"};
                 String[] gradingTypes = { "Manual", "Automatic"};
               //Create the combo box, select item at index 4.
               //Indices start at 0, so 4 specifies the pig.
-              JComboBox testTypeList = new JComboBox(testTypes);
-              testTypeList.setSelectedIndex(0);
+              testTypeList = new JComboBox(testTypes);
+              testTypeList.setSelectedItem(ts.getType());
              // testTypeList.addActionListener(this);
               
               JComboBox passwordTypeList = new JComboBox(ynTypes);
@@ -66,8 +69,8 @@ public class TestSettings {
               JComboBox endDateTypeList = new JComboBox(amPm);
               startDateTypeList.setSelectedIndex(0);
               
-              JComboBox gradingTypeList = new JComboBox(gradingTypes);
-              gradingTypeList.setSelectedIndex(0);
+              gradingTypeList = new JComboBox(gradingTypes);
+              gradingTypeList.setSelectedItem(ts.getGradeType());
               
               
                 guiFrame = new JDialog();
@@ -78,26 +81,26 @@ public class TestSettings {
                 JLabel testTypeLabel = new JLabel("Test Type");
                 
                 JLabel startDateLabel = new JLabel("Start Date & Time");
-                JTextField startDateField = new JTextField(15);
-                startDateField.setText("January 29, 2014");
-                JTextField startTimeField = new JTextField(15);
-                startTimeField.setText("9:00");
+                startDateField = new JTextField(15);
+                startDateField.setText(ts.getStartDate());
+                startTimeField = new JTextField(15);
+                startTimeField.setText(ts.getsTime());
                 
                 JLabel endDateLabel = new JLabel("End Date & Time");
-                JTextField endDateField = new JTextField(15);
-                endDateField.setText("January 29, 2014");
-                JTextField endTimeField = new JTextField(15);
-                endTimeField.setText("10:00");
+                endDateField = new JTextField(15);
+                endDateField.setText(ts.getEndDate());
+                endTimeField = new JTextField(15);
+                endTimeField.setText(ts.geteTime());
                 JButton publishButton = new JButton("Publish");
 
                 JLabel passwordLabel = new JLabel("Password Required");
-                JTextField passwordTextField = new JPasswordField(15);
+                passwordTextField = new JPasswordField(15);
                               
                 JLabel gradingLabel = new JLabel("Grading");
                 
                 JLabel notesLabel = new JLabel("Notes");
-                JTextField notesTextField = new JTextField(20);
-                notesTextField.setText("This is Midterm 1.");
+                notesTextField = new JTextField(20);
+                notesTextField.setText(ts.getNotes());
                 JScrollPane scroll = new JScrollPane(notesTextField);
                 scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
                 
@@ -242,7 +245,10 @@ public class TestSettings {
       		}
       		public void actionPerformed(ActionEvent e){
       			//System.exit(0);
-      			boolean s = testSettings.publish(t);
+      			ts.publish(startDateField.getText(), endDateField.getText(), startTimeField.getText(), 
+      					endTimeField.getText(), notesTextField.getText(),
+      					passwordTextField.getText(),testTypeList.getSelectedItem().toString(), gradingTypeList.getSelectedItem().toString());
+      			
       			guiFrame.dispose();
       		}
       	}

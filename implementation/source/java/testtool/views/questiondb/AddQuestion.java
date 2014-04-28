@@ -7,7 +7,6 @@
 package testtool.views.questiondb;
 
 import java.awt.BorderLayout;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ import java.util.Arrays;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import testtool.models.questiondb.*;
@@ -23,7 +23,7 @@ import testtool.models.questiondb.*;
 /**
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 21apr14
+ * @version 27apr14
  *
  */
 public class AddQuestion extends JMenuBar {
@@ -49,48 +49,72 @@ public class AddQuestion extends JMenuBar {
         GQPanel.setVisible(false);
         CQPanel.setVisible(false);
         
+        CancelButton.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent arg0) {
+        		/*final JOptionPane optionPane = new JOptionPane("Any entered info will be lost.\n"
+        				+ "Do you want to continue anyways?",
+						JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+        		*/
+        		JFrame conFrame = new JFrame("Confirmation Dialog");
+        		int n = JOptionPane.showConfirmDialog(conFrame, "All entered Data will be lost, continue anways?",
+        				"Confirm Cancel", JOptionPane.YES_NO_OPTION);
+        		if (n == 0) {
+        			frame.dispose();
+        		}
+        	}
+        });
+        
         finishButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Data will be saved.");
-		        switch ((String) oldQTItem) {
-		                case "Multiple Choice":
-		                    qdb.add(new MCQuestion(MCQuestionText.getText(), "Gene Fisher", "Never", Course.getText(),
-		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
-		                    		collectMCAnswers(), collectMCCorAnswers()));
-		                    break;
-		                case "True/False":
-		                    qdb.add(new TFQuestion(TFQuestionText.getText(), "Gene Fisher", "Never", Course.getText(),
-		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
-		                    		TFAnswer.isSelected()));
-		                    break;
-		                case "Short Answer":
-		                    qdb.add(new SAQuestion(SAQuestion.getText(), "Gene Fisher", "Never", Course.getText(),
-		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
-		                    		parseStuff(SAAnswer.getText())));
-		                    break;
-		                case "Essay":
-		                    qdb.add(new EssayQuestion(SAQuestion.getText(), "Gene Fisher", "Never", Course.getText(),
-		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
-		                    		parseStuff(EssayAnswer.getText())));
-		                    break;
-		                case "Graphics":
-		                    qdb.add(new GraphicsQuestion(GraphicsQuestionText.getText(), "Gene Fisher", "Never",
-		                    		Course.getText(), new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()));
-		                    break;
-		                case "Code":
-		                    qdb.add(new CodeQuestion(SAQuestion.getText(), "Gene Fisher", "Never", Course.getText(),
-		                    		new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-		                    		Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
-		                    		CodeScriptPath.getText()));
-		                    break;
-		        }
-				frame.dispose();
+				try {
+					switch ((String) oldQTItem) {
+			               	case "Multiple Choice":
+			               		qdb.add(new MCQuestion(MCQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
+			               				collectMCAnswers(), collectMCCorAnswers()));
+			               		break;
+			               	case "True/False":
+			               		qdb.add(new TFQuestion(TFQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
+			               				TFAnswer.isSelected()));
+			               		break;
+			               	case "Short Answer":
+			               		qdb.add(new SAQuestion(SAQuestion.getText(), "Gene Fisher", Course.getText(),
+			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
+			               				parseStuff(SAAnswer.getText())));
+			               		break;
+			               	case "Essay":
+			               		qdb.add(new EssayQuestion(EssayQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
+			               				parseStuff(EssayAnswer.getText())));
+			               		break;
+			               	case "Graphics":
+			               		qdb.add(new GraphicsQuestion(GraphicsQuestionText.getText(), "Gene Fisher",
+			               				Course.getText(), new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()));
+			               		break;
+			               	case "Code":
+			               		qdb.add(new CodeQuestion(CodeQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
+			               				CodeScriptPath.getText()));
+			               		break;
+					}
+					frame.dispose();
+				}
+				catch (EmptyBoxException e) {
+					JOptionPane.showMessageDialog(frame, e.getMessage());
+				}
+				catch (NumberFormatException e) {
+					JOptionPane.showMessageDialog(frame, "Estimated Time must be a number.");
+				}
 			}
 		});
         
@@ -148,7 +172,7 @@ public class AddQuestion extends JMenuBar {
     
     
     
-    private static List<String> parseStuff(String toParse) {
+    private static ArrayList<String> parseStuff(String toParse) {
     	return new ArrayList<String>(Arrays.asList(toParse.split(",")));
     }
     
@@ -191,7 +215,7 @@ public class AddQuestion extends JMenuBar {
         finishButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
         ImagePath = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        OptImageLabel = new javax.swing.JLabel();
         FilePathButton = new javax.swing.JButton();
         TFPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -266,6 +290,7 @@ public class AddQuestion extends JMenuBar {
 
         MCQuestionText.setColumns(20);
         MCQuestionText.setRows(5);
+        MCQuestionText.setText(null);
         jScrollPane1.setViewportView(MCQuestionText);
 
         MCQuestionLabel.setText("Question Text");
@@ -386,12 +411,13 @@ public class AddQuestion extends JMenuBar {
             }
         });
 
-        jLabel2.setText("Optional Image");
+        OptImageLabel.setText("Optional Image");
 
         FilePathButton.setText("Choose File");
 
         TFQuestionText.setColumns(20);
         TFQuestionText.setRows(5);
+        TFQuestionText.setText(null);
         jScrollPane2.setViewportView(TFQuestionText);
 
         TFQuestion.setText("Question Text");
@@ -428,6 +454,7 @@ public class AddQuestion extends JMenuBar {
 
         SAQuestion.setColumns(20);
         SAQuestion.setRows(5);
+        SAQuestion.setText(null);
         jScrollPane3.setViewportView(SAQuestion);
 
         SAAnswer.addActionListener(new java.awt.event.ActionListener() {
@@ -476,6 +503,7 @@ public class AddQuestion extends JMenuBar {
 
         EssayQuestionText.setColumns(20);
         EssayQuestionText.setRows(5);
+        EssayQuestionText.setText(null);
         jScrollPane4.setViewportView(EssayQuestionText);
 
         EssayAnswerLabel.setText("Ordered Keywords (separated by a comma)");
@@ -512,6 +540,7 @@ public class AddQuestion extends JMenuBar {
 
         GraphicsQuestionText.setColumns(20);
         GraphicsQuestionText.setRows(5);
+        GraphicsQuestionText.setText(null);
         jScrollPane5.setViewportView(GraphicsQuestionText);
 
         javax.swing.GroupLayout GQPanelLayout = new javax.swing.GroupLayout(GQPanel);
@@ -539,6 +568,7 @@ public class AddQuestion extends JMenuBar {
 
         CodeQuestionText.setColumns(20);
         CodeQuestionText.setRows(5);
+        CodeQuestionText.setText(null);
         jScrollPane6.setViewportView(CodeQuestionText);
 
         CodeAnswerLabel.setText("Path to Grading Script");
@@ -604,7 +634,7 @@ public class AddQuestion extends JMenuBar {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(EstTimeLabel)
                             .addComponent(CourseLabel)
-                            .addComponent(jLabel2)
+                            .addComponent(OptImageLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -665,7 +695,7 @@ public class AddQuestion extends JMenuBar {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(minLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(OptImageLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -703,7 +733,8 @@ public class AddQuestion extends JMenuBar {
     }//GEN-LAST:event_QuestionTypeComponentShown
 
     private void QuestionTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuestionTypeActionPerformed
-        JComboBox cb = (JComboBox) evt.getSource();
+        @SuppressWarnings("rawtypes")
+		JComboBox cb = (JComboBox) evt.getSource();
         Object newItem = cb.getSelectedItem();
         
         boolean same = newItem.equals(oldQTItem);
@@ -766,7 +797,7 @@ public class AddQuestion extends JMenuBar {
     private javax.swing.JTextField CodeScriptPath;
     private javax.swing.JTextField Course;
     private javax.swing.JLabel CourseLabel;
-    private javax.swing.JComboBox Difficulty;
+    private javax.swing.JComboBox<Integer> Difficulty;
     private javax.swing.JLabel DifficultyLabel;
     private javax.swing.JPanel EQPanel;
     private javax.swing.JTextField EstTime;
@@ -775,12 +806,13 @@ public class AddQuestion extends JMenuBar {
     private javax.swing.JPanel GQPanel;
     private javax.swing.JTextField ImagePath;
     private javax.swing.JPanel MCQPanel;
-    private javax.swing.JComboBox QuestionType;
+    private javax.swing.JComboBox<String> QuestionType;
     private javax.swing.JLabel QuestionTypeLabel;
     private javax.swing.JPanel SAPanel;
     private javax.swing.JPanel TFPanel;
     private javax.swing.JLabel TFQuestion;
-    private javax.swing.JLabel SAQuestionLabel;
+    @SuppressWarnings("unused")
+	private javax.swing.JLabel SAQuestionLabel;
     private javax.swing.JLabel EssayQuestionLabel;
     private javax.swing.JLabel GraphicsQuestionLabel;
     private javax.swing.JLabel CodeQuestionLabel;
@@ -796,7 +828,7 @@ public class AddQuestion extends JMenuBar {
     private javax.swing.JButton CodeUploadButton;
     private javax.swing.JCheckBox TFAnswer;
     private javax.swing.JLabel MCQuestionLabel;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel OptImageLabel;
     private javax.swing.JLabel SAAnswerLabel;
     private javax.swing.JLabel EssayAnswerLabel;
     private javax.swing.JLabel CodeAnswerLabel;

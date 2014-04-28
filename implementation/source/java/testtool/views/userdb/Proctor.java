@@ -7,7 +7,8 @@ package testtool.views.userdb;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.instrument.Instrumentation;
-
+import java.text.ParseException;
+import testtool.views.commandmenu.*;
 import javax.swing.*;
 
 public class Proctor {
@@ -26,7 +27,9 @@ public class Proctor {
       frame.setSize(WIDTH, HEIGHT);
       frame.setTitle(TITLE);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      frame.setJMenuBar(Menu(  ));    
+       JMenuBar menu = new JMenuBar();
+      frame.setJMenuBar(new CMBuilder().createMenuBar(menu));    
+      
       
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
@@ -136,7 +139,12 @@ public class Proctor {
 		}
 		public void actionPerformed(ActionEvent e){
 			proctor.listOfTests();
-			new ListOfTests();
+			try {
+				new ListOfTests();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	static class gradesListener implements ActionListener {

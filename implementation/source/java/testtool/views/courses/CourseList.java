@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 
@@ -23,10 +22,10 @@ import testtool.views.student.*;
  * A course can be selected to list the list of tests in that course.
  */
 public class CourseList {
-	private int curXposition = 20;
-	private int curYposition = 20;
+	private int curXposition = 50;
+	private int curYposition = 75;
 	
-	public CourseList() {
+	public CourseList(ArrayList<Course> myCourses) {
 		
 		JFrame frame = new JFrame("My Courses");
         frame.setSize(800, 600);
@@ -49,57 +48,56 @@ public class CourseList {
         directoryPath.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel.add(directoryPath);
         
-        MyCourses courseMethods = new MyCourses();
-		try {
-			ArrayList<Course> allCourses = courseMethods.getAllCourses(null);
-			int length = allCourses.size();
-			   
-		   for (int i = 0; i < length; i++) {
-			   System.out.println("Course 1 is " + allCourses.get(i).getCourseName());
-			   System.out.println("Instructor is " + allCourses.get(i).getCourseInstructor());
-		   }
-		} 
-		catch (FileNotFoundException e1) {
-			System.out.println("No Course Database");
-		}
-
-        JLabel category1 = new JLabel("CPE101-01");
-        category1.setBounds(50, 75, 150, 25);
-        category1.setFont(font);
-        category1.setForeground(Color.BLUE);
-        category1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        category1.addMouseListener(new MouseAdapter() {
-        	public void mouseClicked(MouseEvent e) {
-        		MyCourses myCourses = new MyCourses();
-        		
-        		Student exStudent = new Student();
-        		Course exCourse = new Course();
-        		
-        		int count = e.getClickCount();
-        		if (count == 1) {
-        			myCourses.viewTests(exCourse, exStudent);
-                    System.out.println("In CourseList.mouseClicked.");
-        			new TestList();
-        		}
-        	}
-        });
-        panel.add(category1);
-
-        JLabel course1 = new JLabel("Instructor: Gene Fisher");
-        course1.setBounds(75, 100, 250, 25);
-        course1.setFont(font1);
-        panel.add(course1);
-        
-        JLabel category2 = new JLabel("CPE308-01");
-        category2.setBounds(50, 175, 150, 25);
-        category2.setFont(font);
-        category2.setForeground(Color.BLUE);
-        category2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel.add(category2);
-
-        JLabel course2 = new JLabel("Instructor: Gene Fisher");
-        course2.setBounds(75, 200, 250, 25);
-        course2.setFont(font1);
-        panel.add(course2);
+        drawCourses(myCourses, panel, font, font1);
+	}
+	
+	public void drawCourses(ArrayList<Course> courses, JPanel panel, Font font, Font font1) {
+		ArrayList<JLabel> courseLinks = new ArrayList<JLabel>();
+		
+		int length = courses.size();
+		System.out.println("drawing courses, size is " + length);
+		   
+		for (int i = 0; i < length; i++) {
+			curXposition = 50;
+		   final Course course = courses.get(i);
+		   courseLinks.add(new JLabel(course.getCourseName()));
+		   courseLinks.get(i).setBounds(curXposition, curYposition, 150, 25);
+		   courseLinks.get(i).setFont(font);
+		   courseLinks.get(i).setForeground(Color.BLUE);
+		   courseLinks.get(i).setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		   courseLinks.get(i).addMouseListener(new MouseAdapter() {
+			   public void mouseClicked(MouseEvent e) {
+				   MyCourses myCourses = new MyCourses();
+				   Student exStudent = new Student();
+					
+				   int count = e.getClickCount();
+				   if (count == 1) {
+					   myCourses.viewTests(course, exStudent);
+					   System.out.println("In CourseList.mouseClicked.");
+					   new TestList();
+				   }
+			   }
+		   });
+		   panel.add(courseLinks.get(i));
+		   
+		   drawInstructor(courses, course, panel, font1);
+	   
+		   System.out.println("Course " + i + " is " + course.getCourseName());
+		   System.out.println("Instructor " + i + " is " + course.getCourseInstructor());
+	   }
+	}
+	
+	public void drawInstructor (ArrayList<Course> courses, Course curCourse, 
+			JPanel panel, Font font) {
+		
+		curXposition = 75;
+		curYposition += 25;
+		
+		JLabel instructorLabel = new JLabel(curCourse.getCourseInstructor());
+		instructorLabel.setBounds(curXposition, curYposition, 250, 25);
+		instructorLabel.setFont(font);
+      panel.add(instructorLabel);
+      
+      curYposition += 75;
 	}
 }

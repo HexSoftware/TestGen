@@ -19,6 +19,16 @@ public class ListOfTests {
 	* @param t - Test to add
 	* The test must not be the same as a test already in the userdb
      	*/
+	/*@
+		requires
+			(*
+			 * The specified Test is not already in the db
+			 *);
+		ensures
+			(*
+			 * The test is added to the db.
+			 *);
+	 */
 	public boolean add(Test t){
 		System.out.println("In ListOfTest.add.");
 		return true;
@@ -29,6 +39,16 @@ public class ListOfTests {
      	* @param t - Test to remove
 	* The given test must already be in the userdb
      	*/
+	/*@
+		requires
+			(*
+			 * The specified Test to exist in the db
+			 *);
+		ensures
+			(*
+			 * The test is removed from the database
+			 *);
+	 */
 	public boolean remove(Test t){
 		System.out.println("In ListOfTest.remove.");
 		return true;
@@ -39,8 +59,19 @@ public class ListOfTests {
      	* @param t - Test to open
 	*The given test must already be in the userdb
      	*/
+	/*@
+		requires
+			(*
+			 * The test to be in the db and not be open
+			 *);
+		ensures
+			(*
+			 * The test is available to the students
+			 *);
+	 */
 	public boolean open(Test t){
 		System.out.println("In ListOfTest.open.");
+		t.setTestParam("state", "Open");
 		return true;
 	}
 
@@ -49,8 +80,24 @@ public class ListOfTests {
      	* @param t - Test to close
 	*The given test must already be in the userdb
      	*/
+	/**
+	 * This method will add any options to the
+	 * collection of options that the Instructor
+	 * or Proctor specify
+	 */
+	/*@
+		requires
+			(*
+			 * The specified Test is in the db and is not closed already
+			 *);
+		ensures
+			(*
+			 * Test will be closed and not available to students
+			 *);
+	 */
 	public boolean close(Test t){
 		System.out.println("In ListOfTest.close.");
+		t.setTestParam("state", "Closed");
 		return true;
 	}
 	/**
@@ -58,18 +105,19 @@ public class ListOfTests {
  	* @param t - Test to close
 *The given test must already be in the userdb
  	*/
+	/*@
+		requires
+			(*
+			 * The specified Test is in the database
+			 *);
+		ensures
+			(*
+			 * The test will be graded
+			 *);
+	 */
 	public boolean grade(Test t){
+		t.setTestParam("state", "Graded");
 		System.out.println("In ListOfTest.grade.");
-		return true;
-	}
-
-    	/**
-     	* Method used in opening the options menu for the test.
-     	* @param t - Test to open options for
-	* The given test must already be in the userdb
-     	*/
-	 public boolean options(Test t){
-		System.out.println("In ListOfTest.options.");
 		return true;
 	}
 }

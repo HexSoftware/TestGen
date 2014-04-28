@@ -1,6 +1,6 @@
 /*
- * AutomaticGeneration class is used to generate tests using given
- * inputs
+ * ManualGeneration is used to a create a test by manually 
+ * selecting questions from a database
  * @author Grant Pickett
  * @version 4/26/2014
  */
@@ -14,17 +14,14 @@ import testtool.models.questiondb.Question;
 /**
  * This class manages manual generation of a test.
  */
-public class AutomaticGeneration {
+public class ManualGeneration {
    /**
     * The collection of questions in the test.
     */
    ArrayList<Question> questions;
-   /**
-    * The collection of other data for the test.
-    */
-   HashMap<String, String> settings = new HashMap<String, String>();
+   Collection<String>  settings;
    TestDatabase        tdb;
-   public AutomaticGeneration(TestDatabase td) {
+   public ManualGeneration(TestDatabase td) {
       tdb = td;
    }
    /**
@@ -43,13 +40,30 @@ public class AutomaticGeneration {
     * question list.
     */
    /*
-    * @ requires (* That question q is a vaild question.);
-    * @ ensures (* That a valid question is added to the databank.);
+    * @ requires (* That question q is a vaild question.); ensures (* That a
+    * valid question is added to the databank.);
+    * 
+    * @
     */
    void add(Question q) {
       System.out.println("in AutomaticGeneration.add");
       questions.add(q);
    }
+
+   /**
+    * edit allows changes to be applied to an existing Question q in the
+    * question list.
+    * 
+    * @param q
+    *           - question to edit
+    */
+   /*
+    * @ requires (* That a single question in the databank is selected, and that
+    * Question q is a valid question that is in the databank.); ensures (* That
+    * only one valid question is edited.);
+    * 
+    * @
+    */
 
    /**
     * remove takes a collection of Questions qs and removes them from the local
