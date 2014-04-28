@@ -16,10 +16,12 @@ public class QuestionDatabank {
 	public ArrayList<Filter> filters;
 	public QuestionEntry newestQ;
 	public Filter newestF;
+	public boolean qAdded;
 
 	public QuestionDatabank() {
 		questions = new ArrayList<QuestionEntry>();
 		filters = new ArrayList<Filter>();
+		qAdded = false;
 	}
 
 	/**
@@ -37,6 +39,7 @@ public class QuestionDatabank {
 		newestQ = qe;
 		//TODO: check is question is filtered upon creation;		
 		questions.add(qe);
+		qAdded = true;
 		System.out.println("In QuestionDatabank.add");
 	}
 
@@ -72,8 +75,8 @@ public class QuestionDatabank {
 	 * @
 	 */
 	public void remove(int[] indices) {
-		for (int i : indices) {
-			questions.remove(i);
+		for (int i = indices.length-1; i >= 0; i--) {
+			questions.remove(indices[i]);
 		}
 		System.out.println("In QuestionDatabank.remove");
 	}

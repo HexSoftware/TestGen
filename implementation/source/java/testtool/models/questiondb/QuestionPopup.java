@@ -8,7 +8,7 @@ package testtool.models.questiondb;
  * table view will be able to display.
  *
  * @author RJ Almada (rjalmada@calpoly.edu)
- * @version 14apr14
+ * @version 28apr14
  *
  */
 
@@ -17,6 +17,23 @@ public class QuestionPopup {
 	 * The Question that the popup is referring to
 	 */
 	Question question;
+	
+	/**
+	 * Constructor for creating QuestionPopup info
+	 * 
+	 * @param q - Question to be popped up
+	 */
+	/*@
+	  	requires
+	  		(* q to exist
+	  		 *);
+	  	ensures
+	  		(* a new popup with info is possible
+	  		 *);
+	@*/
+	public QuestionPopup(Question q) {
+		this.question = q;
+	}
 	
 	/**
 	 * This method will open the popup dialogue for
@@ -35,6 +52,7 @@ public class QuestionPopup {
 	public void displayQuestion() {
 		System.out.println("In QuestionPopup.displayQuestion.");
 	}
+	
 	/**
 	 * This method will close the popup dialogue for
 	 * the specified question

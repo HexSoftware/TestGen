@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * which will run and output a number from 0-100
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 27apr14
+ * @version 28apr14
  *
  */
 public class CodeQuestion extends Question {
@@ -22,19 +22,25 @@ public class CodeQuestion extends Question {
 	/**
 	 * The constructor will do data validation when creating a new Code
 	 * Question
+	 * 
 	 * @param qt - Question Text
 	 * @param auth - Question Author
-	 * @param lu - Last Used
 	 * @param course - Course
 	 * @param topics - Topics
-	 * @param time - Estimated Time
+	 * @param time - Estimated Completion Time
 	 * @param diff - Difficulty
 	 * @param path - Path to Instructor's Grading Script
 	 * @throws EmptyBoxException 
 	 */
 	/*@
-	 * requires (* all parameters to be passed in as non-null.); ensures (* a new question
-	 * is made and that all fields are non-null.);	  
+	 	requires 
+	 		(* all parameters to be passed in as non-empty
+	 		 * 0 <= diff <= 4
+	 		 * time >= 0
+	 		 *);
+	 	ensures 
+	 		(* a new question is made and that all fields are non-empty
+	 		 *);	  
 	 @*/
 	public CodeQuestion(String qt, String auth, String course,
 			ArrayList<String> topics, int time, int diff, String path) throws EmptyBoxException {

@@ -19,7 +19,7 @@ import testtool.views.commandmenu.CMBuilder;
 //import testtool.views.testdb.GenerateTypeGUI;
 
 /**
- * @author Neil Nordhof (nnordhof@calpoly.edu)
+ * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
  * @version 28apr14
  * 
  * The main view class for the Question Databank. 
@@ -63,7 +63,7 @@ public class QuestionDBFrame {
 				return qdb.questions.get(row).question.get(col);
 			}
 		};
-		dataModel.addTableModelListener(new DatabankDataListener());
+		//dataModel.addTableModelListener(new DatabankDataListener());
 		table = new JTable(dataModel);
 		table.setPreferredSize(new Dimension(700, 400));
 		
@@ -110,7 +110,10 @@ public class QuestionDBFrame {
 		addButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new AddQuestion(qdb);
+				new AddQuestion(qdb, dataModel);
+				//while (!qdb.qAdded);
+				//qdb.qAdded = false;
+				//dataModel.getTableModelListeners()[0].tableChanged(new TableModelEvent(dataModel, qdb.questions.size()));;
 				//dataModel.fireTableDataChanged();
 				//table.revalidate();
 				//TODO: find a way to listen for add question frame to be finished.
@@ -134,7 +137,7 @@ public class QuestionDBFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int[] i = table.getSelectedRows();
-				new RemoveFrame(qdb, i);
+				new RemoveFrame(qdb, i, dataModel);
 				System.out.println("136");
 				//dataModel.fireTableRowsDeleted(i[0], i[i.length-1]);
 			}
@@ -172,6 +175,7 @@ public class QuestionDBFrame {
 		frame.setVisible(true);
 	}
 
+	@SuppressWarnings("unused")
 	private class DatabankDataListener implements TableModelListener {
 		@Override
 		public void tableChanged(TableModelEvent e) {
