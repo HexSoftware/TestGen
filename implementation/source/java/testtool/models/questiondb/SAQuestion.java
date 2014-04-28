@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * matter for this question.
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 27apr14
+ * @version 28apr14
  *
  */
 public class SAQuestion extends Question {
@@ -20,18 +20,26 @@ public class SAQuestion extends Question {
 	
 	/**
 	 * The constructor will do data validation when creating a new Short Answer
-	 * @param qt
-	 * @param auth
-	 * @param course
-	 * @param topics
-	 * @param time
-	 * @param diff
-	 * @param ckws
+	 * Question
+	 * 
+	 * @param qt - Question Text
+	 * @param auth - Question Author
+	 * @param course - Course
+	 * @param topics - Topics
+	 * @param time - Estimated Completion Time
+	 * @param diff - Difficulty
+	 * @param ckws - Correct Keywords (unordered)
 	 * @throws EmptyBoxException
 	 */
 	/*@
-	 * requires (* all parameters to be passed in as non-null.); ensures (* a new question
-	 * is made and that all fields are non-null.);	  
+	 	requires 
+	 		(* all parameters to be passed in as non-empty
+	 		 * 0 <= diff <= 4
+	 		 * time >= 0
+	 		 *); 
+	 	ensures 
+	 		(* a new question is made and that all fields are non-empty
+	 		 *);	  
 	 @*/
 	public SAQuestion(String qt, String auth, String course,
 		ArrayList<String> topics, int time, int diff, ArrayList<String> ckws) throws EmptyBoxException {

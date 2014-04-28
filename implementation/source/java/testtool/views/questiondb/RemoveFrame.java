@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.table.AbstractTableModel;
 
 import testtool.models.questiondb.QuestionDatabank;
 
@@ -24,7 +25,7 @@ import testtool.models.questiondb.QuestionDatabank;
 @SuppressWarnings("serial")
 public class RemoveFrame extends JFrame {
 
-	public RemoveFrame(final QuestionDatabank qdb, final int[] indices) {
+	public RemoveFrame(final QuestionDatabank qdb, final int[] indices, final AbstractTableModel tm) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Warning!");
 		setLayout(new BorderLayout());
@@ -37,6 +38,7 @@ public class RemoveFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				qdb.remove(indices);
 				dispose();
+				tm.fireTableDataChanged();
 			}
 		});
 		bPanel.add(removeButton);

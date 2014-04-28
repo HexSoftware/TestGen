@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * instructor defined correct answers
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 27apr14
+ * @version 28apr14
  *
  */
 public class MCQuestion extends Question {
@@ -21,23 +21,32 @@ public class MCQuestion extends Question {
 	 * The collection of answers that are considered the
 	 * right answer by the Instructor
 	 */
-	ArrayList<Integer> correctAnswerIndexes;
+	ArrayList<Integer> correctAnswerIndices;
 
 	/**
 	 * The constructor will do data validation when creating a new Multiple Choice
-	 * @param qt
-	 * @param auth
-	 * @param course
-	 * @param topics
-	 * @param time
-	 * @param diff
-	 * @param pa
-	 * @param cai
+	 * Question
+	 * 
+	 * @param qt - Question Text
+	 * @param auth - Question Author
+	 * @param course - Course
+	 * @param topics - Topics
+	 * @param time - Estimated Completion Time
+	 * @param diff - Difficulty
+	 * @param pa - List of Possible Answers
+	 * @param cai - List of Indices
 	 * @throws EmptyBoxException
 	 */
 	/*@
-	 * requires (* all parameters to be passed in as non-null.); ensures (* a new question
-	 * is made and that all fields are non-null.);	  
+	 	requires 
+	 		(* all parameters to be passed in as non-empty
+	 		 * 0 <= diff <= 4
+	 		 * time >= 0
+	 		 * cai must have integers that are within the range of 0 -> pa.length-1
+	 		 *); 
+	 	ensures 
+	 		(* a new question is made and that all fields are non-empty
+	 		 *);	  
 	 @*/
 	public MCQuestion(String qt, String auth, String course,
 		ArrayList<String> topics, int time, int diff, ArrayList<String> pa,
