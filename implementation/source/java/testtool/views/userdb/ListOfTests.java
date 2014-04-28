@@ -225,8 +225,7 @@ static Object[][] data = {
    		public optionsListener(){
    		}
    		public void actionPerformed(ActionEvent e){
-   			lt.options(t);
-   			new testtool.views.userdb.TestSettings(t);
+  			new testtool.views.userdb.TestSettings(t);
    		}
    	}
     static class closeListener implements ActionListener {
