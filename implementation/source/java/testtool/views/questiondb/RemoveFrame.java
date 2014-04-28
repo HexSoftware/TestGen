@@ -24,7 +24,7 @@ import testtool.models.questiondb.QuestionDatabank;
 @SuppressWarnings("serial")
 public class RemoveFrame extends JFrame {
 
-	public RemoveFrame(final QuestionDatabank qdb) {
+	public RemoveFrame(final QuestionDatabank qdb, final int[] indices) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Warning!");
 		setLayout(new BorderLayout());
@@ -35,7 +35,7 @@ public class RemoveFrame extends JFrame {
 		removeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				qdb.remove();
+				qdb.remove(indices);
 				dispose();
 			}
 		});

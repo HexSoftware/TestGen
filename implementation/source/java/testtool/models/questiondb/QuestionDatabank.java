@@ -3,8 +3,8 @@ package testtool.models.questiondb;
 import java.util.ArrayList;
 
 /**
- * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 27apr14
+ * @author Neil Nordhof (nnordhof@calpoly.edu)
+ * @version 21apr14
  * 
  * The Question Bank is the main focus of the question database, and is the view
  * from section 2.3. It displays the list of questions, which is represented by
@@ -37,7 +37,7 @@ public class QuestionDatabank {
 		newestQ = qe;
 		//TODO: check is question is filtered upon creation;		
 		questions.add(qe);
-		System.out.println("In QuestionDatabank.add");
+		System.out.println("in QuestionDatabank.add");
 	}
 
 	/**
@@ -71,7 +71,10 @@ public class QuestionDatabank {
 	 * 
 	 * @
 	 */
-	public void remove() {
+	public void remove(int[] indices) {
+		for (int i : indices) {
+			questions.remove(i);
+		}
 		System.out.println("in QuestionDatabank.remove");
 	}
 
@@ -172,7 +175,7 @@ public class QuestionDatabank {
 			 *);
 		ensures
 			(*
-			 * That a valid questionEntry in the databank has its selection 
+			 * That a valid questionEntry in the databank has its selction 
 			 * toggled.
 			 *);
 	@*/
