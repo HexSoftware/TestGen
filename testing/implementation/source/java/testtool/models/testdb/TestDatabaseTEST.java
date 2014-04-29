@@ -12,6 +12,6 @@
  *                                                                      <p><li>
  *     Phase 4: Repeat phases 1 through 3.
  *                                                                      <p><li>
- *     Phase 5: Stress test by adding, removing and editing deleting 100000 items.
+ *     Phase 5: Stress test by adding, removing, editing and deleting 100000 items.
  *                                                                        </ul>
  */
