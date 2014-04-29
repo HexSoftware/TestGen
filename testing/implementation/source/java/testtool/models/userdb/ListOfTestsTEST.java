@@ -2,8 +2,9 @@ package testtool.models.userdb;
 
 /****
  *
- * Class ListOfTestsTEST is the companion testing class for
- * ListOfTests.  It implements the following module
+ * Class ListOfTestsTEST is the companion testing class  for 
+ * class <a href=TestSettings.html> TestSetting</a>. It 
+ * implements the following module
  * test plan:
  *									  <pre>
  *    Phase 1: Unit test the constructor.

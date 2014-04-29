@@ -3,7 +3,8 @@ package testtool.models.userdb;
 /****
  *
  * Class TestSettingsTEST is the companion testing class for 
- * TestSettings. It implements the following module
+ * class <a href=TestSettings.html> TestSetting</a>. It 
+ * implements the following module
  * test plan:
  *									  <pre>
  *    Phase 1: Unit test the constructor.
