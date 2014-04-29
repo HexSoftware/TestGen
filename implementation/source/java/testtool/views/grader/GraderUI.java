@@ -1,14 +1,26 @@
-package testtool.views.grader;
+    package testtool.views.grader;
+    import testtool.models.userdb.*;
+import testtool.models.testdb.*;
+import testtool.models.grader.*;
+import java.awt.*;
+import java.awt.event.*;
 
- 
-	import java.awt.*;
-	import java.awt.event.*;
-	import javax.swing.*;
-	import javax.swing.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
 	 
-	import java.util.*;
+import java.util.*;
 	 
-	public class Grading extends JFrame implements ListSelectionListener {
+
+/**
+ * @author Kevin Pham (kpham11@calpoly.edu)
+ * @version 26apr14
+ * 
+ * View class for the Grader User Interface
+ */
+
+	public class GraderUI extends JFrame implements ListSelectionListener {
+		private JFrame frame;
+		private GraderUI splitPaneDemo;
 	    private JLabel label;
 	    private JSplitPane splitPane;
 	    private static JSplitPane splitPane2,splitPane3, splitPane4;
@@ -18,7 +30,7 @@ package testtool.views.grader;
 	    private String[] questions = {"Question 1","Question 2","Question 3","Question 4","Question 5", "Question 6", "Question 7", "Question 8", "Question 9", "Question 10", "Question 11", "Question 12", "Question 13", "Question 14", "Question 15","Question 16"};
 	    private String[] answers = {"False            3/3","False            3/3","False            3/3","False            3/3","False            3/3","True             0/3"};
 	    
-	    public Grading() {
+	    public GraderUI() {
 	    	
 	        list = new JList(questions);
 	    	list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -68,6 +80,8 @@ package testtool.views.grader;
 	        buttons.add(FINISH);
 	        buttons.add(EXIT);
 	        SAVE.addActionListener(new saveListener());
+	        FINISH.addActionListener(new finishListener());
+	        EXIT.addActionListener(new exitListener());
 	        splitPane3 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                     splitPane2, buttons);
 	        splitPane3.setDividerLocation(550);
@@ -76,7 +90,7 @@ package testtool.views.grader;
                     splitPane, splitPane3);
 	        splitPane4.setDividerLocation(100);
 	        
-	        JOptionPane.showMessageDialog(null, "Your grading progress has been saved.");
+	        //JOptionPane.showMessageDialog(null, "Your grading progress has been saved.");
 	    }
 		
 		static class saveListener implements ActionListener {
@@ -85,6 +99,9 @@ package testtool.views.grader;
 			}
 			public void actionPerformed(ActionEvent e){
 				System.out.println("In grader.SaveProgress.");
+				Student student;
+				Test test = new Test();
+				new Grader().saveProgress(test);
 			}
 		}
 		
@@ -93,29 +110,41 @@ package testtool.views.grader;
 			public finishListener(){
 			}
 			public void actionPerformed(ActionEvent e){
+				try {
+					ReleaseOptionsUI frame = new ReleaseOptionsUI();
+					frame.setVisible(true);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				System.out.println("In grader.finishGrading.");
 			}
 		}
 		
-		static class exitListener implements ActionListener {
+	   class exitListener implements ActionListener {
 		
 			public exitListener(){
 			}
 			public void actionPerformed(ActionEvent e){
 				System.out.println("Exiting");
+				frame.dispose();
+				splitPaneDemo.dispose();
+				frame.dispose();
 			}
 		}
+		
+	
 	    
-	    private static void createAndShowGUI() {
+	    void createAndShowGUI() {
 	    	 
 	        //Create and set up the window.
-	        JFrame frame = new JFrame("SplitPaneDemo");
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        Grading splitPaneDemo = new Grading();
+	        frame = new JFrame("SplitPaneDemo");
+	        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	        GraderUI splitPaneDemo = new GraderUI();
 	        frame.getContentPane().add(splitPaneDemo.getSplitPane());
 	        //Display the window.
 	        frame.pack();
 	        frame.setVisible(true);
+	        
 	    }
 	    public JSplitPane getSplitPane() {
 	        return splitPane4;

@@ -1,5 +1,7 @@
 package testtool.models.grader;
 import testtool.models.testdb.Test;
+
+import java.util.ArrayList;
 import java.util.Collection;
 /**
  * The ReleaseOptions class is meant to be a dialogue to
@@ -9,7 +11,8 @@ import java.util.Collection;
  * questions, show all questions, etc.
  *
  * @author RJ Almada (rjalmada@calpoly.edu)
- * @version 14apr14
+ * @author Kevin Pham (kpham11@calpoly.edu)
+ * @version 27apr14
  *
  */
 
@@ -22,7 +25,12 @@ public class ReleaseOptions {
 	 * The collection of options chosen by the Instructor
 	 * or Proctor
 	 */
-	Collection<String> options;
+	private ArrayList<String> options;
+	
+	
+	public ReleaseOptions() {
+		options = new ArrayList<String>();
+	}
 	
 	/**
 	 * This method will add any options to the
@@ -39,8 +47,8 @@ public class ReleaseOptions {
 			 * An option is added to the collection of options
 			 *);
 	 */
-	void addOption(String option) {
-		System.out.println("In ReleaseOptions.addOption.");
+	public void addOption(String option) {
+		options.add(option);
 	}
 	/**
 	 * This method will remove any options from
@@ -58,6 +66,25 @@ public class ReleaseOptions {
 			 *);
 	 */
 	void removeOption(String option) {
-		System.out.println("In ReleaseOptions.removeOption.");
+		options.remove(option);
+	}
+	
+	/**
+	 * Finalizes the chosen options to release a test.
+	 */
+	/*@
+	requires
+		(*
+		 * Atleast one option has been selected
+		 *);
+	ensures
+		(*
+		 * Test will be given list of selected options
+		 *);
+ */
+	public void submitOptions() {
+		for(int i = 0; i<options.size(); i++) {
+			System.out.println(options.get(i));
+		}
 	}
 }
