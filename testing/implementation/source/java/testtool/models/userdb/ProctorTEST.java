@@ -2,7 +2,8 @@ package testtool.models.userdb;
 
 /****
  *
- * Class ProctorTEST is the companion testing class for Proctor.
+ * Class ProctorTEST is the companion testing class for 
+ * class <a href=Proctor.html> Proctor</a>. 
  *  It implements the following module
  * test plan:
  *									  <pre>
