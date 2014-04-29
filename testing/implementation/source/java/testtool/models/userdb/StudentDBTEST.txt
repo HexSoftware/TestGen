@@ -1,0 +1,16 @@
+rjalmada
+RJ Almada
+Courses 3
+CPE101-01
+CSC430-03
+ENGL310-03
+
+aqlam
+Alvin Lam
+Courses 1
+CPE101-01
+
+nrnord
+Neil Nordhof
+Courses 1
+ENGL310-03
