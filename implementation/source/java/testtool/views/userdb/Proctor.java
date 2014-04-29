@@ -117,7 +117,7 @@ public class Proctor {
 	    panel.add(testsButton);
 	    testsButton.addActionListener(new testsListener());
 
-	    JButton gradesButton = new JButton("Grades ");
+	    JButton gradesButton = new JButton("Grade  ");
 	    panel.add(gradesButton);
 	    
 	    gradesButton.setPreferredSize(new Dimension(1400, 100));
@@ -153,7 +153,7 @@ public class Proctor {
 			
 		}
 		public void actionPerformed(ActionEvent e){
-			proctor.grades();
+			proctor.grade();
 		}
 	}
 	static class optionsListener implements ActionListener {
