@@ -1,1 +1,16 @@
+testtool
+testtool.models
+testtool.models.commandmenu
+testtool.models.courses
+testtool.models.grader
+testtool.models.questiondb
 testtool.models.student
+testtool.models.testdb
+testtool.models.userdb
+testtool.views.commandmenu
+testtool.views.courses
+testtool.views.grader
+testtool.views.questiondb
+testtool.views.student
+testtool.views.testdb
+testtool.views.userdb

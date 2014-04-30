@@ -52,10 +52,10 @@ public class Proctor {
 		 *);
 	ensures
 		(*
-		 * accesses student grades
+		 * retrieves test that need to be graded.
 		 *);
  */
-	public void grades(){
+	public void grade(){
 		System.out.println("In Proctor.grades.");
 	}
 }

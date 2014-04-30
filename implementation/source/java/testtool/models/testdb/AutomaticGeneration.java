@@ -23,20 +23,25 @@ public class AutomaticGeneration {
     * The collection of other data for the test.
     */
    HashMap<String, String> settings = new HashMap<String, String>();
+   /**
+    * The Test Database class used through the applicaton.
+    */
    TestDatabase        tdb;
+   /*
+    * This constructor connects the local reference to a testdatabase to the application's testdatabase.  
    public AutomaticGeneration(TestDatabase td) {
       tdb = td;
    }
    /**
-    * gets input from instructor and saves it to the settings variable
+    * Gets input from instructor and saves it to the settings variable
     */
    /*
     * @ ensures (* That settings are setup with the input information);
     * 
     * @
     */
-   public void getParams() {
-      System.out.println("in AutomaticGeneration.getParams");
+   public void setParams() {
+      System.out.println("in AutomaticGeneration.setParams");
    };
    /**
     * add takes a question from the add a question dialog, and adds it into the
@@ -55,8 +60,8 @@ public class AutomaticGeneration {
     * remove takes a collection of Questions qs and removes them from the local
     * test.
     * 
-    * @param qs
-    *           - question(s) to remove
+    * @param q
+    *           - question to remove
     */
    /*
     * @ requires (* That a one or more questions in the databank are selected.
@@ -76,7 +81,7 @@ public class AutomaticGeneration {
     * @ requires (* There is at least one question in the test); ensures (* The
     * test is stored in the test database and the user is sent there.);
     * 
-    * @
+    * @ enures (* A new test will be added to the testdatabase.
     */
    public void generate() {
       System.out.println("in AutomaticGeneration.generate");

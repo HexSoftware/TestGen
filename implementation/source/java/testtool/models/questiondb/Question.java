@@ -4,7 +4,8 @@ import java.util.ArrayList;
  * The Question class is the superclass of all question types
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 27apr14
+ * @version 28apr14
+ * 
  */
 public class Question {
 	/**
@@ -44,6 +45,22 @@ public class Question {
 	 */
 	public String type;
 	
+	/**
+	 * This method is meant allow other classes to get the parameter information.
+	 * 
+	 * @param i - option for what information you want returned
+	 * @return - the parameter you chose to get in String form
+	 */
+	/*@
+	 	requires
+	 		(*
+	 		 * 0 <= i <= 7
+	 		 *);
+	 	ensures
+	 		(*
+	 		 * A string is returned
+	 		 *);
+	 @*/
 	public String get(int i) {
 		switch (i) {
 		case 0: return course;

@@ -17,13 +17,14 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.AbstractTableModel;
 
 import testtool.models.questiondb.*;
 
 /**
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 27apr14
+ * @version 28apr14
  *
  */
 public class AddQuestion extends JMenuBar {
@@ -35,7 +36,7 @@ public class AddQuestion extends JMenuBar {
     /**
      * Creates new form NewJPanel
      */
-    public AddQuestion(final QuestionDatabank qdb) {
+    public AddQuestion(final QuestionDatabank qdb, final AbstractTableModel tm) {
     	frame = new JFrame("QuestionDB");
     	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setJMenuBar(this);
@@ -48,6 +49,7 @@ public class AddQuestion extends JMenuBar {
         EQPanel.setVisible(false);
         GQPanel.setVisible(false);
         CQPanel.setVisible(false);
+        frame.pack();
         
         CancelButton.addActionListener(new ActionListener() {
         	@Override
@@ -115,6 +117,7 @@ public class AddQuestion extends JMenuBar {
 				catch (NumberFormatException e) {
 					JOptionPane.showMessageDialog(frame, "Estimated Time must be a number.");
 				}
+				tm.fireTableDataChanged();
 			}
 		});
         
@@ -770,7 +773,7 @@ public class AddQuestion extends JMenuBar {
           }  
             
           oldQTItem = newItem;
-          
+          frame.pack();
     }//GEN-LAST:event_QuestionTypeActionPerformed
 
     private void ImagePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImagePathActionPerformed
