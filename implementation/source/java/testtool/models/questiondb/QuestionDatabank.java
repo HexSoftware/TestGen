@@ -2,9 +2,11 @@ package testtool.models.questiondb;
 
 import java.util.ArrayList;
 
+import testtool.views.questiondb.QuestionDBFrame;
+
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 28apr14
+ * @version 7may14
  * 
  * The Question Bank is the main focus of the question database, and is the view
  * from section 2.3. It displays the list of questions, which is represented by
@@ -13,15 +15,17 @@ import java.util.ArrayList;
  */
 public class QuestionDatabank {
 	public ArrayList<QuestionEntry> questions;
+	public ArrayList<QuestionEntry> filteredQs;
 	public ArrayList<Filter> filters;
 	public QuestionEntry newestQ;
 	public Filter newestF;
-	public boolean qAdded;
+	public QuestionDBFrame qdbf;
 
-	public QuestionDatabank() {
+	public QuestionDatabank(QuestionDBFrame qdbf) {
 		questions = new ArrayList<QuestionEntry>();
+		filteredQs = new ArrayList<QuestionEntry>();
 		filters = new ArrayList<Filter>();
-		qAdded = false;
+		this.qdbf = qdbf;
 	}
 
 	/**
@@ -35,11 +39,18 @@ public class QuestionDatabank {
 	 * @
 	 */
 	public void add(Question q) {
-		QuestionEntry qe = new QuestionEntry(q, false, false);
-		newestQ = qe;
-		//TODO: check is question is filtered upon creation;		
-		questions.add(qe);
-		qAdded = true;
+		ArrayList<Filter> qFils = new ArrayList<Filter>();
+		for (Filter f : filters) {
+			if(checkFiltered(f, q)) {
+				qFils.add(f);
+			}
+		}
+		QuestionEntry qe = new QuestionEntry(q, false, qFils);
+		newestQ = qe;		
+		if (qFils.isEmpty())
+			questions.add(qe);
+		else
+			filteredQs.add(qe);
 		System.out.println("In QuestionDatabank.add");
 	}
 
@@ -119,6 +130,22 @@ public class QuestionDatabank {
 	 * @
 	 */
 	public void filter(Filter fil) {
+		for (int i = filteredQs.size() - 1; i >= 0; i--) {
+			QuestionEntry qe = filteredQs.get(i);
+			if (checkFiltered(fil, qe.question))
+				qe.filters.add(fil);
+		}
+		for (int i = questions.size() - 1; i >= 0; i--) {
+			QuestionEntry qe = questions.get(i);
+			if (checkFiltered(fil, qe.question)) {
+				qe.filters.add(fil);
+			}
+			else {
+				questions.remove(qe);
+				filteredQs.add(qe);
+			}
+		}
+		filters.add(fil);
 		newestF = fil;
 		System.out.println("In QuestionDatabank.filter");
 	}
@@ -139,7 +166,60 @@ public class QuestionDatabank {
 	 * @
 	 */
 	public void unfilter(Filter fil) {
+		filters.remove(fil);
+		for (int i = questions.size() - 1; i >= 0; i--) {
+			QuestionEntry qe = questions.get(i);
+			if (qe.filters.contains(fil))
+				qe.filters.remove(fil);
+		}
+		for (int i = filteredQs.size() - 1; i >= 0; i--) {
+			QuestionEntry qe = filteredQs.get(i);
+			if (qe.filters.contains(fil))
+				qe.filters.remove(fil);
+			if (qe.filters.size() == filters.size()) {
+				filteredQs.remove(qe);
+				questions.add(qe);
+			}
+		}
 		System.out.println("in QuestionDatabank.unfilter");
+	}
+	
+	private boolean checkFiltered(Filter f, Question q) {
+		switch (f.category.title) {
+		case "Course" :
+			if (f.keyword.equals(q.course)) 
+				return true;
+			break;
+		case "Topic" :
+			for (String s : q.topics) {
+				if (f.keyword.equals(s))
+					return true;
+			}
+			break;
+		case "Type" :
+			if (f.keyword.equals(q.type)) 
+				return true;
+			break;
+		case "Difficulty" :
+			if (f.keyword.equals(Integer.toString(q.difficulty))) 
+				return true;
+			break;
+		case "Time" :
+			if (f.keyword.equals(Integer.toString(q.time)))
+				return true;
+			break;
+		case "Last Used" :
+			if (f.keyword.equals(q.lastUsed))
+				return true;
+			break;
+		case "Author" :
+			if (f.keyword.equals(q.author))
+				return true;
+			break;			
+		default :
+			System.out.println("Shouldn't get here");
+		}
+		return false;
 	}
 	
 	/**
