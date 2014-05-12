@@ -1,8 +1,10 @@
 package testtool.models.questiondb;
 
+import java.util.ArrayList;
+
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 21apr14
+ * @version 30apr14
  * 
  * QuestionEntry is a modified version of a Question, that adds a boolean and
  * an int to help manage QuestionList interactions. The component selected is 
@@ -12,12 +14,10 @@ package testtool.models.questiondb;
  */
 public class QuestionEntry {
 	public Question question;
-	public boolean selected;
-	public boolean filtered;
+	public ArrayList<Filter> filters;
 	
-	public QuestionEntry(Question q, boolean s, boolean f) {
+	public QuestionEntry(Question q, boolean s, ArrayList<Filter> f) {
 		question = q;
-		selected = s;
-		filtered = f;
+		filters = f;
 	}
 }
