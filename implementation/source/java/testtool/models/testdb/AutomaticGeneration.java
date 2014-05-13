@@ -2,7 +2,7 @@
  * AutomaticGeneration class is used to generate tests using given
  * inputs
  * @author Grant Pickett
- * @version 4/26/2014
+ * @version 5/13/2014
  */
 
 package testtool.models.testdb;
@@ -15,7 +15,10 @@ import testtool.models.questiondb.Question;
  * This class manages manual generation of a test.
  */
 public class AutomaticGeneration {
-   /**
+	public AutomaticGeneration(TestDatabase td) {
+		
+	}
+	/**
     * The collection of questions in the test.
     */
    ArrayList<Question> questions;
