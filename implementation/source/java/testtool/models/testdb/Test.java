@@ -49,4 +49,20 @@ public class Test {
    public ArrayList<Question> getQuestionList() {
       return questionList;
    }
+  public String toString(){
+
+    StringBuilder sb = new StringBuilder(); 
+    sb.append("test");
+    for (Map.Entry<Integer, Long> entry : testParams.entrySet()) {
+      sb.append("key: " + entry.getKey() + " value: "
+       + entry.getValue()); 
+      sb.append("\n"); 
+    }
+    sb.append("questions");
+    for (Question entry : questionList. {
+      sb.append(entry.toString()); 
+      sb.append("\n"); 
+    }
+    sb.append("endtest");
+  }
 }
