@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * The Question class is the superclass of all question types
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 28apr14
+ * @version 12may14
  * 
  */
 public class Question {
@@ -79,5 +79,15 @@ public class Question {
 	 	default: return "error: invalid field";
 	 	}
 	 }
+
+	@Override
+	public String toString() {
+		return "questionText=" + questionText + ", author=" + author
+				+ ", lastUsed=" + lastUsed + ", course=" + course + ", topics="
+				+ topics + ", time=" + time + ", difficulty=" + difficulty
+				+ ", type=" + type;
+	}
+	
+	
 	
 }
