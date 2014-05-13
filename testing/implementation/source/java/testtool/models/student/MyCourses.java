@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import testtool.models.userdb.*;
 import testtool.models.courses.*;
-import testtool.views.courses.CourseList;
+
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu)
@@ -17,6 +17,10 @@ import testtool.views.courses.CourseList;
  * derived from Section 2.1.3 of the requirements.
  */
  public class MyCourses {
+   /**
+    * The current student user
+   */
+   Student user;
    
    /**
     * Scans the CourseDB.txt and returns an arraylist of all the courses
@@ -78,7 +82,6 @@ import testtool.views.courses.CourseList;
 			System.out.println("No Course Database");
 		}
 		
-   	new CourseList(studentCourses);
       System.out.println("In MyCourses.viewCourses.");
    }
 }
