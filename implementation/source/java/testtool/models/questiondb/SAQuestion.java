@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * matter for this question.
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 28apr14
+ * @version 12may14
  *
  */
 public class SAQuestion extends Question {
@@ -74,4 +74,11 @@ public class SAQuestion extends Question {
 		}
 		this.type = "SA";
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + ", correctKWs=" + correctKWs;
+	}
+	
+	
 }

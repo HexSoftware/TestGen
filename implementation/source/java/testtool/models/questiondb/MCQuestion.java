@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * instructor defined correct answers
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 28apr14
+ * @version 12may14
  *
  */
 public class MCQuestion extends Question {
@@ -83,8 +83,18 @@ public class MCQuestion extends Question {
 		
 		if (cai.isEmpty()) {
 			throw new EmptyBoxException("There must be at least one correct answer.");
+		} else {
+			this.correctAnswerIndices = cai;
 		}
 		
 		this.type = "MC";
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + ", possibleAnswers=" + possibleAnswers
+				+ ", correctAnswerIndices=" + correctAnswerIndices;
+	}
+	
+	
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * order of those words in the answer
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 28apr14
+ * @version 12may14
  *
  */
 public class EssayQuestion extends Question {
@@ -75,4 +75,11 @@ public class EssayQuestion extends Question {
 		}
 		this.type = "Essay";
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + ", correctKWs=" + correctKWs;
+	}
+	
+	
 }
