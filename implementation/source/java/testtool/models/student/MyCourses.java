@@ -78,7 +78,7 @@ import testtool.views.courses.CourseList;
 			System.out.println("No Course Database");
 		}
 		
-   	new CourseList(studentCourses);
+   	new CourseList(student, studentCourses);
       System.out.println("In MyCourses.viewCourses.");
    }
 }
