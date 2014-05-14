@@ -134,11 +134,6 @@ public class TestDatabaseGUI {
             guiPanel.add(fields);
             guiPanel.add(buttonPanel, gbc);
             guiPanel.add(fields3, gbc);
-
-            tdb.getTest("uniqueId", "NOT");
-            tdb.getTest("uniqueId", "TEST");
-            tdb.getTest("uniqueId", "FAKE");
-            tdb.getTest("null", "BAD");
             guiFrame.add(guiPanel, BorderLayout.NORTH);
             // guiFrame.setJMenuBar(Menu());
             guiFrame.setVisible(true);

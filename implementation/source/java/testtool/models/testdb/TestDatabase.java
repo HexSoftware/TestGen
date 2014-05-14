@@ -38,7 +38,6 @@ public class TestDatabase {
         	  System.out.println("found new test");
         	  questions = new ArrayList<Question>();
         	  params = new HashMap<String, String>();
-        	  idPos+=1;
           }
           else {
         	  if(line.contains("endtest")){
@@ -51,12 +50,9 @@ public class TestDatabase {
 	          if(parts[0]!= null ) {
 	        	  if(parts[0].equals("key:")){
 	        	  System.out.println("found new param");
-	        	 //params.put(parts[1], parts[3]);
+	        	  params.put(parts[1], parts[3]);
 	        	  }
 	        	  else {
-	        		  if(parts[0].equals("]") || parts[0].equals(",")){
-	        			  continue;
-	        		  }
 		        	  System.out.println("found new question" + parts[0]);
 		        	  //questions.add(QuestionDatabank.parseQuestion(line));
 		          }
@@ -77,10 +73,9 @@ public class TestDatabase {
     */
    public void createTest(HashMap<String, String> data,
       ArrayList<Question> questionL) {
-      idPos += 1;
-      data.put("uniqueId", idPos.toString());
       final Test newTest = new Test(data, questionL);
-      TestDatabase.tests.add(newTest);
+      tests.add(newTest);
+      idPos+=1;
       System.out.println("in TestDatabase.createTest");
       save();
    }
@@ -97,6 +92,9 @@ public class TestDatabase {
       System.out.println("in TestDatabase.editTest");
       save();
       //
+   }
+   public Integer getIdPos(){
+	   return idPos;
    }
    /*
     * @ requires // // column && data strings when null will return bad data.
@@ -178,16 +176,16 @@ public class TestDatabase {
        */
   public void save(){
    Charset charset = Charset.forName("US-ASCII");
-    String data = tests.toString();
     StringBuilder sb = new StringBuilder(); 
     for (Test t : tests) {
       sb.append(t.toString()); 
-      sb.append("\n"); 
+      sb.append("\n");
+      System.out.println(sb.toString());
     }
     File file = new File("database.txt");
     try (BufferedWriter writer = new BufferedWriter(
     		new FileWriter(file.getAbsoluteFile()))) {
-      writer.write(data, 0, data.length());
+      writer.write(sb.toString(), 0, sb.length());
     } catch (IOException x) {
       System.err.format("IOException: %s%n", x);
     }

@@ -7,7 +7,6 @@
 
 package testtool.models.testdb;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import testtool.models.questiondb.Question;
@@ -90,6 +89,7 @@ public class AutomaticGeneration {
       System.out.println("in AutomaticGeneration.generate");
       HashMap<String, String> data = new HashMap<String, String>();
       data.put("state", "unscheduled");
+      data.put("uniqueId", tdb.getIdPos().toString());
       tdb.createTest(data, questions);
    }
 }
