@@ -12,6 +12,8 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,6 +28,7 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import testtool.models.questiondb.Question;
 import testtool.models.testdb.AutomaticGeneration;
 import testtool.models.testdb.TestDatabase;
 
@@ -37,6 +40,30 @@ public class GeneratingGUI {
    }
    AutomaticGeneration ag = null;
    TestDatabase        tdb;
+   JLabel classlabel = new JLabel("Class:");
+   JLabel authorlabel = new JLabel("Author:");
+   JLabel lastUsedlabel = new JLabel("Last Used Before:");
+   JLabel difficultylabel = new JLabel("Difficulty:");
+   JLabel typelabel = new JLabel("Question Types:");
+   JLabel amntlabel = new JLabel("Question Amount:");
+   JLabel timeSlabel = new JLabel("Start Time:");
+   JLabel timeTlabel = new JLabel("Total Time:");
+   JLabel titlelabel = new JLabel("Test Title:");
+   JLabel keylabel = new JLabel("Keywords:");
+   JLabel additionallabel = new JLabel("Extra Information:");
+   JLabel pointslabel = new JLabel("Points:");
+   JPanel fields = new JPanel(new BorderLayout());
+   JTextField pointsField = new JTextField(20);
+   JTextField diffField = new JTextField(20);
+   JTextField keyField = new JTextField(20);
+   JTextField typeField = new JTextField(20);
+   JTextField amntField = new JTextField(20);
+   JTextField startField = new JTextField(20);
+   JTextField totalField = new JTextField(20);
+   JTextField lastUsedField = new JTextField(20);
+   JTextField additField = new JTextField(20);
+   JTextField titleField = new JTextField(20);
+   
    public GeneratingGUI(TestDatabase td) {
       ag = new AutomaticGeneration(td);
       tdb = td;
@@ -68,29 +95,6 @@ public class GeneratingGUI {
             guiFrame.setTitle("Generating A Test");
             guiFrame.setSize(400, 400);
             guiFrame.setLocationRelativeTo(null);
-            JLabel classlabel = new JLabel("Class:");
-            JLabel authorlabel = new JLabel("Author:");
-            JLabel lastUsedlabel = new JLabel("Last Used Before:");
-            JLabel difficultylabel = new JLabel("Difficulty:");
-            JLabel typelabel = new JLabel("Question Types:");
-            JLabel amntlabel = new JLabel("Question Amount:");
-            JLabel timeSlabel = new JLabel("Start Time:");
-            JLabel timeTlabel = new JLabel("Total Time:");
-            JLabel titlelabel = new JLabel("Test Title:");
-            JLabel keylabel = new JLabel("Keywords:");
-            JLabel additionallabel = new JLabel("Extra Information:");
-            JLabel pointslabel = new JLabel("Points:");
-            JPanel fields = new JPanel(new BorderLayout());
-            JTextField pointsField = new JTextField(20);
-            JTextField diffField = new JTextField(20);
-            JTextField keyField = new JTextField(20);
-            JTextField typeField = new JTextField(20);
-            JTextField amntField = new JTextField(20);
-            JTextField startField = new JTextField(20);
-            JTextField totalField = new JTextField(20);
-            JTextField lastUsedField = new JTextField(20);
-            JTextField additField = new JTextField(20);
-            JTextField titleField = new JTextField(20);
             GridBagConstraints gbc = new GridBagConstraints();
 
             gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -186,7 +190,28 @@ public class GeneratingGUI {
       }
       @Override
       public void actionPerformed(ActionEvent e) {
-         ag.generate();
+    	 HashMap<String, String> params = new HashMap<String, String>();
+    	 if(pointsField.getText() != null && !pointsField.getText().equals(""))    	 params.put("totalPoints", pointsField.getText());
+    	 if(titleField.getText() != null&& !titleField.getText().equals(""))    	 params.put("testTitle", titleField.getText());
+    	 params.put("author", "gfisher");
+    	 if(lastUsedField.getText() != null&& !lastUsedField.getText().equals(""))params.put("lastUsed", lastUsedField.getText());
+         //params.put("totalQuestions",);
+         //params.put("totalPoints",);
+    	 if(totalField.getText() != null&& !totalField.getText().equals("")) params.put("totalTime", totalField.getText());
+    	 if(diffField.getText() != null&& !diffField.getText().equals("")) params.put("avgDifficulty", diffField.getText());
+         //params.put("notes", );
+         //params.put("course",);
+         //params.put("gradeType", );
+         //params.put("password", );
+         //params.put("startDate",);
+         //params.put("endDate", );
+    	 if(startField.getText() != null && !startField.getText().equals(""))         params.put("startTime", startField.getText());
+    	 if(totalField.getText() != null && !totalField.getText().equals(""))         params.put("endTime", totalField.getText());
+    	 if(typeField.getText() != null && !typeField.getText().equals(""))         params.put("testType", typeField.getText());
+         ArrayList<Question> questions =  new ArrayList<Question>();
+		//params.put("testCategory",);
+         //params.put("testCaregoryNumber", );  
+         ag.generate(params, questions);
          new TestCreationResultGUI(tdb);
       }
    }

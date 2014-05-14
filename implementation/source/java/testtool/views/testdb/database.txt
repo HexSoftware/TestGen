@@ -1,26 +1,20 @@
 begintest 
-key: state value: unscheduled 
-key: uniqueId value: 1 
-endtest
-begintest 
-key: state value: unscheduled 
-key: uniqueId value: 2 
+key: startTime value: 2 
+key: testTitle value: 1 
+key: author value: gfisher 
+key: testType value: 4 
+key: avgDifficulty value: 6 
+key: endTime value: 3 
+key: lastUsed value: 8 
+key: totalTime value: 3 
+key: totalPoints value: 7 
 endtest 
+
 begintest 
-key: state value: scheduled
-key: uniqueId value: 3 
-key: author value: gpickett 
-key: lastUsed value: 3/3/2010 
-key: totalQuestions value: 11 
-key: totalPoints value: 93 
-key: totalTime value: 199 
-key: avgDifficulty value: 3 
-key: password value: no 
-key: startDate value: 3/2/14 
-key: endDate value: 3/3/14 
-key: startTime value: 10:11
-key: endTime value: 12:34 
-key: testType value: Midterm
-key: testCategory value: STUFF 
-key: testCaregoryNumber value: 1
-endtest
+key: author value: gfisher 
+endtest 
+
+begintest 
+key: author value: gfisher 
+endtest 
+
