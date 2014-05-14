@@ -12,6 +12,9 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -43,7 +46,7 @@ public class TestSettings {
 	static public testtool.models.userdb.TestSettings ts;
 	static JTextField startDateField, endDateField, startTimeField, endTimeField, notesTextField,
 		passwordTextField;
-	static JComboBox gradingTypeList, testTypeList;
+	static JComboBox gradingTypeList, testTypeList, passwordTypeList;
     public TestSettings(Test t) {
     	ts  = new testtool.models.userdb.TestSettings(t);
         EventQueue.invokeLater(new Runnable() {
@@ -60,8 +63,11 @@ public class TestSettings {
               testTypeList.setSelectedItem(ts.getType());
              // testTypeList.addActionListener(this);
               
-              JComboBox passwordTypeList = new JComboBox(ynTypes);
-              passwordTypeList.setSelectedIndex(1);
+              passwordTypeList = new JComboBox(ynTypes);
+              if(ts.getPass() == null || ts.getPass().equalsIgnoreCase(""))
+            	  passwordTypeList.setSelectedIndex(1);
+              else
+            	  passwordTypeList.setSelectedIndex(0);
               
               JComboBox startDateTypeList = new JComboBox(amPm);
               startDateTypeList.setSelectedIndex(0);
@@ -95,6 +101,7 @@ public class TestSettings {
 
                 JLabel passwordLabel = new JLabel("Password Required");
                 passwordTextField = new JPasswordField(15);
+                passwordTextField.setText(ts.getPass());
                               
                 JLabel gradingLabel = new JLabel("Grading");
                 
@@ -239,17 +246,46 @@ public class TestSettings {
           menuBar.add(viewMenu);
           return menuBar;     
     }
+    final static String DATE_FORMAT = "MMM dd, yyyy";
+    final static String TIME_FORMAT = "HH:mm";
+
+    public static boolean isDateValid(String date) {
+          try {
+        	  DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+              df.setLenient(false);
+              df.parse(date);
+              return true;
+          } catch (ParseException e) {
+              return false;
+          }
+    }
+    public static boolean isTimeValid(String time) {
+        try {
+      	  DateFormat df = new SimpleDateFormat(TIME_FORMAT);
+            df.setLenient(false);
+            df.parse(time);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+  }
     static class publishListener implements ActionListener {
       		public publishListener(){
       			
       		}
-      		public void actionPerformed(ActionEvent e){
-      			//System.exit(0);
-      			ts.publish(startDateField.getText(), endDateField.getText(), startTimeField.getText(), 
-      					endTimeField.getText(), notesTextField.getText(),
-      					passwordTextField.getText(),testTypeList.getSelectedItem().toString(), gradingTypeList.getSelectedItem().toString());
+      		public void actionPerformed(ActionEvent e){     				
+      			if(isDateValid(startDateField.getText()) && isDateValid(startDateField.getText()) &&
+      					isTimeValid(startTimeField.getText()) && isTimeValid(endTimeField.getText()) &&
+      					!notesTextField.getText().equalsIgnoreCase("")){
+      				if(passwordTextField.getText().equalsIgnoreCase("") && passwordTypeList.getSelectedItem().toString().equalsIgnoreCase("yes"));
+      				else{
+      					ts.publish(startDateField.getText(), endDateField.getText(), startTimeField.getText(), 
+      							endTimeField.getText(), notesTextField.getText(), passwordTextField.getText(),
+      							testTypeList.getSelectedItem().toString(), gradingTypeList.getSelectedItem().toString());
+      					guiFrame.dispose();
+      				}
       			
-      			guiFrame.dispose();
+      			}
       		}
       	}
 }
