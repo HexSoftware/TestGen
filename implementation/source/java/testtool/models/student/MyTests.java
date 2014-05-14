@@ -3,6 +3,7 @@ import testtool.models.testdb.*;
 import testtool.models.courses.*;
 
 import java.util.Collection;
+import java.util.ArrayList;
 
 import testtool.models.userdb.*;
 
@@ -28,6 +29,16 @@ import testtool.models.userdb.*;
    * The course the student is currently viewing.
    */
   Course course;
+  
+  public String getSmallestCategoryNum(ArrayList<Test> tests) {
+	  String smallest = tests.get(0).getTestParam("testCategoryNum");
+	  for (int i = 0; i < tests.size(); i++) {
+		  if (tests.get(i).getTestParam("testCategoryNum").compareTo(smallest) < 0) {
+			  smallest = tests.get(i).getTestParam("testCategoryNum");
+		  }
+	  }
+	  return smallest;
+  }
   
   /**
    * Displays a list of tests in a course.

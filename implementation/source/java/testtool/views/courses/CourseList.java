@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import testtool.models.student.MyTests;
 import testtool.models.userdb.Student;
 import testtool.models.courses.Course;
 import testtool.views.student.*;
@@ -26,7 +25,7 @@ public class CourseList {
 	private int curXposition = 50;
 	private int curYposition = 75;
 	
-	public CourseList(ArrayList<Course> myCourses) {
+	public CourseList(Student student, ArrayList<Course> myCourses) {
 		
 		JFrame frame = new JFrame("My Courses");
         frame.setSize(800, 600);
@@ -36,7 +35,6 @@ public class CourseList {
         //frame.add(panel);
         
         frame.setVisible(true);
-        
         panel.setLayout(null);
         
         Font font = new Font("Calibri", Font.BOLD, 24);
@@ -49,7 +47,7 @@ public class CourseList {
         directoryPath.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel.add(directoryPath);
         
-        drawCourses(myCourses, panel, font, font1);
+        drawCourses(student, myCourses, panel, font, font1);
         
         panel.setPreferredSize(new Dimension(500,curYposition));
         JScrollPane scrollPane = new JScrollPane(panel);
@@ -57,7 +55,7 @@ public class CourseList {
         frame.add(scrollPane);
 	}
 	
-	public void drawCourses(ArrayList<Course> courses, JPanel panel, Font font, Font font1) {
+	public void drawCourses(final Student curStudent, ArrayList<Course> courses, JPanel panel, Font font, Font font1) {
 		ArrayList<JLabel> courseLinks = new ArrayList<JLabel>();
 		
 		int length = courses.size();
@@ -73,14 +71,11 @@ public class CourseList {
 		   courseLinks.get(i).setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		   courseLinks.get(i).addMouseListener(new MouseAdapter() {
 			   public void mouseClicked(MouseEvent e) {
-			   	MyTests testList = new MyTests();
-				   Student exStudent = new Student();
-					
+
 				   int count = e.getClickCount();
 				   if (count == 1) {
-					   testList.viewTests(course, exStudent);
 					   System.out.println("In CourseList.mouseClicked.");
-					   new TestList(course.getCourseName());
+					   new TestList(curStudent, course.getCourseName());
 				   }
 			   }
 		   });

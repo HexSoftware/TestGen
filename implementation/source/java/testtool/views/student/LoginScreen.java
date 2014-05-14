@@ -109,6 +109,7 @@ public class LoginScreen {
    		failedMessage.setFont(font);
    		failedMessage.setForeground(Color.RED);
          panel.add(failedMessage);
+         panel.revalidate();
     	}
    }
 }

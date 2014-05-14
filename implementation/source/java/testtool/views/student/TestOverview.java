@@ -106,7 +106,7 @@ public class TestOverview {
         		if (count == 1) {
         			overview.checkPassword("password");
         			overview.beginTest(null);
-        			new Midterm1();
+        			//new Midterm1();
         		}
         	}
         });
