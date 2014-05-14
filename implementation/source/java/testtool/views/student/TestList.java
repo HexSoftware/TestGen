@@ -2,6 +2,7 @@ package testtool.views.student;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.*;
@@ -19,26 +20,31 @@ import java.awt.event.*;
  * to display. A test can be selected to view its test overview.
  */
 public class TestList {
+	private int curYposition = 75;
 	
-	public TestList() {
+	public TestList(String courseName) {
 		JFrame frame = new JFrame("Tests");
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
         frame.add(panel);
-        placeComponents(panel, frame);
+        placeComponents(panel, frame, courseName);
 
         frame.setVisible(true);
+        panel.setPreferredSize(new Dimension(500,curYposition));
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setPreferredSize(new Dimension(800, 600));
+        frame.add(scrollPane);
 	}
 
-    private static void placeComponents(JPanel panel, JFrame frame) {
+    private static void placeComponents(JPanel panel, JFrame frame, String myCourse) {
         panel.setLayout(null);
         
         Font font = new Font("Calibri", Font.BOLD, 24);
         Font font1 = new Font("Calibri", Font.PLAIN, 18);
         
-        JLabel directoryPath = new JLabel("My Classes > CPE101-01A");
+        JLabel directoryPath = new JLabel("My Classes > " + myCourse);
         directoryPath.setBounds(20, 20, 500, 25);
         directoryPath.setFont(font1);
         directoryPath.setForeground(Color.BLUE);

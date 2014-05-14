@@ -50,27 +50,4 @@ import testtool.models.userdb.*;
   public void viewTests(Course course, Student student) {
      System.out.println("In MyCourses.viewTests.");
   }
-   
-  /**
-    * Displays a status of a test in a course.
-    * @param test - Test to view overview of
-    * @param student - The student viewing the test
-    */
-  /*@
-    requires
-    //
-    // Test must exist in the test database.
-    // Student must be in the course the test is assigned to.
-    //
-    (\exists Test test; testdb.contains(test); course.students.contains(user);
-      test.course.equals(course))
-
-    ensures
-    //
-    // The test overview to be shown of the test. 
-    //
-  @*/
-   public void viewTestOverview(Test test, Student student) {
-      System.out.println("In MyTests.viewTestOverview.");
-   }
 }

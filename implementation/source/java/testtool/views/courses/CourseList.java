@@ -2,6 +2,7 @@ package testtool.views.courses;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
 
@@ -9,14 +10,14 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import testtool.models.student.MyCourses;
+import testtool.models.student.MyTests;
 import testtool.models.userdb.Student;
 import testtool.models.courses.Course;
 import testtool.views.student.*;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu
- * @version 20apr14
+ * @version 12May14
  * 
  * GUI of the list of courses. The constructor builds the text to display
  * A course can be selected to list the list of tests in that course.
@@ -30,9 +31,9 @@ public class CourseList {
 		JFrame frame = new JFrame("My Courses");
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
         JPanel panel = new JPanel();
-        frame.add(panel);
+        //frame.add(panel);
         
         frame.setVisible(true);
         
@@ -49,6 +50,11 @@ public class CourseList {
         panel.add(directoryPath);
         
         drawCourses(myCourses, panel, font, font1);
+        
+        panel.setPreferredSize(new Dimension(500,curYposition));
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setPreferredSize(new Dimension(800, 600));
+        frame.add(scrollPane);
 	}
 	
 	public void drawCourses(ArrayList<Course> courses, JPanel panel, Font font, Font font1) {
@@ -67,14 +73,14 @@ public class CourseList {
 		   courseLinks.get(i).setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		   courseLinks.get(i).addMouseListener(new MouseAdapter() {
 			   public void mouseClicked(MouseEvent e) {
-				   MyCourses myCourses = new MyCourses();
+			   	MyTests testList = new MyTests();
 				   Student exStudent = new Student();
 					
 				   int count = e.getClickCount();
 				   if (count == 1) {
-					   myCourses.viewTests(course, exStudent);
+					   testList.viewTests(course, exStudent);
 					   System.out.println("In CourseList.mouseClicked.");
-					   new TestList();
+					   new TestList(course.getCourseName());
 				   }
 			   }
 		   });
