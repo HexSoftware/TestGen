@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * which will run and output a number from 0-100
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 28apr14
+ * @version 12may14
  *
  */
 public class CodeQuestion extends Question {
@@ -76,4 +76,11 @@ public class CodeQuestion extends Question {
 		
 		this.type = "Code";
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + ", scriptPath=" + scriptPath;
+	}
+	
+	
 }

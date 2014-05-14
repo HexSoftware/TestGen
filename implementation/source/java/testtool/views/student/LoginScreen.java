@@ -14,7 +14,7 @@ import testtool.models.student.*;
  * Login Window. The Login screen is the first to be shown when a student
  * runs the testtool applciation. It takes in a username and password
  */
-public class Login {
+public class LoginScreen {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Student Login");
@@ -72,7 +72,7 @@ public class Login {
    	Font font = new Font("Calibri", Font.ITALIC, 18);
    	boolean failed = false;
    	
-    	MyCourses myCourses = new MyCourses();
+    	Login loginCheck = new Login();
     	
     	JFrame mainframe;
     	JTextField usernameField;
@@ -85,7 +85,7 @@ public class Login {
     	}
     	
     	public void actionPerformed (ActionEvent e) {
-    		if (!myCourses.login(usernameField.getText(), "password")) {
+    		if (!loginCheck.login(usernameField.getText(), "password")) {
     			System.out.println("failed to login");
     			if (!failed) {
     				failed = true;

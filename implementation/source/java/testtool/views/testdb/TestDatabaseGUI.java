@@ -1,3 +1,7 @@
+/**
+ * @author Grant Picket
+ * @version 5/13/14
+ */
 package testtool.views.testdb;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -130,11 +134,6 @@ public class TestDatabaseGUI {
             guiPanel.add(fields);
             guiPanel.add(buttonPanel, gbc);
             guiPanel.add(fields3, gbc);
-
-            tdb.getTest("uniqueId", "NOT");
-            tdb.getTest("uniqueId", "TEST");
-            tdb.getTest("uniqueId", "FAKE");
-            tdb.getTest("null", "BAD");
             guiFrame.add(guiPanel, BorderLayout.NORTH);
             // guiFrame.setJMenuBar(Menu());
             guiFrame.setVisible(true);
