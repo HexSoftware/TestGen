@@ -11,6 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -242,8 +243,8 @@ public class ManualGenerateGUI {
       }
       @Override
       public void actionPerformed(ActionEvent e) {
-         mg.generate();
-         new TestCreationResultGUI(tdb);
+         //mg.generate();
+         new GeneratingGUI(tdb);
       }
    }
 }
