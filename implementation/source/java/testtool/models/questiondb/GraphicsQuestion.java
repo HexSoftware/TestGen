@@ -67,7 +67,7 @@ public class GraphicsQuestion extends Question {
 
 	@Override
 	public String toString() {
-		return super.toString();
+		return super.toString() + ",";
 	}
 	
 	
