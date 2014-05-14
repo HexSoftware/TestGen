@@ -92,4 +92,8 @@ public class AutomaticGeneration {
       data.put("uniqueId", tdb.getIdPos().toString());
       tdb.createTest(data, questions);
    }
+public void generate(HashMap<String, String> params, ArrayList<Question> questions2) {
+	// TODO Auto-generated method stub
+	tdb.createTest(params, questions2);
+}
 }

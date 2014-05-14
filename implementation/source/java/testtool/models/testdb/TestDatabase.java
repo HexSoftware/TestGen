@@ -116,11 +116,13 @@ public class TestDatabase {
                + TestDatabase.tests.size());
          for (final Test t : TestDatabase.tests) {
             String val = t.getTestParam(column).toString();
-            if (val.equals(data)) {
-               match.add(t);
-               System.out.println("Match: " + val + " = " + data + " in "
-                     + column
-                     + ". total matches " + match.size());
+            if (val != null) {
+            	if (val.equals(data)) {
+	               match.add(t);
+	               System.out.println("Match: " + val + " = " + data + " in "
+	                     + column
+	                     + ". total matches " + match.size());
+	            }
             }
          }
       }
