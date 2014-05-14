@@ -2,7 +2,7 @@
  * ManualGeneration is used to a create a test by manually 
  * selecting questions from a database
  * @author Grant Pickett
- * @version 4/26/2014
+ * @version 5/13/2014
  */
 
 package testtool.models.testdb;
@@ -18,7 +18,7 @@ public class ManualGeneration {
    /**
     * The collection of questions in the test.
     */
-   ArrayList<Question> questions;
+   ArrayList<Question> questions = new ArrayList<Question>();
    Collection<String>  settings;
    TestDatabase        tdb;
    public ManualGeneration(TestDatabase td) {
@@ -93,9 +93,10 @@ public class ManualGeneration {
     * @
     */
    public void generate() {
-      System.out.println("in AutomaticGeneration.generate");
+      System.out.println("in ManualGeneration.generate");
       HashMap<String, String> data = new HashMap<String, String>();
-      data.put("state", "template");
+      data.put("state", "unscheduled");
+      data.put("uniqueId", tdb.getIdPos().toString());
       tdb.createTest(data, questions);
    }
 }

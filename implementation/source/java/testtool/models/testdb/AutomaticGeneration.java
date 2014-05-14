@@ -2,12 +2,11 @@
  * AutomaticGeneration class is used to generate tests using given
  * inputs
  * @author Grant Pickett
- * @version 4/26/2014
+ * @version 5/13/2014
  */
 
 package testtool.models.testdb;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import testtool.models.questiondb.Question;
@@ -15,10 +14,13 @@ import testtool.models.questiondb.Question;
  * This class manages manual generation of a test.
  */
 public class AutomaticGeneration {
-   /**
+	public AutomaticGeneration(TestDatabase td) {
+		tdb = td;
+	}
+	/**
     * The collection of questions in the test.
     */
-   ArrayList<Question> questions;
+   ArrayList<Question> questions = new ArrayList<Question>();;
    /**
     * The collection of other data for the test.
     */
@@ -86,7 +88,12 @@ public class AutomaticGeneration {
    public void generate() {
       System.out.println("in AutomaticGeneration.generate");
       HashMap<String, String> data = new HashMap<String, String>();
-      data.put("state", "template");
+      data.put("state", "unscheduled");
+      data.put("uniqueId", tdb.getIdPos().toString());
       tdb.createTest(data, questions);
    }
+public void generate(HashMap<String, String> params, ArrayList<Question> questions2) {
+	// TODO Auto-generated method stub
+	tdb.createTest(params, questions2);
+}
 }

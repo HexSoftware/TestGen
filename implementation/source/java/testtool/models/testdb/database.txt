@@ -1,0 +1,26 @@
+begintest 
+key: state value: unscheduled 
+key: uniqueId value: 0 
+endtest
+begintest 
+key: state value: unscheduled 
+key: uniqueId value: 1 
+endtest 
+begintest 
+key: state value: scheduled
+key: uniqueId value: 2 
+key: author value: gpickett 
+key: lastUsed value: 3/3/2010 
+key: totalQuestions value: 11 
+key: totalPoints value: 93 
+key: totalTime value: 199 
+key: avgDifficulty value: 3 
+key: password value: no 
+key: startDate value: 3/2/14 
+key: endDate value: 3/3/14 
+key: startTime value: 10:11
+key: endTime value: 12:34 
+key: testType value: Midterm
+key: testCategory value: STUFF 
+key: testCaregoryNumber value: 1
+endtest
