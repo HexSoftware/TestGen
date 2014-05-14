@@ -49,6 +49,7 @@ import testtool.models.courses.Course;
 import testtool.models.testdb.Test;
 import testtool.models.userdb.TestSettings;
 import testtool.views.commandmenu.CMBuilder;
+import testtool.views.grader.GraderUI;
 
 public class ListOfTests {
 	static JButton CloseButton;
@@ -219,6 +220,8 @@ static Object[][] data = {
    		}
    		public void actionPerformed(ActionEvent e){
 			lt.grade(t);  			
+			GraderUI grader = new GraderUI();
+			grader.createAndShowGUI();
    		}
    	}
     static class optionsListener implements ActionListener {
