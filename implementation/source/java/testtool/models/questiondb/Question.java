@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * The Question class is the superclass of all question types
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 12may14
+ * @version 13may14
  * 
  */
 public class Question {
@@ -12,16 +12,16 @@ public class Question {
 	 * The question text is the actual question that is being asked in
 	 * a question
 	 */
-	String questionText;
+	public String questionText;
 	/**
 	 * The author is the instructor that wrote and added the question to the
 	 * databank
 	 */
-	String author;
+	public String author;
 	/**
 	 * lastUsed is the data / time of the last time a question was used on a test
 	 */
-	String lastUsed;
+	public String lastUsed;
 	/**
 	 * The course is the class that a question was originally made for
 	 */
@@ -30,7 +30,7 @@ public class Question {
 	 * topics is a collection of strings that are tags to easily
 	 * filter through the question databank for
 	 */
-	ArrayList<String> topics;
+	public ArrayList<String> topics;
 	/**
 	 * The time is the amount of the author believes this question should take
 	 */

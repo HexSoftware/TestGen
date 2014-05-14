@@ -20,7 +20,7 @@ import testtool.views.commandmenu.CMBuilder;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 7may14
+ * @version 13may14
  * 
  * The main view class for the Question Databank. 
  */
@@ -128,8 +128,8 @@ public class QuestionDBFrame {
 		editButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new EditQuestion(qdb, table.getSelectedRow());
-				qdb.edit(null);
+				new EditQuestion(qdb, table.getSelectedRow(), dataModel);
+				//qdb.edit(null);
 			}
 		});
 		editButton.setEnabled(false);

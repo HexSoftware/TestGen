@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * order of those words in the answer
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 12may14
+ * @version 13may14
  *
  */
 public class EssayQuestion extends Question {
@@ -16,7 +16,7 @@ public class EssayQuestion extends Question {
 	 * The collection of keywords that the automatic grader
 	 * should be looking for in order.
 	 */
-	ArrayList<String> correctKWs;
+	public ArrayList<String> correctKWs;
 	
 	/**
 	 * The constructor will do data validation when creating a new Essay
