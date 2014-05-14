@@ -96,6 +96,7 @@ public class ManualGeneration {
       System.out.println("in ManualGeneration.generate");
       HashMap<String, String> data = new HashMap<String, String>();
       data.put("state", "unscheduled");
+      data.put("uniqueId", tdb.getIdPos().toString());
       tdb.createTest(data, questions);
    }
 }

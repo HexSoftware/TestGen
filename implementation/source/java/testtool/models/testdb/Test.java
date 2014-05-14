@@ -8,7 +8,7 @@
 package testtool.models.testdb;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map.Entry;
 
 import testtool.models.questiondb.Question;
 
@@ -55,10 +55,11 @@ public class Test {
     StringBuilder sb = new StringBuilder();
 
     sb.append("begintest \n");
-    for (Map.Entry<String, String> entry : testParams.entrySet()) {
+    for (Entry<String, String> entry : testParams.entrySet()) {
       sb.append("key: " + entry.getKey() + " value: "
        + entry.getValue()); 
       sb.append(" \n"); 
+      System.out.println(sb.toString());
     }
     for (Question entry : questionList){
       sb.append(entry.toString()); 
