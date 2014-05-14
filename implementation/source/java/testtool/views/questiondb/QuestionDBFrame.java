@@ -20,7 +20,7 @@ import testtool.views.commandmenu.CMBuilder;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 28apr14
+ * @version 7may14
  * 
  * The main view class for the Question Databank. 
  */
@@ -33,12 +33,14 @@ public class QuestionDBFrame {
 	final private JFrame frame;
 	final private JTable table;
 	final private JButton editButton, removeButton, generateButton;
+	final private JPanel filterPanel;
+	final private AbstractTableModel dataModel;
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event-dispatching thread.
 	 */
 	public QuestionDBFrame() {
-		qdb = new QuestionDatabank();
+		qdb = new QuestionDatabank(this);
 		// Create and set up the window.
 		frame = new JFrame("QuestionDB");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -49,7 +51,7 @@ public class QuestionDBFrame {
 		// qdbpanel.setPreferredSize(new Dimension(800, 600));
 
 		// Add a table
-		final AbstractTableModel dataModel = new AbstractTableModel() {
+		dataModel = new AbstractTableModel() {
 
 			public int getColumnCount() {
 				return 8;
@@ -76,7 +78,7 @@ public class QuestionDBFrame {
 		table.getColumnModel().getColumn(6).setPreferredWidth(70);
 		table.getColumnModel().getColumn(7).setPreferredWidth(60);
 
-		table.getColumnModel().getColumn(0).setHeaderValue(new String("Class"));
+		table.getColumnModel().getColumn(0).setHeaderValue(new String("Course"));
 		table.getColumnModel().getColumn(1).setHeaderValue(new String("Topic"));
 		table.getColumnModel().getColumn(2).setHeaderValue(new String("Type"));
 		table.getColumnModel().getColumn(3).setHeaderValue(new String("Question Text"));
@@ -93,9 +95,10 @@ public class QuestionDBFrame {
 		scrollpane.setPreferredSize(new Dimension(750, 400));
 		qdbpanel.add(scrollpane);
 
+		JPanel topPanel = new JPanel(new BorderLayout());
 		JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		final JTextField searchField = new JTextField(20);
-		searchPanel.add(searchField, BorderLayout.EAST);
+		searchPanel.add(searchField);
 		JButton searchButton = new JButton("Search");
 		searchButton.addActionListener(new ActionListener() {
 			@Override
@@ -103,7 +106,13 @@ public class QuestionDBFrame {
 				qdb.search(searchField.getText());
 			}
 		});
-		searchPanel.add(searchButton, BorderLayout.EAST);
+		searchPanel.add(searchButton);
+		
+		filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		filterPanel.setMaximumSize(new Dimension(400,30));
+		
+		topPanel.add(filterPanel, BorderLayout.WEST);
+		topPanel.add(searchPanel, BorderLayout.EAST);
 
 		JPanel buttonPanel = new JPanel(new GridLayout());
 		JButton addButton = new JButton("Add");
@@ -111,12 +120,6 @@ public class QuestionDBFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new AddQuestion(qdb, dataModel);
-				//while (!qdb.qAdded);
-				//qdb.qAdded = false;
-				//dataModel.getTableModelListeners()[0].tableChanged(new TableModelEvent(dataModel, qdb.questions.size()));;
-				//dataModel.fireTableDataChanged();
-				//table.revalidate();
-				//TODO: find a way to listen for add question frame to be finished.
 			}
 		});
 		buttonPanel.add(addButton);
@@ -139,7 +142,6 @@ public class QuestionDBFrame {
 				int[] i = table.getSelectedRows();
 				new RemoveFrame(qdb, i, dataModel);
 				System.out.println("136");
-				//dataModel.fireTableRowsDeleted(i[0], i[i.length-1]);
 			}
 		});
 		removeButton.setEnabled(false);
@@ -148,7 +150,7 @@ public class QuestionDBFrame {
 		JButton filterButton = new JButton("Filter");
 		filterButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				new FilterFrame(qdb);
 			}
 		});
@@ -157,7 +159,7 @@ public class QuestionDBFrame {
 		generateButton = new JButton("Generate");
 		generateButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				//new GenerateTypeGUI();
 				//TODO: Send selected questions to test generator.
 				System.out.println("Generate Pressed");
@@ -167,12 +169,37 @@ public class QuestionDBFrame {
 		buttonPanel.add(generateButton);
 
 		frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-		frame.getContentPane().add(searchPanel, BorderLayout.NORTH);
+		frame.getContentPane().add(topPanel, BorderLayout.NORTH);
 		frame.getContentPane().add(qdbpanel, BorderLayout.CENTER);
 		// frame.setMinimumSize(new Dimension(800, 600));
 		// Display the window.
 		frame.pack();
 		frame.setVisible(true);
+	}
+	
+	public void addFilterButton() {
+		final FilterButton tempButton = new FilterButton(qdb.newestF);
+		System.out.println("adding a filter button");
+		tempButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				qdb.unfilter(tempButton.filter);
+				filterPanel.remove(tempButton);
+				dataModel.fireTableDataChanged();
+				frame.pack();
+			}
+		});
+		filterPanel.add(tempButton);
+		frame.pack();
+	}
+	
+	private class FilterButton extends JButton {
+		public Filter filter;
+		
+		public FilterButton(Filter fil) {
+			super(fil.category.title + ": " + fil.keyword);
+			filter = fil;			
+		}
 	}
 
 	@SuppressWarnings("unused")

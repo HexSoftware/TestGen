@@ -16,7 +16,7 @@ import testtool.models.questiondb.*;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 20apr14
+ * @version 7may14
  * 
  * View class for the creating a filter dialog.
  */
@@ -29,7 +29,7 @@ public class FilterFrame extends JDialog {
 		setTitle("Add a Filter");
 		setLayout(new FlowLayout(FlowLayout.CENTER));
 		
-		final JComboBox<String> filterCategory = new JComboBox<String>(new String[]{"Class", "Topic", "Type", "Difficulty", "Time", "Last Used", "Author"});
+		final JComboBox<String> filterCategory = new JComboBox<String>(new String[]{"Course", "Topic", "Type", "Difficulty", "Time", "Last Used", "Author"});
 		getContentPane().add(filterCategory);
 		final JTextField filterText = new JTextField(15);
 		getContentPane().add(filterText);
@@ -38,6 +38,7 @@ public class FilterFrame extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				qdb.filter(new Filter(filterText.getText(), (String)filterCategory.getSelectedItem()));
+				qdb.qdbf.addFilterButton();
 				dispose();
 			}
 		});

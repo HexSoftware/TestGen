@@ -1,12 +1,12 @@
 package testtool.views.testdb;
 
 import testtool.models.testdb.TestDatabase;
-import testtool.views.grader.Grading;
 import testtool.views.questiondb.QuestionDBFrame;
 
 /**
  * 
- * @author Kevin
+ * @author Kevin, Grant
+ * @version 5/12/2014
  */
 
 public class TestGenUI extends javax.swing.JFrame {
@@ -449,7 +449,6 @@ public class TestGenUI extends javax.swing.JFrame {
    }
 
    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-      new Grading();
    }
 
    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {

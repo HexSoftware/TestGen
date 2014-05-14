@@ -2,12 +2,13 @@
  * The Test class represents a test that lives in the test database
  * It has a list of questions and other needed data
  * @author Grant Pickett, Yuliya Levitskaya
- * @version 4/26/2014
+ * @version 5/13/2014
  */ 
 
 package testtool.models.testdb;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import testtool.models.questiondb.Question;
 
@@ -49,4 +50,21 @@ public class Test {
    public ArrayList<Question> getQuestionList() {
       return questionList;
    }
+  public String toString(){
+
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("begintest \n");
+    for (Map.Entry<String, String> entry : testParams.entrySet()) {
+      sb.append("key: " + entry.getKey() + " value: "
+       + entry.getValue()); 
+      sb.append(" \n"); 
+    }
+    for (Question entry : questionList){
+      sb.append(entry.toString()); 
+      sb.append(" \n"); 
+    }
+    sb.append("endtest \n");
+	return sb.toString();
+  }
 }

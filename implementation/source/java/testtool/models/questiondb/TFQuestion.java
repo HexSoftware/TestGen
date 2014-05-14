@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * the student will simply specify whether or not a statement was true
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 28apr14
+ * @version 12may14
  *
  */
 public class TFQuestion extends Question {
@@ -68,4 +68,11 @@ public class TFQuestion extends Question {
 		this.correctAnswer = corAns;
 		this.type = "TF";
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + ", correctAnswer=" + correctAnswer;
+	}
+	
+	
 }
