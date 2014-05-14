@@ -16,12 +16,12 @@ import testtool.models.questiondb.Question;
  */
 public class AutomaticGeneration {
 	public AutomaticGeneration(TestDatabase td) {
-		
+		tdb = td;
 	}
 	/**
     * The collection of questions in the test.
     */
-   ArrayList<Question> questions;
+   ArrayList<Question> questions = new ArrayList<Question>();;
    /**
     * The collection of other data for the test.
     */
@@ -89,7 +89,7 @@ public class AutomaticGeneration {
    public void generate() {
       System.out.println("in AutomaticGeneration.generate");
       HashMap<String, String> data = new HashMap<String, String>();
-      data.put("state", "template");
+      data.put("state", "unscheduled");
       tdb.createTest(data, questions);
    }
 }

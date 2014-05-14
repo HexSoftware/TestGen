@@ -22,29 +22,45 @@ import testtool.models.questiondb.QuestionDatabank;
  * This class manages and stores Tests. The test parameter is a selected test.
  */
 public class TestDatabase {
+   static Integer         idPos = 0;
+   static ArrayList<Test> tests = new ArrayList<Test>();
    public TestDatabase(){
     Charset charset = Charset.forName("US-ASCII");
     File file = new File("database.txt");
     try (BufferedReader reader = new BufferedReader(
-        new FileReader(file.getAbsoluteFile()))) {
+    		new FileReader(file.getAbsoluteFile()))) {
         String line = null;
-        ArrayList<Question> questions = null;
-        HashMap<String, String> params = null;
+        ArrayList<Question> questions = new ArrayList<Question>();
+        HashMap<String, String> params = new HashMap<String, String> ();;
         String[] parts = new String[4];
         while ((line = reader.readLine()) != null) {
-          if(line.equals("test")){
-            questions = new ArrayList<Question>();
-            params = new HashMap<String, String>();
-          }
-          parts = line.split(" ");
-          if(parts.length == 4) {
-            params.put(parts[1], parts[3]);
+          if(line.contains("begintest")){
+        	  System.out.println("found new test");
+        	  questions = new ArrayList<Question>();
+        	  params = new HashMap<String, String>();
+        	  idPos+=1;
           }
           else {
-            questions.add(QuestionDatabank.parseQuestion(line));
-          }
-          if(line.equals("endtest")){
-              createTest(params, questions);
+        	  if(line.contains("endtest")){
+	        	  System.out.println("end of test");
+	              createTest(params, questions);
+	              continue;
+	          }
+	          parts = line.split(" ");
+	          System.out.println(parts);
+	          if(parts[0]!= null ) {
+	        	  if(parts[0].equals("key:")){
+	        	  System.out.println("found new param");
+	        	 //params.put(parts[1], parts[3]);
+	        	  }
+	        	  else {
+	        		  if(parts[0].equals("]") || parts[0].equals(",")){
+	        			  continue;
+	        		  }
+		        	  System.out.println("found new question" + parts[0]);
+		        	  //questions.add(QuestionDatabank.parseQuestion(line));
+		          }
+	          }
           }
         }
     } catch (IOException x) {
@@ -53,9 +69,6 @@ public class TestDatabase {
    }
    /**
     * The collection of Test Objects
-    */
-   static ArrayList<Test> tests = new ArrayList<Test>();
-   static Integer         idPos = 0;
    /**
     * This method will begin the process of creating a new test
     */
@@ -173,7 +186,7 @@ public class TestDatabase {
     }
     File file = new File("database.txt");
     try (BufferedWriter writer = new BufferedWriter(
-        new FileWriter(file.getAbsoluteFile()))) {
+    		new FileWriter(file.getAbsoluteFile()))) {
       writer.write(data, 0, data.length());
     } catch (IOException x) {
       System.err.format("IOException: %s%n", x);
