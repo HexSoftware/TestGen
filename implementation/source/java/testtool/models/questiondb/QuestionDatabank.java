@@ -1,17 +1,20 @@
 package testtool.models.questiondb;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import testtool.views.questiondb.QuestionDBFrame;
 
 /**
- * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 7may14
- * 
  * The Question Bank is the main focus of the question database, and is the view
  * from section 2.3. It displays the list of questions, which is represented by
  * the questions component. It also handles the management of these questions,
- * which involves adding, editing, removing, search and filter. * 
+ * which involves adding, editing, removing, search and filter. 
+ * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
+ * @version 7may14 
  */
 public class QuestionDatabank {
 	public ArrayList<QuestionEntry> questions;
@@ -26,6 +29,12 @@ public class QuestionDatabank {
 		filteredQs = new ArrayList<QuestionEntry>();
 		filters = new ArrayList<Filter>();
 		this.qdbf = qdbf;
+		
+		try {
+			loadDatabase();
+		} catch (FileNotFoundException e) {
+			System.out.println("Not database found. Created Empty Database");
+		}
 	}
 
 	/**
@@ -264,5 +273,28 @@ public class QuestionDatabank {
 	@*/
 	public void toggleQuestionSelect(QuestionEntry q) {
 		System.out.println("In QuestionDatabank.toggleQuestionSelect");
+	}
+	
+	public void loadDatabase() throws FileNotFoundException {
+		File inFile = new File("QuestionDB.txt");
+		Scanner scanner = new Scanner(inFile);
+		while (scanner.hasNextLine()) {
+			//TODO: Read from file, wait to see how toString is formatted
+		}
+		scanner.close();
+		System.out.println("loading database");
+	}
+	
+	public void writeDatabase() throws FileNotFoundException {
+		File outFile = new File("QuestionDB.txt");
+		PrintWriter writer = new PrintWriter(outFile);
+		for (QuestionEntry qe : questions) {
+			writer.write(qe.question.toString());
+		}
+		for (QuestionEntry qe : filteredQs) {
+			writer.write(qe.question.toString());
+		}
+		writer.close();
+		System.out.println("writing database");
 	}
 }
