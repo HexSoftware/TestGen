@@ -9,6 +9,8 @@ import java.awt.event.*;
 import java.lang.instrument.Instrumentation;
 import java.text.ParseException;
 import testtool.views.commandmenu.*;
+import testtool.views.grader.*;
+
 import javax.swing.*;
 
 public class Proctor {
@@ -154,6 +156,8 @@ public class Proctor {
 		}
 		public void actionPerformed(ActionEvent e){
 			proctor.grade();
+			GraderUI grader = new GraderUI();
+			grader.createAndShowGUI();
 		}
 	}
 	static class optionsListener implements ActionListener {
