@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -63,6 +64,8 @@ public class GeneratingGUI {
    JTextField lastUsedField = new JTextField(20);
    JTextField additField = new JTextField(20);
    JTextField titleField = new JTextField(20);
+   JTextField testCategory = new JTextField(20);
+   JTextField testCategoryNum = new JTextField(20);
    
    public GeneratingGUI(TestDatabase td) {
       ag = new AutomaticGeneration(td);
@@ -122,6 +125,10 @@ public class GeneratingGUI {
             guiPanel.add(keyField, gbc);
             guiPanel.add(additionallabel);
             guiPanel.add(additField, gbc);
+            guiPanel.add(testCategory);
+            guiPanel.add(testCategory, gbc);
+            guiPanel.add(testCategoryNum);
+            guiPanel.add(testCategoryNum, gbc);
             generateButton = new JButton("Generate");
             generateButton.addActionListener(new genListener());
 
@@ -209,8 +216,8 @@ public class GeneratingGUI {
     	 if(totalField.getText() != null && !totalField.getText().equals(""))         params.put("endTime", totalField.getText());
     	 if(typeField.getText() != null && !typeField.getText().equals(""))         params.put("testType", typeField.getText());
          ArrayList<Question> questions =  new ArrayList<Question>();
-		//params.put("testCategory",);
-         //params.put("testCaregoryNumber", );  
+         if(testCategory.getText() != null && !testCategory.getText().equals(""))params.put("testCategory", testCategoryNum.getText() );
+         if(testCategoryNum.getText() != null && !testCategoryNum.getText().equals("")) params.put("testCategoryNumber", testCategoryNum.getText());  
          ag.generate(params, questions);
          new TestCreationResultGUI(tdb);
       }

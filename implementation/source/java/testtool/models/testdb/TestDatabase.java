@@ -109,7 +109,7 @@ public class TestDatabase {
                   , "author", "lastUsed", "totalQuestions",
                   "totalPoints", "totalTime", "avgDifficulty", "notes", "course",
                   "gradeType", "password", "startDate", "endDate", "startTime", "endTime",
-                  "testType", "testCategory", "testCaregoryNumber"));
+                  "testType", "testCategory", "testCategoryNum"));
 
       if (column_names.contains(column)) {
          System.out.println("Number of tests in database: "
