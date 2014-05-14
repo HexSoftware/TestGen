@@ -24,7 +24,7 @@ import testtool.views.commandmenu.CMBuilder;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 7may14
+ * @version 14may14
  * 
  * The main view class for the Question Databank. 
  */
@@ -124,7 +124,7 @@ public class QuestionDBFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new AddQuestion(qdb, dataModel);
-				frame.setEnabled(false);
+				//frame.setEnabled(false);
 			}
 		});
 		buttonPanel.add(addButton);

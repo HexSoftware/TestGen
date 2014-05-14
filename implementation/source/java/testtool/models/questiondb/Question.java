@@ -84,8 +84,7 @@ public class Question {
 	public String toString() {
 		return "questionText=" + questionText + ", author=" + author
 				+ ", lastUsed=" + lastUsed + ", course=" + course + ", topics="
-				+ topics + ", time=" + time + ", difficulty=" + difficulty
-				+ ", type=" + type;
+				+ topics + ", time=" + time + ", difficulty=" + difficulty + ", type=" + type ;
 	}
 	
 	

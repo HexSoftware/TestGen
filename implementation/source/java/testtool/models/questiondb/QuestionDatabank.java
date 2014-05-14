@@ -14,7 +14,7 @@ import testtool.views.questiondb.QuestionDBFrame;
  * the questions component. It also handles the management of these questions,
  * which involves adding, editing, removing, search and filter. 
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 7may14 
+ * @version 14may14 
  */
 public class QuestionDatabank {
 	public ArrayList<QuestionEntry> questions;
@@ -33,7 +33,7 @@ public class QuestionDatabank {
 		try {
 			loadDatabase();
 		} catch (FileNotFoundException e) {
-			System.out.println("Not database found. Created Empty Database");
+			System.out.println("No database found. Creating Empty Database");
 		}
 	}
 
@@ -278,23 +278,94 @@ public class QuestionDatabank {
 	public void loadDatabase() throws FileNotFoundException {
 		File inFile = new File("QuestionDB.txt");
 		Scanner scanner = new Scanner(inFile);
+		System.out.println("loading database");
 		while (scanner.hasNextLine()) {
-			//TODO: Read from file, wait to see how toString is formatted
+			questions.add(new QuestionEntry(parseString(scanner.nextLine()), false, new ArrayList<Filter>()));
 		}
 		scanner.close();
-		System.out.println("loading database");
+		System.out.println("database loaded");
 	}
 	
 	public void writeDatabase() throws FileNotFoundException {
 		File outFile = new File("QuestionDB.txt");
 		PrintWriter writer = new PrintWriter(outFile);
 		for (QuestionEntry qe : questions) {
-			writer.write(qe.question.toString());
+			writer.write(qe.question.toString() + "\n");
 		}
 		for (QuestionEntry qe : filteredQs) {
-			writer.write(qe.question.toString());
+			writer.write(qe.question.toString() + "\n");
 		}
 		writer.close();
 		System.out.println("writing database");
+	}
+	
+	public Question parseString(String s) {
+		System.out.println("In Parse String");
+		
+		Question q;
+		String qText, author, course,  type;
+		int time, diff;
+		ArrayList<String> topics;
+		Scanner scan = new Scanner(s);
+		
+		qText = scan.findInLine("(?<=questionText=)(.*)(?=, author=)");		
+		author = scan.findInLine("(?<=author=)(.*)(?=, lastUsed=)");
+		course = scan.findInLine("(?<=course=)(.*)(?=, topics=)");
+		topics = stringToArrayList(scan.findInLine("(?<=topics=)(.*)(?=, time=)"));
+		time = Integer.parseInt(scan.findInLine("(?<=time=)(.*)(?=, difficulty=)"));
+		diff = Integer.parseInt(scan.findInLine("(?<=difficulty=)(.*)(?=, type=)"));
+		type = scan.findInLine("(?<=type=)(.*)(?=[,])");
+		try {
+			switch (type) {
+			case "MC" :
+				ArrayList<String> pa = stringToArrayList(scan.findInLine("(?<=possibleAnswers=)(.*)(?=, correctAnswerIndices=)"));
+				ArrayList<String> cai_strings = stringToArrayList(scan.findInLine("(?<=correctAnswerIndices=)(.*)"));
+				ArrayList<Integer> cai = new ArrayList<Integer>();
+				for (String cai_s : cai_strings)
+					cai.add(Integer.valueOf(cai_s));
+				q = new MCQuestion(qText, author, course, topics, time, diff, pa, cai);
+				break;
+			case "TF" :
+				boolean ca = Boolean.parseBoolean(scan.findInLine("(?<=correctAnswer=)(.*)"));
+				q = new TFQuestion(qText, author, course, topics, time, diff, ca);
+				break;
+			case "SA" :
+				ArrayList<String> sa_kws = stringToArrayList(scan.findInLine("(?<=correctKWs=)(.*)"));
+				q = new SAQuestion(qText, author, course, topics, time, diff, sa_kws);
+				break;
+			case "Essay" :
+				ArrayList<String> essay_kws = stringToArrayList(scan.findInLine("(?<=correctKWs=)(.*)"));
+				q = new EssayQuestion(qText, author, course, topics, time, diff, essay_kws);
+				break;
+			case "Code" :
+				String path = scan.findInLine("(?<=scriptPath=)(.*)");
+				q = new CodeQuestion(qText, author, course, topics, time, diff, path);
+				break;
+			default:
+				q = new GraphicsQuestion(qText, author, course, topics, time, diff);
+			}
+		}
+		catch (EmptyBoxException e) {
+			e.printStackTrace();
+			scan.close();
+			return null;
+		}
+		
+		scan.close();
+		return q;
+	}
+	
+	private ArrayList<String> stringToArrayList(String list) {
+		ArrayList<String> arr = new ArrayList<String>();
+		list.substring(1);
+		String s;
+		Scanner scan = new Scanner(list);
+		while (scan.hasNext()) {
+			s = scan.next();
+			s.substring(0, s.length() - 1);
+			arr.add(s);
+		}
+		scan.close();
+		return arr;
 	}
 }
