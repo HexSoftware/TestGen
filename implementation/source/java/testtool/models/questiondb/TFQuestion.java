@@ -7,14 +7,14 @@ import java.util.ArrayList;
  * the student will simply specify whether or not a statement was true
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 12may14
+ * @version 13may14
  *
  */
 public class TFQuestion extends Question {
 	/**
 	 * The correct answer : Either True or False
 	 */
-	boolean correctAnswer;
+	public boolean correctAnswer;
 	
 	/**
 	 * The constructor will do data validation when creating a new True/False

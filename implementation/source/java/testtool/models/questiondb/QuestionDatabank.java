@@ -6,7 +6,7 @@ import testtool.views.questiondb.QuestionDBFrame;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 7may14
+ * @version 13may14
  * 
  * The Question Bank is the main focus of the question database, and is the view
  * from section 2.3. It displays the list of questions, which is represented by
@@ -68,7 +68,19 @@ public class QuestionDatabank {
 	 * 
 	 * @
 	 */
-	public void edit(Question q) {
+	public void edit(int i, Question q) {
+		ArrayList<Filter> qFils = new ArrayList<Filter>();
+		for (Filter f : filters) {
+			if(checkFiltered(f, q)) {
+				qFils.add(f);
+			}
+		}
+		QuestionEntry qe = new QuestionEntry(q, false, qFils);
+		newestQ = qe;		
+		if (qFils.isEmpty())
+			questions.set(i, qe);
+		else
+			filteredQs.set(i, qe);
 		System.out.println("In QuestionDatabank.edit");
 	}
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * instructor defined correct answers
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 12may14
+ * @version 13may14
  *
  */
 public class MCQuestion extends Question {
@@ -16,12 +16,12 @@ public class MCQuestion extends Question {
 	 * The collection of answers that are defined by the
 	 * Instructor as options
 	 */
-	ArrayList<String> possibleAnswers;
+	public ArrayList<String> possibleAnswers;
 	/**
 	 * The collection of answers that are considered the
 	 * right answer by the Instructor
 	 */
-	ArrayList<Integer> correctAnswerIndices;
+	public ArrayList<Integer> correctAnswerIndices;
 
 	/**
 	 * The constructor will do data validation when creating a new Multiple Choice
