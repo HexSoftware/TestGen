@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package testtool.views.questiondb;
 
 import java.awt.BorderLayout;
@@ -22,12 +16,13 @@ import javax.swing.table.AbstractTableModel;
 import testtool.models.questiondb.*;
 
 /**
- *
- * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 13may14
- *
- */
-public class AddQuestion extends JMenuBar {
+*
+* @author RJ Almada (rjalmada@calpoly.edu)
+* @version 13may14
+*
+*/
+
+public class EditQuestion extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 	private Object oldQTItem;
     private JPanel prevPanel;
@@ -36,20 +31,85 @@ public class AddQuestion extends JMenuBar {
     /**
      * Creates new form NewJPanel
      */
-    public AddQuestion(final QuestionDatabank qdb, final AbstractTableModel tm) {
+    public EditQuestion(final QuestionDatabank qdb, final int i, final AbstractTableModel tm) {
     	frame = new JFrame("QuestionDB");
     	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setJMenuBar(this);
 		frame.setLayout(new BorderLayout());
         initComponents();
-        this.oldQTItem = "Multiple Choice";
-        this.prevPanel = MCQPanel;
         TFPanel.setVisible(false);
         SAPanel.setVisible(false);
         EQPanel.setVisible(false);
         GQPanel.setVisible(false);
         CQPanel.setVisible(false);
+        MCQPanel.setVisible(false);
         frame.pack();
+        
+        Question q = qdb.questions.get(i).question;
+        
+        Course.setText(q.course);
+        Difficulty.setSelectedIndex(q.difficulty-1);
+        EstTime.setText(new Integer(q.time).toString());
+        Topic.setText(unparseStuff(q.topics));
+        
+        switch (q.type) {
+        	case "Code":
+        		CQPanel.setVisible(true);
+        		CodeQuestion cq = (CodeQuestion) q;
+        		this.oldQTItem = "Code";
+        		this.prevPanel = CQPanel;
+        		this.QuestionType.setSelectedIndex(5);
+        		this.CodeQuestionText.setText(q.questionText);
+        		this.CodeScriptPath.setText(cq.scriptPath);
+        		break;
+        	case "Essay":
+        		EQPanel.setVisible(true);
+        		EssayQuestion eq = (EssayQuestion) q;
+        		this.oldQTItem = "Essay";
+        		this.prevPanel = EQPanel;
+        		this.QuestionType.setSelectedIndex(3);
+        		this.EssayQuestionText.setText(q.questionText);
+        		this.EssayAnswer.setText(unparseStuff(eq.correctKWs));
+        		break;
+        	case "Graphic":
+        		GQPanel.setVisible(true);
+        		this.oldQTItem = "Graphics";
+        		this.prevPanel = GQPanel;
+        		this.QuestionType.setSelectedIndex(4);
+        		this.GraphicsQuestionText.setText(q.questionText);
+        		break;
+        	case "MC":
+        		MCQuestion mq = (MCQuestion) q;
+        		MCQPanel.setVisible(true);
+        		this.oldQTItem = "Multiple Choice";
+                this.prevPanel = MCQPanel;
+                this.QuestionType.setSelectedIndex(0);
+                this.MCQuestionText.setText(q.questionText);
+                setMCAnswers(mq.possibleAnswers);
+                setMCCorAnswers(mq.correctAnswerIndices);
+        		break;
+        	case "SA":
+        		SAQuestion sq = (SAQuestion) q;
+        		SAPanel.setVisible(true);
+        		this.oldQTItem = "Short Answer";
+        		this.prevPanel = SAPanel;
+        		this.QuestionType.setSelectedIndex(2);
+        		this.SAQuestion.setText(q.questionText);
+        		this.SAAnswer.setText(unparseStuff(sq.correctKWs));
+        		break;
+        	case "TF":
+        		TFQuestion tfq = (TFQuestion) q;
+        		TFPanel.setVisible(true);
+        		this.oldQTItem = "True/False";
+        		this.prevPanel = TFPanel;
+        		this.QuestionType.setSelectedIndex(1);
+        		this.TFQuestionText.setText(q.questionText);
+        		this.TFAnswer.setSelected(tfq.correctAnswer);
+        		break;
+        	default:
+        		frame.dispose();
+        		break;
+        }
         
         CancelButton.addActionListener(new ActionListener() {
         	@Override
@@ -59,7 +119,7 @@ public class AddQuestion extends JMenuBar {
 						JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
         		*/
         		JFrame conFrame = new JFrame("Confirmation Dialog");
-        		int n = JOptionPane.showConfirmDialog(conFrame, "All entered data will be lost, continue anways?",
+        		int n = JOptionPane.showConfirmDialog(conFrame, "All changed data will be lost, continue anways?",
         				"Confirm Cancel", JOptionPane.YES_NO_OPTION);
         		if (n == 0) {
         			frame.dispose();
@@ -74,36 +134,36 @@ public class AddQuestion extends JMenuBar {
 				try {
 					switch ((String) oldQTItem) {
 			               	case "Multiple Choice":
-			               		qdb.add(new MCQuestion(MCQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new MCQuestion(MCQuestionText.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
 			               				collectMCAnswers(), collectMCCorAnswers()));
 			               		break;
 			               	case "True/False":
-			               		qdb.add(new TFQuestion(TFQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new TFQuestion(TFQuestionText.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
 			               				TFAnswer.isSelected()));
 			               		break;
 			               	case "Short Answer":
-			               		qdb.add(new SAQuestion(SAQuestion.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new SAQuestion(SAQuestion.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
 			               				parseStuff(SAAnswer.getText())));
 			               		break;
 			               	case "Essay":
-			               		qdb.add(new EssayQuestion(EssayQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new EssayQuestion(EssayQuestionText.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
 			               				parseStuff(EssayAnswer.getText())));
 			               		break;
 			               	case "Graphics":
-			               		qdb.add(new GraphicsQuestion(GraphicsQuestionText.getText(), "Gene Fisher",
+			               		qdb.edit(i, new GraphicsQuestion(GraphicsQuestionText.getText(), "Gene Fisher",
 			               				Course.getText(), new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()));
 			               		break;
 			               	case "Code":
-			               		qdb.add(new CodeQuestion(CodeQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new CodeQuestion(CodeQuestionText.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
 			               				CodeScriptPath.getText()));
@@ -126,9 +186,55 @@ public class AddQuestion extends JMenuBar {
 		frame.setVisible(true);
     }
 
-    /**
-     * This method will collect the multiple choice question answers
-     */
+    private static void setMCAnswers(ArrayList<String> al) {
+    	
+    	for(int i = 0; i < al.size(); i++) {
+    		if (i == 0) {
+    			MCAnswerText1.setText(al.get(0));
+    		} else if (i == 1) {
+    			MCAnswerText2.setText(al.get(1));
+    		} else if (i == 2) {
+    			MCAnswerText3.setText(al.get(2));
+    		} else if (i == 3) {
+    			MCAnswerText4.setText(al.get(3));
+    		} else if (i == 4) {
+    			MCAnswerText5.setText(al.get(4));
+    		}
+    	}
+    }
+ 
+	private static void setMCCorAnswers(ArrayList<Integer> al) {
+    	
+		for(int i = 0, j = -1; i < al.size(); i++) {
+			j = al.get(i) - 1;
+			if (j == 0) {
+				MCAnswerCheck1.setSelected(true);
+			} else if (j == 1) {
+				MCAnswerCheck2.setSelected(true);
+			} else if (j == 2) {
+				MCAnswerCheck3.setSelected(true);
+			} else if (j == 3) {
+				MCAnswerCheck4.setSelected(true);
+			} else if (j == 4) {
+				MCAnswerCheck5.setSelected(true);
+			}
+		}
+    }    
+    
+    private static String unparseStuff(ArrayList<String> toUnparse) {
+    	if (toUnparse.isEmpty()) {
+    		return "";
+    	}
+    	
+    	String s = toUnparse.get(0);
+    	
+    	for(int i = 1; i < toUnparse.size(); i++) {
+    		s += ", " + toUnparse.get(i);
+    	}
+    	
+    	return s;
+    }
+    
     private static ArrayList<String> collectMCAnswers() {
     	ArrayList<String> r = new ArrayList<String>();
     	
@@ -172,8 +278,6 @@ public class AddQuestion extends JMenuBar {
     	
     	return r;
     }
-    
-    
     
     private static ArrayList<String> parseStuff(String toParse) {
     	return new ArrayList<String>(Arrays.asList(toParse.split(",")));
