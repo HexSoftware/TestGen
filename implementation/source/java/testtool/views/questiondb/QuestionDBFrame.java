@@ -133,8 +133,7 @@ public class QuestionDBFrame {
 		editButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new EditQuestion(qdb, table.getSelectedRow());
-				qdb.edit(null);
+				new EditQuestion(qdb, table.getSelectedRow(), dataModel);
 			}
 		});
 		editButton.setEnabled(false);
