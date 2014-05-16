@@ -66,7 +66,7 @@ public class CodeQuestion extends Question {
 		}
 		
 		this.time = time;
-		this.difficulty = diff+1;
+		this.difficulty = diff;
 		
 		if (path.equals("")) {
 			throw new EmptyBoxException("Path must be filled in.");
