@@ -73,7 +73,7 @@ public class MCQuestion extends Question {
 		}
 		
 		this.time = time;
-		this.difficulty = diff+1;
+		this.difficulty = diff;
 		
 		if (pa.isEmpty()) {
 			throw new EmptyBoxException("There must be at least two possible answers.");

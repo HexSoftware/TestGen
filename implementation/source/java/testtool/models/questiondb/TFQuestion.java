@@ -63,7 +63,7 @@ public class TFQuestion extends Question {
 		}
 		
 		this.time = time;
-		this.difficulty = diff+1;
+		this.difficulty = diff;
 		
 		this.correctAnswer = corAns;
 		this.type = "TF";

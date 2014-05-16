@@ -60,7 +60,7 @@ public class GraphicsQuestion extends Question {
 		}
 		
 		this.time = time;
-		this.difficulty = diff+1;
+		this.difficulty = diff;
 		
 		this.type = "Graphic";
 	}

@@ -65,7 +65,7 @@ public class SAQuestion extends Question {
 		}
 		
 		this.time = time;
-		this.difficulty = diff+1;
+		this.difficulty = diff;
 		
 		if (ckws.isEmpty()) {
 			throw new EmptyBoxException("Correct Keywords must be filled in.");
