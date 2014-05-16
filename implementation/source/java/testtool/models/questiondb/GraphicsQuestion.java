@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * This type of question must be graded manually
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 12may14
+ * @version 16may14
  *
  */
 public class GraphicsQuestion extends Question {
@@ -60,7 +60,7 @@ public class GraphicsQuestion extends Question {
 		}
 		
 		this.time = time;
-		this.difficulty = diff+1;
+		this.difficulty = diff;
 		
 		this.type = "Graphic";
 	}

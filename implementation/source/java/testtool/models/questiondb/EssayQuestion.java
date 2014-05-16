@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * order of those words in the answer
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 13may14
+ * @version 16may14
  *
  */
 public class EssayQuestion extends Question {
@@ -66,7 +66,7 @@ public class EssayQuestion extends Question {
 		}
 		
 		this.time = time;
-		this.difficulty = diff+1;
+		this.difficulty = diff;
 		
 		if (ckws.isEmpty()) {
 			throw new EmptyBoxException("Correct Keywords must be filled in.");
