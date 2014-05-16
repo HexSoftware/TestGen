@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * the student will simply specify whether or not a statement was true
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 13may14
+ * @version 16may14
  *
  */
 public class TFQuestion extends Question {
@@ -63,7 +63,7 @@ public class TFQuestion extends Question {
 		}
 		
 		this.time = time;
-		this.difficulty = diff+1;
+		this.difficulty = diff;
 		
 		this.correctAnswer = corAns;
 		this.type = "TF";
