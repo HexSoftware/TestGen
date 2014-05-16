@@ -24,7 +24,7 @@ import testtool.models.questiondb.*;
 /**
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 13may14
+ * @version 16may14
  *
  */
 public class AddQuestion extends JMenuBar {
@@ -76,36 +76,36 @@ public class AddQuestion extends JMenuBar {
 			               	case "Multiple Choice":
 			               		qdb.add(new MCQuestion(MCQuestionText.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()+1,
 			               				collectMCAnswers(), collectMCCorAnswers()));
 			               		break;
 			               	case "True/False":
 			               		qdb.add(new TFQuestion(TFQuestionText.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()+1,
 			               				TFAnswer.isSelected()));
 			               		break;
 			               	case "Short Answer":
 			               		qdb.add(new SAQuestion(SAQuestion.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()+1,
 			               				parseStuff(SAAnswer.getText())));
 			               		break;
 			               	case "Essay":
 			               		qdb.add(new EssayQuestion(EssayQuestionText.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()+1, 
 			               				parseStuff(EssayAnswer.getText())));
 			               		break;
 			               	case "Graphics":
 			               		qdb.add(new GraphicsQuestion(GraphicsQuestionText.getText(), "Gene Fisher",
 			               				Course.getText(), new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()));
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()+1));
 			               		break;
 			               	case "Code":
 			               		qdb.add(new CodeQuestion(CodeQuestionText.getText(), "Gene Fisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()+1, 
 			               				CodeScriptPath.getText()));
 			               		break;
 					}
