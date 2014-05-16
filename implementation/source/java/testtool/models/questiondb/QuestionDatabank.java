@@ -6,18 +6,19 @@ import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import testtool.views.questiondb.QuestionDBFrame;
 
 /**
- * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 13may14
- * 
  * The Question Bank is the main focus of the question database, and is the view
  * from section 2.3. It displays the list of questions, which is represented by
  * the questions component. It also handles the management of these questions,
- * which involves adding, editing, removing, search and filter. * 
+ * which involves adding, editing, removing, search and filter. 
+ * 
+ * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
+ * @version 16may14
  */
 public class QuestionDatabank {
 	public ArrayList<QuestionEntry> questions;
@@ -373,16 +374,7 @@ public class QuestionDatabank {
 	}
 	
 	private ArrayList<String> stringToArrayList(String list) {
-		ArrayList<String> arr = new ArrayList<String>();
-		list = list.substring(1);
-		String s;
-		Scanner scan = new Scanner(list);
-		while (scan.hasNext()) {
-			s = scan.next();
-			s = s.substring(0, s.length() - 1);
-			arr.add(s);
-		}
-		scan.close();
-		return arr;
+		list = list.substring(1, list.length() - 1);
+		return new ArrayList<String>(Arrays.asList(list.split(", ")));
 	}
 }
