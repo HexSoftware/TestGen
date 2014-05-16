@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * instructor defined correct answers
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 13may14
+ * @version 16may14
  *
  */
 public class MCQuestion extends Question {
