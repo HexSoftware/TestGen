@@ -1,6 +1,12 @@
 package testtool.models.questiondb;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import testtool.views.questiondb.QuestionDBFrame;
 
@@ -296,6 +302,8 @@ public class QuestionDatabank {
 	}
 	
 	public void writeDatabase() throws FileNotFoundException {
+		//URL out_url = ClassLoader.getSystemResource("QuestionDB.txt");
+		//File outFile = new File(out_url.toURI());
 		File outFile = new File("QuestionDB.txt");
 		PrintWriter writer = new PrintWriter(outFile);
 		for (QuestionEntry qe : questions) {
@@ -366,12 +374,12 @@ public class QuestionDatabank {
 	
 	private ArrayList<String> stringToArrayList(String list) {
 		ArrayList<String> arr = new ArrayList<String>();
-		list.substring(1);
+		list = list.substring(1);
 		String s;
 		Scanner scan = new Scanner(list);
 		while (scan.hasNext()) {
 			s = scan.next();
-			s.substring(0, s.length() - 1);
+			s = s.substring(0, s.length() - 1);
 			arr.add(s);
 		}
 		scan.close();

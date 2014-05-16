@@ -67,8 +67,9 @@ public class Question {
 		case 1:
 			String topic = "";
 			for (String s : topics) {
-				topic += s + "; ";
+				topic += s + ", ";
 	 		}
+			topic = topic.substring(0, topic.length() - 2);
 	 		return topic; 
 	 	case 2: return type;
 	 	case 3: return questionText;
