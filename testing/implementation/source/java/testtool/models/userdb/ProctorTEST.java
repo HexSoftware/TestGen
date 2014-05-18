@@ -1,4 +1,5 @@
 package testtool.models.userdb;
+import org.testng.annotations.*;
 
 /****
  *
@@ -19,7 +20,23 @@ package testtool.models.userdb;
  *             100000 elements.
  *									 </pre>
  */
+@Test
 public class ProctorTEST extends Proctor {
+	/**
+	 * Empty constructor, needed to placate the compiler, since 	 * parent QuestionPopup constructor takes no argument
+	 */
+	protected void ProctorTEST(){
+		super();
+	}
+	protected void testOptions(){
+
+	}
+	protected void testListOfTests(){
+
+	}
+	protected void testGrade(){
+
+	}
 
 
 }

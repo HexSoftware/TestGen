@@ -27,6 +27,12 @@ package testtool.models.userdb;
  *									 </pre>
  */
 public class TestSettingsTEST extends TestSettings {
+	/**
+	 * Empty constructor, needed to placate the compiler, since 	 * parent constructor takes no argument
+	 */
+	protected void TestSettingsTEST(){
+		super();
+	}
 
 
 }
