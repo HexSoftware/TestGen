@@ -29,15 +29,17 @@ public class QuestionDatabank {
 	public QuestionDBFrame qdbf;
 
 	public QuestionDatabank(QuestionDBFrame qdbf) {
+		//a null qdbFrame indicates testing for now. Will change later.
 		questions = new ArrayList<QuestionEntry>();
 		filteredQs = new ArrayList<QuestionEntry>();
 		filters = new ArrayList<Filter>();
 		this.qdbf = qdbf;
-
-		try {
-			loadDatabase();
-		} catch (FileNotFoundException e) {
-			System.out.println("No database found. Creating Empty Database");
+		if (qdbf != null) {
+			try {
+				loadDatabase();
+			} catch (FileNotFoundException e) {
+				System.out.println("No database found. Creating Empty Database");
+			}
 		}
 	}
 
@@ -332,7 +334,10 @@ public class QuestionDatabank {
 		topics = stringToArrayList(scan.findInLine("(?<=topics=)(.*)(?=, time=)"));
 		time = Integer.parseInt(scan.findInLine("(?<=time=)(.*)(?=, difficulty=)"));
 		diff = Integer.parseInt(scan.findInLine("(?<=difficulty=)(.*)(?=, type=)"));
-		type = scan.findInLine("(?<=type=)(.*)(?=[,])");
+		type = scan.findInLine("(?<=type=)(.*)(?=, p)");
+		if (type == null)
+			type = scan.findInLine("(?<=type=)(.*)(?=,)");
+		System.out.println(type);
 		try {
 			switch (type) {
 			case "MC" :

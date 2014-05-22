@@ -2,7 +2,7 @@ package testtool.models.questiondb;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu)
- * @version 7may14	
+ * @version 21may14	
  * 
  * The Category class allows more functionality with sorting, applying 
  * filters, and searching through the Question list. It also allows adding
@@ -20,5 +20,21 @@ public class Category{
 	public Category(String t) {
 		title = t;
 		sortState = 0;
+	}
+	
+	public int getSortState() {
+		return sortState;
+	}
+	
+	public void setSortState(int ss) {
+		sortState = ss;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String t) {
+		title = t;
 	}
 }
