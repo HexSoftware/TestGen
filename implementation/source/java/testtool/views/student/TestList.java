@@ -30,7 +30,6 @@ public class TestList {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
-        //frame.add(panel);
 
         frame.setVisible(true);
         panel.setLayout(null);
@@ -61,6 +60,7 @@ public class TestList {
 		
 		courseTests = TestDB.getTest("course", curCourse);
 		
+		courseTests = testMethods.removeUnscheduled(courseTests);
 		int length = courseTests.size();
 		System.out.println("drawing tests, size is " + length);
 		   
@@ -95,7 +95,7 @@ public class TestList {
 		}
 	}
 			
-	public void drawTestLink(Test test, String categoryNum, JPanel panel, Font font) {
+	public void drawTestLink(final Test test, String categoryNum, JPanel panel, Font font) {
 		
 		curYposition += 35;
 		
@@ -110,7 +110,7 @@ public class TestList {
 			   int count = e.getClickCount();
 			   if (count == 1) {
 				   System.out.println("In TestList.mouseClicked.");
-				   new TestOverview();
+				   new TestOverviewUI(test);
 			   }
 		   }
 	   });

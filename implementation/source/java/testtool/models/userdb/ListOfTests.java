@@ -31,8 +31,6 @@ public class ListOfTests {
 	 */
 	public boolean add(Test t){
 		System.out.println("In ListOfTest.add.");
-		if(t == null)
-			return false;
 		return true;
 	}
 
@@ -53,8 +51,6 @@ public class ListOfTests {
 	 */
 	public boolean remove(Test t){
 		System.out.println("In ListOfTest.remove.");
-		if(t == null)
-			return false;
 		return true;
 	}
 
@@ -75,8 +71,6 @@ public class ListOfTests {
 	 */
 	public boolean open(Test t){
 		System.out.println("In ListOfTest.open.");
-		if(t == null)
-			return false;
 		t.setTestParam("state", "Open");
 		return true;
 	}
@@ -103,8 +97,6 @@ public class ListOfTests {
 	 */
 	public boolean close(Test t){
 		System.out.println("In ListOfTest.close.");
-		if(t == null)
-			return false;
 		t.setTestParam("state", "Closed");
 		return true;
 	}
@@ -124,10 +116,8 @@ public class ListOfTests {
 			 *);
 	 */
 	public boolean grade(Test t){
-		System.out.println("In ListOfTest.grade.");
-		if(t == null)
-			return false;
 		t.setTestParam("state", "Graded");
+		System.out.println("In ListOfTest.grade.");
 		return true;
 	}
 }

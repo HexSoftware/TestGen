@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-//import net.miginfocom.swing.MigLayout;
+import net.miginfocom.swing.MigLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
@@ -57,7 +57,7 @@ public class ReleaseOptionsUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		//contentPane.setLayout(new MigLayout("", "[424px][]", "[23px][][][][][][][][]"));
+		contentPane.setLayout(new MigLayout("", "[424px][]", "[23px][][][][][][][][]"));
 		
 		JLabel lblNewLabel = new JLabel("Test: Midterm 1");
 		contentPane.add(lblNewLabel, "cell 0 0");
