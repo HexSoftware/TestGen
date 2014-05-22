@@ -23,10 +23,10 @@ public class JUT_Login extends TestCase {
 		try {
 			File file = new File("StudentDB.txt");
 		    Scanner inFile = new Scanner(file);
+		    assertTrue(LoginModel.login("aqlam", "password"));
 		} catch (FileNotFoundException e) {
 			assertFalse(LoginModel.login("aqlam", "password"));
 		}
-		assertTrue(LoginModel.login("aqlam", "password"));
 	}
 	
 	public void testEmptyUser() {

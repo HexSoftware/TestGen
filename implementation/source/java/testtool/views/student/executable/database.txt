@@ -1,5 +1,5 @@
 begintest 
-key: testTitle value: Quiz1 
+key: testTitle value: Midterm1 
 key: startDate value: 3/2/14 
 key: testType value: In-class 
 key: state value: scheduled 
