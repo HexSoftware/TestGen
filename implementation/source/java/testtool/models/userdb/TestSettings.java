@@ -347,7 +347,7 @@ public  class TestSettings {
 			 * Database will be updated with changes
 			 *);
 	 */
-	 public void publish(String startDateField, String endDateField, String startTimeField, 
+	 public boolean publish(String startDateField, String endDateField, String startTimeField, 
 			 String endTimeField, String notesTextField,String passwordTextField,
 			 String testTypeList, String gradingTypeList){
 		 this.setStartDate(startDateField);
@@ -359,5 +359,6 @@ public  class TestSettings {
 		 this.setType(testTypeList);
 		 this.setGradeType(gradingTypeList);
 		 System.out.println("In TestSettings.publish.");
-	}
+		 return true;
+	 }
 }

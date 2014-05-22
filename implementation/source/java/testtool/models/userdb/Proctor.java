@@ -1,4 +1,7 @@
 package testtool.models.userdb;
+import java.util.ArrayList;
+
+import testtool.models.testdb.*;
 
 /**
  * Class defines a Proctor user
@@ -23,8 +26,9 @@ public class Proctor {
 		 * accesses the options of that user
 		 *);
  */
-	public void options(){
+	public boolean options(){
 		System.out.println("In Proctor.options.");
+		return true;
 	}
 	/**
  	* Method used in retrieving all the tests of that user.
@@ -39,8 +43,11 @@ public class Proctor {
 		 * accesses the tests of that user
 		 *);
  */
-	public void listOfTests(){
+	public boolean listOfTests(){
 		System.out.println("In Proctor.ListOfTests.");
+		TestDatabase td = new TestDatabase();
+		ArrayList<Test> t = td.getTest("author", "gpickett");
+		return true;
 	}
 	/**
  	* Method used in accessing student grades.
@@ -55,7 +62,8 @@ public class Proctor {
 		 * retrieves test that need to be graded.
 		 *);
  */
-	public void grade(){
+	public boolean grade(){
 		System.out.println("In Proctor.grades.");
+		return true;
 	}
 }
