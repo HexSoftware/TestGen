@@ -15,7 +15,7 @@ public class Grader {
 	
 	//Constructs a grader 
 	public Grader() {
-		System.out.println("In grader.Constructor.");
+		//System.out.println("In grader.Constructor.");
 	}	
 	
 	
