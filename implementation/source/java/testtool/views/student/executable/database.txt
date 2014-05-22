@@ -11,11 +11,11 @@ key: password value: no
 key: uniqueId value: 3 
 key: startTime value: 10:11 
 key: course value: CPE101-01 
-key: author value: gpickett 
 key: testCategoryNum value: 1 
+key: author value: gpickett 
 key: testCategory value: STUFF 
-key: lastUsed value: 3/3/2010 
 key: totalTime value: 199 
+key: lastUsed value: 3/3/2010 
 key: totalPoints value: 93 
 endtest 
 
@@ -32,11 +32,11 @@ key: password value: no
 key: uniqueId value: 4 
 key: startTime value: 10:11 
 key: course value: CPE101-01 
-key: author value: gpickett 
 key: testCategoryNum value: 2 
+key: author value: gpickett 
 key: testCategory value: STUFF2 
-key: lastUsed value: 3/3/2010 
 key: totalTime value: 199 
+key: lastUsed value: 3/3/2010 
 key: totalPoints value: 93 
 endtest 
 
@@ -53,11 +53,11 @@ key: password value: no
 key: uniqueId value: 5 
 key: startTime value: 10:11 
 key: course value: CPE101-01 
-key: author value: gpickett 
 key: testCategoryNum value: 2 
+key: author value: gpickett 
 key: testCategory value: STUFF2 
-key: lastUsed value: 3/3/2010 
 key: totalTime value: 199 
+key: lastUsed value: 3/3/2010 
 key: totalPoints value: 93 
 endtest 
 
