@@ -1,3 +1,12 @@
+package testtool.models.grader;
+
+import static org.junit.Assert.*;
+import junit.framework.TestCase;
+
+import org.junit.Test;
+//import org.testng.*;
+//import org.testng.annotations.*;
+
 /****
  *
  * Class GraderTest is the companion testing class for class <a href=
@@ -15,3 +24,15 @@
  *     Phase 5: Stress test by releasing 1000 tests.
  *                                                                        </ul>
  */
+
+
+public class GraderTEST extends TestCase {
+
+
+	protected GraderTEST() {
+		Grader grader = new Grader();
+	}
+	
+	
+
+}

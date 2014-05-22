@@ -87,4 +87,11 @@ public class ReleaseOptions {
 			System.out.println(options.get(i));
 		}
 	}
+	
+	/**
+	 * @return  An ArrayList of all the options
+	 */
+	public ArrayList<String> getOptions() {
+		return options;
+	}
 }
