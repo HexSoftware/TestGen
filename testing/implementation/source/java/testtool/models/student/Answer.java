@@ -17,4 +17,27 @@ public class Answer {
    String answerFill;
    String fileAnswer;
    int index;
+   
+   public Answer() {}
+   
+   public void setMC(String mc) {
+	   mcAnswer = mc;	   
+   }
+   
+   public void setTF(boolean bool) {
+	   tfAnswer = bool;
+   }
+   
+   public void setFill(String fill) {
+	   answerFill = fill;
+   }
+   
+   public void setFile(String fileName) {
+	   System.out.println("Setting File");
+   }
+   
+   public void setAnswerNum(int num) {
+	   index = num;
+   }
+   
 }

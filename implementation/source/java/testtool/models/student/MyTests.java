@@ -30,6 +30,16 @@ import testtool.models.userdb.*;
    */
   Course course;
   
+  public ArrayList<Test> removeUnscheduled(ArrayList<Test> tests) {
+	  for (int i = 0; i < tests.size(); i++) {
+		  if (tests.get(i).getTestParam("state").equals("unscheduled")) {
+			  tests.remove(i);
+		  }
+	  }
+	  
+	  return tests;
+  }
+  
   public String getSmallestCategoryNum(ArrayList<Test> tests) {
 	  String smallest = tests.get(0).getTestParam("testCategoryNum");
 	  for (int i = 0; i < tests.size(); i++) {
