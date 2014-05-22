@@ -1,6 +1,0 @@
-questionText=asdf, author=Gene Fisher, lastUsed=Never, course=asdf, topics=[[[asdf]]], time=1, difficulty=3, type=Graphic,
-questionText=asdf, author=Gene Fisher, lastUsed=Never, course=asdf, topics=[[[asdf]]], time=1, difficulty=3, type=TF, correctAnswer=true
-questionText=asdf, author=Gene Fisher, lastUsed=Never, course=asdf, topics=[[[asdf]]], time=2, difficulty=3, type=Essay, correctKWs=[[[asdf]]]
-questionText=asdf, author=Gene Fisher, lastUsed=Never, course=asdf, topics=[[[asdf]]], time=1, difficulty=3, type=Graphic,
-questionText=asdf, author=Gene Fisher, lastUsed=Never, course=asdf, topics=[[[asdf]]], time=1, difficulty=3, type=Code, scriptPath=asdf
-questionText=qwerty, author=Gene Fisher, lastUsed=Never, course=sdfg, topics=[[sdfg,, dddfgh]], time=24, difficulty=6, type=TF, correctAnswer=false
