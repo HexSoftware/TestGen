@@ -11,6 +11,10 @@ import testtool.models.student.Login;
  * @author Alvin Lam
  * @version 11may14
  * Tests the login method with various usernames
+ * First Checks for existing studentDB, and if found checks existing user login.
+ * Second Checks invalid user login
+ * Third checks Invalid User
+ * Fourth checks Valid users.
  */
 public class JUT_Login extends TestCase {
 	Login LoginModel = new Login();

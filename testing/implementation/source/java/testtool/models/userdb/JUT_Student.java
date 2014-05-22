@@ -9,6 +9,13 @@ import testtool.models.userdb.Student;
  * @author Alvin Lam
  * @version 21may14
  * Tests the Student methods
+ * Adds a Student and sets:
+ * StudentName
+ * StudentUserName
+ * And adds courses to the Student
+ * First phase, checks the StudentName.
+ * Second phase, checks the StudentUserName.
+ * Third phase, checks the StudentCourses.
  */
 public class JUT_Student extends TestCase {
 

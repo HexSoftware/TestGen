@@ -7,6 +7,11 @@ import testtool.models.courses.Course;
  * @author Alvin Lam
  * @version 21may14
  * Tests the course methods
+ * Adds a course and sets:
+ * CourseName
+ * CourseInstructor 
+ * First phase, checks CourseName
+ * Second phase, checks CourseInstructor
  */
 public class JUT_Course extends TestCase {
 
