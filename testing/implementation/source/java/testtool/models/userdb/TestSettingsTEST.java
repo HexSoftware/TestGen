@@ -39,9 +39,9 @@ public class TestSettingsTEST extends TestSettings {
 	 * Empty constructor, needed to placate the compiler, since
  	 * parent constructor takes no argument
 	 */
-	testtool.models.testdb.Test t = new testtool.models.testdb.Test();
+	static testtool.models.testdb.Test t = new testtool.models.testdb.Test();
 	public TestSettingsTEST(){
-		super(null);
+		super(t);
 	}
 	@Test
 	public void testGetType(){
