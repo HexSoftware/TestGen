@@ -33,7 +33,7 @@ import testtool.models.questiondb.Question;
 import testtool.models.testdb.AutomaticGeneration;
 import testtool.models.testdb.TestDatabase;
 
-public class GeneratingGUI {
+public class ManualGeneratingGUI {
 	static JButton generateButton;
 
 	public void actionPerformed(ActionEvent e) {
@@ -53,10 +53,10 @@ public class GeneratingGUI {
 	JLabel timeTlabel = new JLabel("Total Time:");
 	JLabel titlelabel = new JLabel("Test Title:");
 	JLabel keylabel = new JLabel("Keywords:");
-	JLabel passlabel = new JLabel("Password:");
 	JLabel additionallabel = new JLabel("Extra Information:");
 	JLabel pointslabel = new JLabel("Points:");
 	JLabel catLabel = new JLabel("Category:");
+	JLabel passLabel = new JLabel("Password:");
 	JLabel catNumLabel = new JLabel("Category Number:");
 	JPanel fields = new JPanel(new BorderLayout());
 	JTextField pointsField = new JTextField(20);
@@ -74,7 +74,7 @@ public class GeneratingGUI {
 	JTextField testCategoryNum = new JTextField(20);
 	JComboBox classList = null;
 
-	public GeneratingGUI(TestDatabase td, ArrayList<Question> qs) {
+	public ManualGeneratingGUI(TestDatabase td, ArrayList<Question> qs) {
 		questions = qs;
 		ag = new AutomaticGeneration(td);
 		tdb = td;
@@ -115,22 +115,10 @@ public class GeneratingGUI {
 				guiPanel.add(authorList, gbc);
 				guiPanel.add(titlelabel);
 				guiPanel.add(titleField, gbc);
-				guiPanel.add(timeTlabel);
-				guiPanel.add(totalField, gbc);
-				guiPanel.add(typelabel);
-				guiPanel.add(typeField, gbc);
-				guiPanel.add(amntlabel);
-				guiPanel.add(amntField, gbc);
-				guiPanel.add(difficultylabel);
-				guiPanel.add(diffField, gbc);
-				guiPanel.add(passlabel);
-				guiPanel.add(passField, gbc);
-				guiPanel.add(pointslabel);
-				guiPanel.add(pointsField, gbc);
-				guiPanel.add(lastUsedlabel);
-				guiPanel.add(lastUsedField, gbc);
 				guiPanel.add(keylabel);
 				guiPanel.add(keyField, gbc);
+				guiPanel.add(passLabel);
+				guiPanel.add(passField, gbc);
 				guiPanel.add(additionallabel);
 				guiPanel.add(additField, gbc);
 				guiPanel.add(catLabel);
@@ -215,22 +203,19 @@ public class GeneratingGUI {
 					&& !titleField.getText().equals(""))
 				params.put("testTitle", titleField.getText());
 			params.put("author", "gfisher");
-			if (lastUsedField.getText() != null
-					&& !lastUsedField.getText().equals(""))
-				params.put("lastUsed", lastUsedField.getText());
-			if (totalField.getText() != null
-					&& !totalField.getText().equals(""))
-				params.put("totalTime", totalField.getText());
-			if (diffField.getText() != null && !diffField.getText().equals(""))
-				params.put("avgDifficulty", diffField.getText());
-			params.put("course", classList.getSelectedItem().toString());
-			// params.put("gradeType", );
 			if (typeField.getText() != null && !typeField.getText().equals(""))
 				params.put("gradeType", typeField.getText());
 			if (passField.getText() != null && !passField.getText().equals(""))
 				params.put("password", passField.getText());
-			if (additField.getText() != null && !additField.getText().equals(""))
+			if (additField.getText() != null
+					&& !additField.getText().equals(""))
 				params.put("notes", additField.getText());
+			if (additField.getText() != null
+					&& !additField.getText().equals(""))
+				params.put("notes", additField.getText());
+			params.put("course", classList.getSelectedItem().toString());
+			// params.put("gradeType", );
+			// params.put("password", );
 			if (totalField.getText() != null
 					&& !totalField.getText().equals(""))
 				params.put("endTime", totalField.getText());
