@@ -1,8 +1,9 @@
 /**
  * @author Grant Picket
- * @version 5/13/14
+ * @version 5/30/14
  */
 package testtool.views.testdb;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -18,207 +19,200 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
 
 import testtool.models.testdb.Test;
 import testtool.models.testdb.TestDatabase;
 
 public class TestDatabaseGUI {
-   public Test         t;
-   public TestDatabase tdb;
-   static JButton      takeButton;
-   static String[]     columnNames = {
-         "Tes" +
-               "t",
-         "Class",
-         "Difficulty",
-         "Time",
-         "Last Used",
-         "Points",
-         "Author"                  };
+	public Test t;
+	public TestDatabase tdb;
+	JButton takeButton;
+	DefaultTableModel dataModel;
+	JTable table;
 
-   static Object[][]   data        = {
-         {
-         "Quiz1", "CPE101", "Easy", "30 min", "January 22, 2014",
-         new Integer(40), "G. Fisher"},
-         {
-         "", "", "", " ", "", "", ""},
-         {
-         "", "", "", " ", "", "", ""},
-         {
-         "", "", "", " ", "", "", ""},
-         {
-         "", "", "", " ", "", "", ""},
-         {
-         "", "", "", " ", "", "", ""},
-                                   };
-   static Object[][]   data2       = {
-         {
-         "Quiz1", "CPE101", "Easy", "30 min", "January 22, 2014",
-         new Integer(40), "G. Fisher"},
-         {
-         "Midterm1", "CPE101", "Medium", "60 min", "January 29, 2014",
-         new Integer(120), "G. Fisher"},
-         {
-         "", "", "", " ", "", "", ""},
-         {
-         "", "", "", " ", "", "", ""},
-         {
-         "", "", "", " ", "", "", ""},
-         {
-         "", "", "", " ", "", "", ""},
-                                   };
-   public TestDatabaseGUI(final int setting, TestDatabase td) {
-      tdb = td;
-      EventQueue.invokeLater(new Runnable() {
-         @Override
-         public void run() {
-            try {
-               UIManager.setLookAndFeel(UIManager
-                     .getSystemLookAndFeelClassName());
-            } catch (ClassNotFoundException | InstantiationException
-                  | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            }
+	public TestDatabaseGUI(final int setting, TestDatabase td) {
+		tdb = td;
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager
+							.getSystemLookAndFeelClassName());
+				} catch (ClassNotFoundException | InstantiationException
+						| IllegalAccessException
+						| UnsupportedLookAndFeelException ex) {
+				}
 
-            JFrame guiFrame = new JFrame();
+				JFrame guiFrame = new JFrame();
 
-            JPanel guiPanel = new JPanel(new GridBagLayout());
+				JPanel guiPanel = new JPanel(new GridBagLayout());
+				String[] col = { "Test", "Class", "Topics", "Difficulty",
+						"Time", "Last Used", "Points", "Author", "Questions",
+						"Status" };
+				dataModel = new DefaultTableModel(col, 10);
+				table = new JTable(dataModel);
+				for (int i = 0; i < tdb.tests.size(); i++) {
+					table.setValueAt(
+							tdb.tests.get(i).getTestParam("testTitle"), i, 0);
+					table.setValueAt(tdb.tests.get(i).getTestParam("course"),
+							i, 1);
+					table.setValueAt(tdb.tests.get(i).getTestParam("name"), i,
+							2);
+					table.setValueAt(
+							tdb.tests.get(i).getTestParam("avgDifficulty"), i,
+							3);
+					table.setValueAt(
+							tdb.tests.get(i).getTestParam("totalTime"), i, 4);
+					table.setValueAt(tdb.tests.get(i).getTestParam("lastUsed"),
+							i, 5);
+					table.setValueAt(
+							tdb.tests.get(i).getTestParam("totalPoints"), i, 6);
+					table.setValueAt(tdb.tests.get(i).getTestParam("author"),
+							i, 7);
+					table.setValueAt(
+							tdb.tests.get(i).getTestParam("totalQuestions"), i,
+							8);
+					table.setValueAt(tdb.tests.get(i).getTestParam("state"), i,
+							9);
+				}
 
-            JTable table = null;
-            if (setting == 1) {
-               table = new JTable(data, columnNames);
-            }
-            else {
-               table = new JTable(data2, columnNames);
-            }
+				guiFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				guiFrame.setTitle("Tests");
+				guiFrame.setSize(1000, 600);
 
-            guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            guiFrame.setTitle("Tests");
-            guiFrame.setSize(700, 400);
+				guiFrame.setLocationRelativeTo(null);
 
-            guiFrame.setLocationRelativeTo(null);
+				JPanel fields = new JPanel(new BorderLayout());
 
-            JPanel fields = new JPanel(new BorderLayout());
+				JButton addButton = new JButton("Add");
+				addButton.setSize(30, 10);
+				addButton.addActionListener(new addListener());
+				JButton editButton = new JButton("Edit");
+				editButton.setSize(30, 10);
+				editButton.addActionListener(new editListener());
 
-            JButton addButton = new JButton("Add");
-            addButton.setSize(30, 10);
-            addButton.addActionListener(new addListener());
-            JButton editButton = new JButton("Edit");
-            editButton.setSize(30, 10);
-            editButton.addActionListener(new editListener());
+				takeButton = new JButton("Take");
+				takeButton.addActionListener(new takeListener());
 
-            takeButton = new JButton("Take");
-            takeButton.addActionListener(new takeListener());
+				JButton publishButton = new JButton("Publish");
+				publishButton.addActionListener(new publishListener());
+				JButton removeButton = new JButton("Remove");
+				removeButton.addActionListener(new removeListener());
 
-            JButton publishButton = new JButton("Publish");
-            publishButton.addActionListener(new publishListener());
-            JButton removeButton = new JButton("Remove");
-            removeButton.addActionListener(new removeListener());
+				fields.add(table.getTableHeader(), BorderLayout.PAGE_START);
+				fields.add(table);
+				JPanel buttonPanel = new JPanel();
+				BoxLayout boxLayout1 = new BoxLayout(buttonPanel,
+						BoxLayout.Y_AXIS);
+				buttonPanel.setLayout(boxLayout1);
+				buttonPanel.add(Box.createVerticalGlue());
+				buttonPanel.add(addButton);
+				buttonPanel.add(editButton);
+				buttonPanel.add(removeButton);
 
-            fields.add(table.getTableHeader(), BorderLayout.PAGE_START);
-            fields.add(table);
-            JPanel buttonPanel = new JPanel();
-            BoxLayout boxLayout1 = new BoxLayout(buttonPanel, BoxLayout.Y_AXIS);
-            buttonPanel.setLayout(boxLayout1);
-            buttonPanel.add(Box.createVerticalGlue());
-            buttonPanel.add(addButton);
-            buttonPanel.add(editButton);
-            buttonPanel.add(removeButton);
+				JPanel fields3 = new JPanel(new GridBagLayout());
+				fields3.add(takeButton);
+				fields3.add(publishButton);
 
-            JPanel fields3 = new JPanel(new GridBagLayout());
-            fields3.add(takeButton);
-            fields3.add(publishButton);
+				GridBagConstraints gbc = new GridBagConstraints();
+				gbc.gridwidth = GridBagConstraints.REMAINDER;
 
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridwidth = GridBagConstraints.REMAINDER;
+				guiPanel.add(fields);
+				guiPanel.add(buttonPanel, gbc);
+				guiPanel.add(fields3, gbc);
+				guiFrame.add(guiPanel, BorderLayout.NORTH);
+				// guiFrame.setJMenuBar(Menu());
+				guiFrame.setVisible(true);
+			}
+		});
 
-            guiPanel.add(fields);
-            guiPanel.add(buttonPanel, gbc);
-            guiPanel.add(fields3, gbc);
-            guiFrame.add(guiPanel, BorderLayout.NORTH);
-            // guiFrame.setJMenuBar(Menu());
-            guiFrame.setVisible(true);
-         }
-      });
+	}
 
-   }
-   String[] fileItems     = new String[]{
-         "New", "Open", "Save", "Exit"};
-   String[] editItems     = new String[]{
-         "Undo", "Cut", "Copy", "Paste"};
-   char[]   fileShortcuts = {
-         'N', 'O', 'S', 'X'};
-   char[]   editShortcuts = {
-         'Z', 'X', 'C', 'V'};
-   /*
-    * public JMenuBar Menu() { JMenuBar menuBar = new JMenuBar(); JMenu fileMenu
-    * = new JMenu("File"); JMenu editMenu = new JMenu("Edit"); JMenu viewMenu =
-    * new JMenu("View");
-    * 
-    * // Assemble the File menus with mnemonics. ActionListener printListener =
-    * new ActionListener( ) { public void actionPerformed(ActionEvent event) {
-    * System.out.println("Menu item [" + event.getActionCommand( ) +
-    * "] was pressed."); } }; for (int i=0; i < fileItems.length; i++) {
-    * JMenuItem item = new JMenuItem(fileItems[i], fileShortcuts[i]);
-    * item.addActionListener(printListener); fileMenu.add(item); }
-    * 
-    * // Assemble the File menus with keyboard accelerators. for (int i=0; i <
-    * editItems.length; i++) { JMenuItem item = new JMenuItem(editItems[i]);
-    * item.setAccelerator(KeyStroke.getKeyStroke(editShortcuts[i],
-    * Toolkit.getDefaultToolkit( ).getMenuShortcutKeyMask( ), false));
-    * item.addActionListener(printListener); editMenu.add(item); }
-    * 
-    * // Insert a separator in the Edit menu in Position 1 after "Undo".
-    * editMenu.insertSeparator(1);
-    * 
-    * // Assemble the submenus of the Other menu. JMenuItem item;
-    * 
-    * 
-    * // Finally, add all the menus to the menu bar. menuBar.add(fileMenu);
-    * menuBar.add(editMenu); menuBar.add(viewMenu); return menuBar; }
-    */
-   class addListener implements ActionListener {
+	String[] fileItems = new String[] { "New", "Open", "Save", "Exit" };
+	String[] editItems = new String[] { "Undo", "Cut", "Copy", "Paste" };
+	char[] fileShortcuts = { 'N', 'O', 'S', 'X' };
+	char[] editShortcuts = { 'Z', 'X', 'C', 'V' };
 
-      public addListener() {
-      }
-      @Override
-      public void actionPerformed(ActionEvent e) {
-         new GenerateTypeGUI(tdb);
-      }
-   }
-   class removeListener implements ActionListener {
+	/*
+	 * public JMenuBar Menu() { JMenuBar menuBar = new JMenuBar(); JMenu
+	 * fileMenu = new JMenu("File"); JMenu editMenu = new JMenu("Edit"); JMenu
+	 * viewMenu = new JMenu("View");
+	 * 
+	 * // Assemble the File menus with mnemonics. ActionListener printListener =
+	 * new ActionListener( ) { public void actionPerformed(ActionEvent event) {
+	 * System.out.println("Menu item [" + event.getActionCommand( ) +
+	 * "] was pressed."); } }; for (int i=0; i < fileItems.length; i++) {
+	 * JMenuItem item = new JMenuItem(fileItems[i], fileShortcuts[i]);
+	 * item.addActionListener(printListener); fileMenu.add(item); }
+	 * 
+	 * // Assemble the File menus with keyboard accelerators. for (int i=0; i <
+	 * editItems.length; i++) { JMenuItem item = new JMenuItem(editItems[i]);
+	 * item.setAccelerator(KeyStroke.getKeyStroke(editShortcuts[i],
+	 * Toolkit.getDefaultToolkit( ).getMenuShortcutKeyMask( ), false));
+	 * item.addActionListener(printListener); editMenu.add(item); }
+	 * 
+	 * // Insert a separator in the Edit menu in Position 1 after "Undo".
+	 * editMenu.insertSeparator(1);
+	 * 
+	 * // Assemble the submenus of the Other menu. JMenuItem item;
+	 * 
+	 * 
+	 * // Finally, add all the menus to the menu bar. menuBar.add(fileMenu);
+	 * menuBar.add(editMenu); menuBar.add(viewMenu); return menuBar; }
+	 */
+	class addListener implements ActionListener {
 
-      public removeListener() {
-      }
-      @Override
-      public void actionPerformed(ActionEvent e) {
-         tdb.removeTest(t);
-      }
-   }
-   class editListener implements ActionListener {
+		public addListener() {
+		}
 
-      public editListener() {
-      }
-      @Override
-      public void actionPerformed(ActionEvent e) {
-         tdb.editTest(t);
-      }
-   }
-   class publishListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			new GenerateTypeGUI(tdb);
+		}
+	}
 
-      public publishListener() {
-      }
-      @Override
-      public void actionPerformed(ActionEvent e) {
-         tdb.publishTest(t);
-      }
-   }
-   class takeListener implements ActionListener {
+	class removeListener implements ActionListener {
 
-      public takeListener() {
-      }
-      @Override
-      public void actionPerformed(ActionEvent e) {
-         tdb.takeTest(t);
-      }
-   }
+		public removeListener() {
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			tdb.removeTest(table.getSelectedRows());
+		}
+	}
+
+	class editListener implements ActionListener {
+
+		public editListener() {
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			tdb.editTest(table.getSelectedRow());
+		}
+	}
+
+	class publishListener implements ActionListener {
+
+		public publishListener() {
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			tdb.publishTest(table.getSelectedRow());
+		}
+	}
+
+	class takeListener implements ActionListener {
+
+		public takeListener() {
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			tdb.takeTest(t);
+		}
+	}
 }

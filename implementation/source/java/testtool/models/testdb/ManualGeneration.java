@@ -2,7 +2,7 @@
  * ManualGeneration is used to a create a test by manually 
  * selecting questions from a database
  * @author Grant Pickett
- * @version 5/13/2014
+ * @version 5/30/2014
  */
 
 package testtool.models.testdb;
@@ -41,21 +41,6 @@ public class ManualGeneration {
 	};
 
 	/**
-	 * add takes a question from the add a question dialog, and adds it into the
-	 * question list.
-	 */
-	/*
-	 * @ requires (* That question q is a vaild question.); ensures (* That a
-	 * valid question is added to the databank.);
-	 * 
-	 * @
-	 */
-	void add(Question q) {
-		System.out.println("in AutomaticGeneration.add");
-		questions.add(q);
-	}
-
-	/**
 	 * edit allows changes to be applied to an existing Question q in the
 	 * question list.
 	 * 
@@ -69,24 +54,8 @@ public class ManualGeneration {
 	 * 
 	 * @
 	 */
-
-	/**
-	 * remove takes a collection of Questions qs and removes them from the local
-	 * test.
-	 * 
-	 * @param qs
-	 *            - question(s) to remove
-	 */
-	/*
-	 * @ requires (* That a one or more questions in the databank are selected.
-	 * Also that all questions in qs are valid questions and are in the databank
-	 * also.); ensures (* That some valid questions are removed.);
-	 * 
-	 * @
-	 */
-	void remove(Question q) {
-		System.out.println("in AutomaticGeneration.remove");
-		questions.remove(q);
+	void edit(ArrayList<Question> qs) {
+		System.out.println("in ManualGeneration.edit");
 	}
 
 	/**

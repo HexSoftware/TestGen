@@ -1,7 +1,7 @@
 /*
  * The Testdatabase Class holds all instances of test objects
  * @author Grant Pickett, Yuliya Levitskaya
- * @version 5/13/2014
+ * @version 5/30/2014
  */
 
 package testtool.models.testdb;
@@ -34,7 +34,6 @@ public class TestDatabase {
 			String line = null;
 			ArrayList<Question> questions = new ArrayList<Question>();
 			HashMap<String, String> params = new HashMap<String, String>();
-			;
 			String[] parts = new String[4];
 			while ((line = reader.readLine()) != null) {
 				if (line.contains("begintest")) {
@@ -44,7 +43,13 @@ public class TestDatabase {
 				} else {
 					if (line.contains("endtest")) {
 						System.out.println("end of test");
-						createTest(params, questions);
+						// createTest(params, questions);
+						if (params.get("uniqueId") == null) {
+							params.put("uniqueId", idPos.toString());
+						}
+						idPos += 1;
+						Test newTest = new Test(params, questions);
+						tests.add(newTest);
 						continue;
 					}
 					parts = line.split(" ");
@@ -94,10 +99,10 @@ public class TestDatabase {
 	 * 
 	 * @
 	 */
-	public void editTest(Test t) {
+	public void editTest(int i) {
 		System.out.println("in TestDatabase.editTest");
+		// QuestionDatabank.
 		save();
-		//
 	}
 
 	public Integer getIdPos() {
@@ -122,7 +127,7 @@ public class TestDatabase {
 
 		if (column_names.contains(column)) {
 			System.out.println("Number of tests in database: " + tests.size());
-			for (final Test t : tests) {
+			for (Test t : tests) {
 				String val = t.getTestParam(column).toString();
 				if (val != null) {
 					if (val.equals(data)) {
@@ -146,8 +151,9 @@ public class TestDatabase {
 	 * 
 	 * @
 	 */
-	public void publishTest(Test t) {
+	public void publishTest(int i) {
 		System.out.println("in TestDatabase.publishTest");
+		// TestTaking?
 	}
 
 	/**
@@ -160,9 +166,11 @@ public class TestDatabase {
 	 * 
 	 * @
 	 */
-	public Test removeTest(Test t) {
-		Test removed = tests
-				.remove(Integer.parseInt(t.getTestParam("uniqueId")));
+	public Test removeTest(int[] is) {
+		Test removed = tests.get(is[0]);
+		for (int i = is.length - 1; i >= 0; i--) {
+			tests.remove(is[i]);
+		}
 		save();
 		return removed;
 	}
