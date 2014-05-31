@@ -1,5 +1,6 @@
 package testtool.models.student;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import testtool.models.testdb.*;
@@ -7,7 +8,7 @@ import testtool.models.userdb.*;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu
- * @version 20apr14
+ * @version 31may14
  * 
  * TestOverview is the limited information about a test. Test is the test
  * that is being shown an overview. Graded informs if the test is graded or
@@ -16,7 +17,6 @@ import testtool.models.userdb.*;
  public class TestOverview {
    boolean released;
    Collection<Test> completedtests;
-   Test test;
    Student user;
    
    /** 
@@ -38,9 +38,15 @@ import testtool.models.userdb.*;
       //
       result test.password.equals(password)
    @*/
-   public boolean checkPassword(String password) {
+   public boolean checkPassword(Test test, char[] password) {
       System.out.println("In TestOverview.checkPassword");
-      return true;
+      if (Arrays.equals(test.getTestParam("password").toCharArray(), password)) {
+      	password = null;
+      	return true;
+      }
+      else {
+      	return false;
+      }
    }
    
    /**

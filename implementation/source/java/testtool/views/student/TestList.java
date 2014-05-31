@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu)
- * @version 20apr14
+ * @version 31may14
  * 
  * GUI of the list of tests for a course. The constructor builds the GUI
  * to display. A test can be selected to view its test overview.
@@ -27,7 +27,7 @@ public class TestList {
 	public TestList(Student student, String courseName) {
 		JFrame frame = new JFrame("Tests");
         frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
 
@@ -41,7 +41,6 @@ public class TestList {
         directoryPath.setBounds(20, 20, 500, 25);
         directoryPath.setFont(font1);
         directoryPath.setForeground(Color.BLUE);
-        directoryPath.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel.add(directoryPath);
         
         drawList(student, courseName, panel, font, font1);

@@ -41,10 +41,9 @@ public class CourseList {
         Font font1 = new Font("Calibri", Font.PLAIN, 18);
         
         JLabel directoryPath = new JLabel("My Classes");
-        directoryPath.setBounds(20, 20, 500, 25);
+        directoryPath.setBounds(20, 20, 125, 25);
         directoryPath.setFont(font1);
         directoryPath.setForeground(Color.BLUE);
-        directoryPath.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel.add(directoryPath);
         
         drawCourses(student, myCourses, panel, font, font1);
