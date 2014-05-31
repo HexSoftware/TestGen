@@ -1,6 +1,10 @@
 package testtool.models.userdb;
 /**/
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import testtool.models.testdb.Test;
 
@@ -12,6 +16,51 @@ public class ListOfTests {
 	Collection<Test> tests;
 	public ListOfTests(){
 		
+	}
+	
+	public boolean checkStatus(Test t) throws ParseException{
+		String startDate = t.getTestParam("startDate");
+		String endDate = t.getTestParam("endDate");
+		String startTime = t.getTestParam("startTime");
+		String endTime = t.getTestParam("endTime");
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+				
+		String date = dateFormat.format(cal.getTime());
+		String time = timeFormat.format(cal.getTime());
+		
+		Date currentDate = dateFormat.parse(date);
+		Date currentTime = timeFormat.parse(time);
+		
+		Date sDate = dateFormat.parse(startDate);
+		Date eDate = dateFormat.parse(endDate);
+
+		Date sTime = timeFormat.parse(startTime);
+		Date eTime = timeFormat.parse(endTime);
+		
+		if(currentDate.after(sDate)){
+			if(currentDate.before(eDate))
+				return true;
+			else if(currentDate.after(eDate))
+				return false;
+		}
+		else if(currentDate.before(sDate))
+			return false;
+		else{
+			if(currentTime.after(sTime)){
+				if(currentTime.before(eTime))
+					return true;
+				else if(currentTime.after(eTime))
+					return false;
+				else
+					return true;
+			}
+			else if(currentTime.before(eTime))
+				return false;
+		}
+		return false;
 	}
 
 	/**
