@@ -6,6 +6,12 @@ import java.util.Scanner;
 
 import testtool.models.userdb.Student;
 
+/**
+ * @author Alvin Lam (aqlam@calpoly.edu)
+ * @version 27may14
+ * 
+ * Login is the login screen to authenticate users.
+ */
 public class Login {
 
 		/**

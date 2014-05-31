@@ -1,5 +1,4 @@
 package testtool.models.student;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import testtool.models.testdb.Test;
@@ -16,24 +15,16 @@ import testtool.models.userdb.Student;
  * test is the test for which the answers are for
  */
 public class StudentAnswers {
-   ArrayList<Answer> answers;
+   Collection<Answer> answers;
    Student student;
    Test test;
 
-   
-   public StudentAnswers() {
-	   answers = new ArrayList<Answer>();
-   }
-   
-   
    /**
     * adds an answer to the Collection of answers
     * @param answer - the answer to add to the collection
     */
    public void addAnswer(Answer answer) {
-	   answer.index = answers.size();
-	   answers.add(answer);
-	   
+	   System.out.println("In StudentAnswers.addAnswer");
    }
 
    /**
@@ -41,26 +32,14 @@ public class StudentAnswers {
     * @param answer - the answer to remove from the collection
     */
    public void removeAnswer(Answer answer) {
-	   answers.remove(answer);
+	   System.out.println("In StudentAnswers.removeAnswer");
    }
 
    /**
     * updates the existing answer from the collection of answers
     * @param answer - the answer to update
     */
-   public void updateAnswer(Answer answer, Answer newAnswer) {
-	   int old = answers.indexOf(answer);
-	   answers.set(old, newAnswer);
+   public void updateAnswer(Answer answer) {
+	   System.out.println("In StudentAnswers.updateAnswer");
    }
-   
-   
-   /**
-    * 
-    * @return the ArrayList of answers
-    */
-   public ArrayList<Answer> getAnswers() {
-	   return answers;
-   }
-   
-   
 }
