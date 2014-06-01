@@ -1,6 +1,6 @@
 /**
  * @author Grant Picket
- * @version 5/30/14
+ * @version 6/1/14
  */
 package testtool.views.testdb;
 
@@ -30,6 +30,7 @@ public class TestCreationResultGUI extends JMenuBar {
 	 * TestCreationResultGUI().setVisible(true); }
 	 */
 	TestDatabase tdb;
+	JFrame frame;
 	private static final int WIDTH = 1000;
 	private static final int HEIGHT = 400;
 	private static final String TITLE = "Generation Results";
@@ -53,7 +54,7 @@ public class TestCreationResultGUI extends JMenuBar {
 		JMenu editMenu = new JMenu("Edit");
 		JMenu viewMenu = new JMenu("View");
 		JMenuItem item;
-		JFrame frame = new JFrame("Test Creation Results");
+		frame = new JFrame("Test Creation Results");
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle(TITLE);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -140,6 +141,7 @@ public class TestCreationResultGUI extends JMenuBar {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			new TestDatabaseGUI(2, tdb);
+			frame.dispose();
 		}
 	}
 }

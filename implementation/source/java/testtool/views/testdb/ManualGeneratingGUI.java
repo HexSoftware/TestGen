@@ -1,6 +1,6 @@
 /**
  * @author Grant Picket
- * @version 5/31/14
+ * @version 6/1/14
  */
 
 package testtool.views.testdb;
@@ -193,7 +193,6 @@ public class ManualGeneratingGUI {
 		menuBar.add(viewMenu);
 		return menuBar;
 	}
-
 	class genListener implements ActionListener {
 
 		public genListener() {
@@ -234,7 +233,7 @@ public class ManualGeneratingGUI {
 					&& !testCategoryNum.getText().equals(""))
 				params.put("testCategoryNumber", testCategoryNum.getText());
 			ag.generate(params, questions);
-			new TestCreationResultGUI(tdb);
+			new TestDatabaseGUI(2, tdb);
 			guiFrame.dispose();
 		}
 	}

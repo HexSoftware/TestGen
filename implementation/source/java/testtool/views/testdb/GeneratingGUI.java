@@ -1,6 +1,6 @@
 /**
  * @author Grant Picket
- * @version 5/30/14
+ * @version 6/1/14
  */
 
 package testtool.views.testdb;
@@ -73,7 +73,7 @@ public class GeneratingGUI {
 	JTextField testCategory = new JTextField(20);
 	JTextField testCategoryNum = new JTextField(20);
 	JComboBox classList = null;
-
+	JFrame guiFrame;
 	public GeneratingGUI(TestDatabase td, ArrayList<Question> qs) {
 		questions = qs;
 		ag = new AutomaticGeneration(td);
@@ -89,7 +89,7 @@ public class GeneratingGUI {
 						| UnsupportedLookAndFeelException ex) {
 				}
 
-				JFrame guiFrame = new JFrame();
+				 guiFrame = new JFrame();
 
 				JPanel guiPanel = new JPanel(new GridBagLayout());
 				JPanel guiPanel2 = new JPanel(new GridBagLayout());
@@ -244,6 +244,7 @@ public class GeneratingGUI {
 				params.put("testCategoryNumber", testCategoryNum.getText());
 			ag.generate(params, questions);
 			new TestCreationResultGUI(tdb);
+			guiFrame.dispose();
 		}
 	}
 }
