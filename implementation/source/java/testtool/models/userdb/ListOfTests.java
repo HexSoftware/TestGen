@@ -10,7 +10,8 @@ import testtool.models.testdb.Test;
 
 /**
  * This class displays the list of tests that the instructor had generated.
- * @author Yuliya Levitskaya
+ * @author Yuliya Levitskaya, Alvin Lam
+ * @version 31may14
  */
 public class ListOfTests {
 	Collection<Test> tests;
@@ -25,11 +26,14 @@ public class ListOfTests {
 		String endTime = t.getTestParam("endTime");
 		
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mma");
 				
 		String date = dateFormat.format(cal.getTime());
 		String time = timeFormat.format(cal.getTime());
+		
+		System.out.println("Date: " + date);
+		System.out.println("Time: " + time);
 		
 		Date currentDate = dateFormat.parse(date);
 		Date currentTime = timeFormat.parse(time);
@@ -49,7 +53,7 @@ public class ListOfTests {
 		else if(currentDate.before(sDate))
 			return false;
 		else{
-			if(currentTime.after(sTime)){
+			if(currentTime.after(sTime) || (currentTime.equals(sTime))){
 				if(currentTime.before(eTime))
 					return true;
 				else if(currentTime.after(eTime))

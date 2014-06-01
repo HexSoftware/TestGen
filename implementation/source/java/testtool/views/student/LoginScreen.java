@@ -91,6 +91,7 @@ public class LoginScreen {
     				failed = true;
     				displayFailedLogin();
     			}
+    			displayFailedLogin();
     			mainframe.pack();
     			mainframe.revalidate();
     			mainframe.setSize(800, 600);

@@ -6,18 +6,16 @@ import java.awt.Cursor;
 import java.awt.Font;
 
 import javax.swing.*;
-import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 
 import java.awt.event.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import testtool.models.testdb.*;
+import testtool.models.userdb.ListOfTests;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu)
@@ -30,19 +28,19 @@ import testtool.models.testdb.*;
 public class TestOverviewUI {
 
     public TestOverviewUI(Test curTest) {
-        JFrame frame = new JFrame("Midterm 1");
+        JFrame frame = new JFrame(curTest.getTestParam("testTitle"));
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
         frame.add(panel);
-        placeComponents(panel, curTest);
+        placeComponents(frame, panel, curTest);
 
         frame.setVisible(true);
     }
 
-    private static void placeComponents(JPanel panel, final Test test) {
-
+    private static void placeComponents(final JFrame frame, JPanel panel, final Test test) {
+   	 ListOfTests proctorMethods = new ListOfTests();
         panel.setLayout(new BorderLayout());
         
         Font font = new Font("Calibri", Font.BOLD, 24);
@@ -59,6 +57,16 @@ public class TestOverviewUI {
         refreshLabel.setFont(font1);
         refreshLabel.setForeground(Color.BLUE);
         refreshLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        refreshLabel.addMouseListener(new MouseAdapter() {
+		     	public void mouseClicked(MouseEvent e) {
+		     		
+		     		int count = e.getClickCount();
+		     		if (count == 1) {
+		     			frame.dispose();
+		     			new TestOverviewUI(test);
+		     		}
+		     	}
+		     });
         panel.add(refreshLabel);
 
         JLabel description = new JLabel(test.getTestParam("testTitle"));
@@ -86,69 +94,93 @@ public class TestOverviewUI {
         JLabel properties2 = new JLabel();
         JLabel state = new JLabel();
         
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+  		  SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mma");
+			
+  		  
+  		Date sDate = null, eDate = null, sTime = null, eTime = null;
+  		
+  		  try {
+  			  sDate = dateFormat.parse(test.getTestParam("startDate"));
+  			  eDate = dateFormat.parse(test.getTestParam("endDate"));
+	
+				sTime = timeFormat.parse(test.getTestParam("startTime"));
+				eTime = timeFormat.parse(test.getTestParam("endTime"));
+  		  } catch (Exception e) {
+  			  System.out.println("Invalid Date/Time format");
+  		  }
+	  		String startDate = dateFormat.format(sDate);
+			String startTime = timeFormat.format(sTime);
+			String endDate = dateFormat.format(eDate);
+			String endTime = timeFormat.format(eTime);
         //if scheduled but not opened
-        if (test.getTestParam("state").equals("scheduled")) {
-      	  properties.setText(properties.getText() + "The test will open on " + test.getTestParam("startDate") + 
-      			  " at " + test.getTestParam("startTime") + ".");
-      	  state.setText("Scheduled");
-        }
-        else if (test.getTestParam("state").equals("opened")){
-      	  properties.setText(properties.getText() + "The test opened on " + test.getTestParam("startDate") + 
-      			  " at " + test.getTestParam("startTime") + ".");
-      	  properties2.setText(properties2.getText() + "The test will close on " + 
-      			  test.getTestParam("endDate") + " at " + test.getTestParam("endTime") + ".");
-      	  state.setText("Opened");
-      	  
-      	  final JPasswordField passwordText = new JPasswordField(20);
-      	  if (test.getTestParam("password") != null) {
-         	  JLabel passwordLabel = new JLabel("Password:");
-              passwordLabel.setBounds(250, 450, 100, 25);
-              passwordLabel.setFont(font1);
-              passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
-              panel.add(passwordLabel);
-
-              passwordText.setBounds(350, 450, 200, 25);
-              passwordText.setFont(font1);
-              panel.add(passwordText);
-           }
-      	  
-      	  JLabel startTest = new JLabel("Begin Test");
-           startTest.setBounds(325, 500, 150, 15);
-           startTest.setFont(font1);
-           startTest.setHorizontalAlignment(SwingConstants.CENTER);
-           startTest.setForeground(Color.BLUE);
-           startTest.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-           startTest.addMouseListener(new MouseAdapter() {
-           	public void mouseClicked(MouseEvent e) {
-           		testtool.models.student.TestOverview overview = new testtool.models.student.TestOverview();
-           		
-           		int count = e.getClickCount();
-           		if (count == 1) {
-           			if (test.getTestParam("password") != null) {
-           				if (overview.checkPassword(test, passwordText.getPassword())) {
-           					overview.beginTest(null);
-   	           			System.out.println("Correct Password");
-           				}
-           				else {
-           					System.out.println("Incorrect Password!");
-           				}
-           			}
-           			else {
-	           			overview.beginTest(null);
-	           			System.out.println("Start the Test");
-           			}
-           			//check state upon action to ensure test is still open
-           			//new Midterm1();
-           		}
-           	}
-           });
-           panel.add(startTest);
-        }
-        else if (test.getTestParam("state").equals("closed")) {
-      	  properties.setText(properties.getText() + "The test closed on " + test.getTestParam("endDate") +
-      			  " at " + test.getTestParam("endTime") + ".");
-      	  state.setText("Closed");
-        }
+        try {
+				if (test.getTestParam("state").equals("scheduled") && !proctorMethods.checkStatus(test)) {
+					properties.setText(properties.getText() + "The test will open on " + startDate + 
+							  " at " + startTime + ".");
+					properties2.setText(properties2.getText() + "The test will close on " + 
+							  endDate + " at " + endTime + ".");
+					  state.setText("Scheduled");
+			} else if (proctorMethods.checkStatus(test)){
+				  properties.setText(properties.getText() + "The test opened on " + startDate + 
+						  " at " + startTime + ".");
+				  properties2.setText(properties2.getText() + "The test will close on " + 
+						  endDate + " at " + endTime + ".");
+				  state.setText("Opened");
+				  
+				  final JPasswordField passwordText = new JPasswordField(20);
+				  if (test.getTestParam("password") != null) {
+			   	  JLabel passwordLabel = new JLabel("Password:");
+			        passwordLabel.setBounds(225, 450, 100, 25);
+			        passwordLabel.setFont(font1);
+			        passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			        panel.add(passwordLabel);
+	
+			        passwordText.setBounds(325, 450, 200, 25);
+			        passwordText.setFont(font1);
+			        panel.add(passwordText);
+			     }
+				  
+				  JLabel startTest = new JLabel("Begin Test");
+			     startTest.setBounds(325, 500, 150, 15);
+			     startTest.setFont(font1);
+			     startTest.setHorizontalAlignment(SwingConstants.CENTER);
+			     startTest.setForeground(Color.BLUE);
+			     startTest.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			     startTest.addMouseListener(new MouseAdapter() {
+			     	public void mouseClicked(MouseEvent e) {
+			     		testtool.models.student.TestOverview overview = new testtool.models.student.TestOverview();
+			     		
+			     		int count = e.getClickCount();
+			     		if (count == 1) {
+			     			if (test.getTestParam("password") != null) {
+			     				if (overview.checkPassword(test, passwordText.getPassword())) {
+			     					overview.beginTest(null);
+			           			System.out.println("Correct Password");
+			     				}
+			     				else {
+			     					System.out.println("Incorrect Password!");
+			     				}
+			     			}
+			     			else {
+			        			overview.beginTest(null);
+			        			System.out.println("Start the Test");
+			     			}
+			     			//check state upon action to ensure test is still open
+			     			//new Midterm1();
+			     		}
+			     	}
+			     });
+			     panel.add(startTest);
+			  }
+			  else if (test.getTestParam("state").equals("closed")) {
+				  properties.setText(properties.getText() + "The test closed on " + endDate +
+						  " at " + endTime + ".");
+				  state.setText("Closed");
+			  }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	    properties.setBounds(150, 275, 500, 25);
 	    properties.setFont(font1);
 	    properties.setHorizontalAlignment(SwingConstants.CENTER);
