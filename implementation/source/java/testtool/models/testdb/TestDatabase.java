@@ -1,7 +1,7 @@
 /**
  * The Testdatabase Class holds all instances of test objects
  * @author Grant Pickett, Yuliya Levitskaya
- * @version 5/31/2014
+ * @version 6/1/14
  */
 
 package testtool.models.testdb;
@@ -26,7 +26,7 @@ import testtool.views.questiondb.QuestionDBFrame;
 public class TestDatabase {
 	public Integer idPos = 0;
 	public ArrayList<Test> tests = new ArrayList<Test>();
-
+	public QuestionDatabank qdb= new QuestionDatabank(null);
 	public TestDatabase() {
 		File file = new File("database.txt");
 		try (BufferedReader reader = new BufferedReader(new FileReader(
@@ -66,7 +66,7 @@ public class TestDatabase {
 							params.put(parts[1], val);
 						} else {
 							System.out.println("found new question" + parts[0]);
-							questions.add(QuestionDatabank.parseQuestion(line));
+							questions.add(qdb.parseString(line));
 						}
 					}
 				}

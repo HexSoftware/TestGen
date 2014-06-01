@@ -8,10 +8,10 @@
 package testtool.models.testdb;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import testtool.models.questiondb.Question;
+import testtool.views.questiondb.QuestionDBFrame;
 
 /**
  * This class manages manual generation of a test.
@@ -56,6 +56,7 @@ public class ManualGeneration {
 	 */
 	void edit(ArrayList<Question> qs) {
 		System.out.println("in ManualGeneration.edit");
+		new QuestionDBFrame(qs);
 	}
 
 	/**

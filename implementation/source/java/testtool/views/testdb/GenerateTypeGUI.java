@@ -1,6 +1,6 @@
 /**
  * @author Grant Picket
- * @version 5/30/14
+ * @version 6/1/14
  */
 package testtool.views.testdb;
 
@@ -33,13 +33,14 @@ public class GenerateTypeGUI extends JMenuBar {
 	char[] fileShortcuts = { 'N', 'O', 'S', 'X' };
 	char[] editShortcuts = { 'Z', 'X', 'C', 'V' };
 	public TestDatabase tdb;
+	JFrame frame;
 
 	public GenerateTypeGUI(TestDatabase td) {
 		tdb = td;
 		JMenu fileMenu = new JMenu("File");
 		JMenu editMenu = new JMenu("Edit");
 		JMenu viewMenu = new JMenu("View");
-		JFrame frame = new JFrame("Simple Menu Example");
+		frame = new JFrame("Simple Menu Example");
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle(TITLE);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -145,6 +146,7 @@ public class GenerateTypeGUI extends JMenuBar {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			new GeneratingGUI(tdb, null);
+			frame.dispose();
 		}
 	}
 }

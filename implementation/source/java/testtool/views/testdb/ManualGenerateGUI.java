@@ -1,6 +1,6 @@
 /**
  * @author Grant Picket
- * @version 5/30/14
+ * @version 6/1/14
  */
 package testtool.views.testdb;
 
@@ -39,6 +39,8 @@ public class ManualGenerateGUI {
 	ManualGeneration mg;
 	DefaultTableModel dataModel;
 	private ArrayList<Question> qList;
+	JTable table;
+	JFrame guiFrame;
 
 	public ManualGenerateGUI(TestDatabase td, ArrayList<Question> qs) {
 		tdb = td;
@@ -63,13 +65,13 @@ public class ManualGenerateGUI {
 				}
 				JMenuItem item;
 
-				JFrame guiFrame = new JFrame();
+				guiFrame = new JFrame();
 
 				JPanel guiPanel = new JPanel(new GridBagLayout());
 				String col[] = { "Course", "Topics", "Type", "Question Text",
 						"Difficulty", "Time", "Last Used", "Author" };
 				dataModel = new DefaultTableModel(col, 10);
-				JTable table = new JTable(dataModel);
+				table = new JTable(dataModel);
 				for (int i = 0; i < qList.size(); i++) {
 					table.setValueAt(qList.get(i).course, i, 0);
 					table.setValueAt(qList.get(i).topics, i, 1);
@@ -178,7 +180,7 @@ public class ManualGenerateGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// new QuestionDBFrame(qList);
+			new QuestionDBFrame(qList);
 		}
 	}
 
@@ -201,6 +203,7 @@ public class ManualGenerateGUI {
 		public void actionPerformed(ActionEvent e) {
 			// mg.generate();
 			new ManualGeneratingGUI(tdb, qList);
+			guiFrame.dispose();
 		}
 	}
 }
