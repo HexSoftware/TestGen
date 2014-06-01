@@ -1,8 +1,8 @@
-/*
+/**
  * ManualGeneration is used to a create a test by manually 
  * selecting questions from a database
  * @author Grant Pickett
- * @version 5/30/2014
+ * @version 5/31/2014
  */
 
 package testtool.models.testdb;

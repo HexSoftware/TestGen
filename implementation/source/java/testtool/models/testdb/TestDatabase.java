@@ -1,7 +1,7 @@
-/*
+/**
  * The Testdatabase Class holds all instances of test objects
  * @author Grant Pickett, Yuliya Levitskaya
- * @version 5/30/2014
+ * @version 5/31/2014
  */
 
 package testtool.models.testdb;
@@ -12,13 +12,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import testtool.models.questiondb.Question;
 import testtool.models.questiondb.QuestionDatabank;
+import testtool.views.questiondb.QuestionDBFrame;
 
 /**
  * This class manages and stores Tests. The test parameter is a selected test.
@@ -57,10 +57,16 @@ public class TestDatabase {
 					if (parts[0] != null) {
 						if (parts[0].equals("key:")) {
 							System.out.println("found new param");
-							params.put(parts[1], parts[3]);
+							String val = "";
+							for(int i = 3; i < parts.length; i++){
+								val += parts[i];
+								val += " ";
+							}
+							val.substring(0, val.length());
+							params.put(parts[1], val);
 						} else {
 							System.out.println("found new question" + parts[0]);
-							// questions.add(QuestionDatabank.parseQuestion(line));
+							questions.add(QuestionDatabank.parseQuestion(line));
 						}
 					}
 				}
@@ -99,9 +105,10 @@ public class TestDatabase {
 	 * 
 	 * @
 	 */
-	public void editTest(int i) {
+	public void editTest(Test test) {
 		System.out.println("in TestDatabase.editTest");
-		// QuestionDatabank.
+		new QuestionDBFrame(test.questionList);
+		
 		save();
 	}
 
@@ -151,7 +158,7 @@ public class TestDatabase {
 	 * 
 	 * @
 	 */
-	public void publishTest(int i) {
+	public void publishTest(Test test) {
 		System.out.println("in TestDatabase.publishTest");
 		// TestTaking?
 	}
@@ -203,7 +210,6 @@ public class TestDatabase {
 		StringBuilder sb = new StringBuilder();
 		for (Test t : tests) {
 			sb.append(t.toString());
-			sb.append("\n");
 			System.out.println(sb.toString());
 		}
 		File file = new File("database.txt");

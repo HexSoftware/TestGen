@@ -1,6 +1,6 @@
 /**
  * @author Grant Picket
- * @version 5/30/14
+ * @version 5/31/14
  */
 
 package testtool.views.testdb;
@@ -72,12 +72,20 @@ public class ManualGeneratingGUI {
 	JTextField titleField = new JTextField(20);
 	JTextField testCategory = new JTextField(20);
 	JTextField testCategoryNum = new JTextField(20);
+
+	JFrame guiFrame = new JFrame();
 	JComboBox classList = null;
 
 	public ManualGeneratingGUI(TestDatabase td, ArrayList<Question> qs) {
 		questions = qs;
-		ag = new AutomaticGeneration(td);
+		if (td == null) {
+			questions = new ArrayList<Question>();
+		}
 		tdb = td;
+		if (td == null) {
+			tdb = new TestDatabase();
+		}
+		ag = new AutomaticGeneration(tdb);
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -88,8 +96,6 @@ public class ManualGeneratingGUI {
 						| IllegalAccessException
 						| UnsupportedLookAndFeelException ex) {
 				}
-
-				JFrame guiFrame = new JFrame();
 
 				JPanel guiPanel = new JPanel(new GridBagLayout());
 				JPanel guiPanel2 = new JPanel(new GridBagLayout());
@@ -229,6 +235,7 @@ public class ManualGeneratingGUI {
 				params.put("testCategoryNumber", testCategoryNum.getText());
 			ag.generate(params, questions);
 			new TestCreationResultGUI(tdb);
+			guiFrame.dispose();
 		}
 	}
 }
