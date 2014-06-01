@@ -1,8 +1,8 @@
-/*
+/**
  * AutomaticGeneration class is used to generate tests using given
  * inputs
  * @author Grant Pickett
- * @version 5/30/2014
+ * @version 5/31/2014
  */
 
 package testtool.models.testdb;
@@ -95,7 +95,9 @@ public class AutomaticGeneration {
 	 */
 	public Test generate(HashMap<String, String> params,
 			ArrayList<Question> questions2) {
-		System.out.println("in AutomaticGeneration.generate");
+		if(questions2 == null)
+			questions2 = new ArrayList<Question>();
+		System.out.println("in AutomaticGeneration.generate" +questions2.size());
 		Integer totalTime = 0;
 		for(Question q : questions2) {
 			totalTime += q.time;
