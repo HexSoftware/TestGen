@@ -181,6 +181,7 @@ public class ManualGenerateGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			new QuestionDBFrame(qList);
+			guiFrame.dispose();
 		}
 	}
 
