@@ -134,7 +134,7 @@ import java.util.*;
 		
 	
 	    
-	    void createAndShowGUI() {
+	    public void createAndShowGUI() {
 	    	 
 	        //Create and set up the window.
 	        frame = new JFrame("SplitPaneDemo");
