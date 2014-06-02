@@ -228,10 +228,10 @@ public class ManualGeneratingGUI {
 				params.put("testType", typeField.getText());
 			if (testCategory.getText() != null
 					&& !testCategory.getText().equals(""))
-				params.put("testCategory", testCategoryNum.getText());
+				params.put("testCategory", testCategory.getText());
 			if (testCategoryNum.getText() != null
 					&& !testCategoryNum.getText().equals(""))
-				params.put("testCategoryNumber", testCategoryNum.getText());
+				params.put("testCategoryNum", testCategoryNum.getText());
 			ag.generate(params, questions);
 			new TestDatabaseGUI(2, tdb);
 			guiFrame.dispose();
