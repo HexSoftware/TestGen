@@ -57,7 +57,6 @@ public class TestSettings {
             
                 String[] testTypes = {"Take Home", "In Class", "Practice"};
                 String[] ynTypes = { "Yes", "No"};
-                String[] amPm = { "AM", "PM"};
                 String[] gradingTypes = { "Manual", "Automatic"};
               //Create the combo box, select item at index 4.
               //Indices start at 0, so 4 specifies the pig.
@@ -70,12 +69,6 @@ public class TestSettings {
             	  passwordTypeList.setSelectedIndex(1);
               else
             	  passwordTypeList.setSelectedIndex(0);
-              
-              JComboBox startDateTypeList = new JComboBox(amPm);
-              startDateTypeList.setSelectedIndex(0);
-
-              JComboBox endDateTypeList = new JComboBox(amPm);
-              startDateTypeList.setSelectedIndex(0);
               
               gradingTypeList = new JComboBox(gradingTypes);
               gradingTypeList.setSelectedItem(ts.getGradeType());
@@ -138,13 +131,11 @@ public class TestSettings {
                
                 fields.add(startDateLabel, labelGBC);
                 fields.add(startDateField, fieldGBC);
-                fields.add(startTimeField, fieldGBC);
-                fields.add(startDateTypeList, endGBC);
+                fields.add(startTimeField, endGBC);
 
                 fields.add(endDateLabel, labelGBC);
                 fields.add(endDateField, fieldGBC);
-                fields.add(endTimeField, fieldGBC);
-                fields.add(endDateTypeList, endGBC);
+                fields.add(endTimeField, endGBC);
                 
                 fields.add(gradingLabel, labelGBC);
                 fields.add(gradingTypeList, endGBC);
@@ -248,8 +239,8 @@ public class TestSettings {
           menuBar.add(viewMenu);
           return menuBar;     
     }
-    final static String DATE_FORMAT = "MMM dd, yyyy";
-    final static String TIME_FORMAT = "HH:mm";
+    final static String DATE_FORMAT = "MM/dd/yyyy";
+    final static String TIME_FORMAT = "HH:mma";
 
     public static boolean isDateValid(String date) {
           try {
