@@ -18,7 +18,7 @@ import testtool.models.questiondb.*;
 /**
 *
 * @author RJ Almada (rjalmada@calpoly.edu)
-* @version 13may14
+* @version 1jun14
 *
 */
 
@@ -134,36 +134,36 @@ public class EditQuestion extends JMenuBar {
 				try {
 					switch ((String) oldQTItem) {
 			               	case "Multiple Choice":
-			               		qdb.edit(i, new MCQuestion(MCQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new MCQuestion(MCQuestionText.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
 			               				collectMCAnswers(), collectMCCorAnswers()));
 			               		break;
 			               	case "True/False":
-			               		qdb.edit(i, new TFQuestion(TFQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new TFQuestion(TFQuestionText.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
 			               				TFAnswer.isSelected()));
 			               		break;
 			               	case "Short Answer":
-			               		qdb.edit(i, new SAQuestion(SAQuestion.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new SAQuestion(SAQuestion.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
 			               				parseStuff(SAAnswer.getText())));
 			               		break;
 			               	case "Essay":
-			               		qdb.edit(i, new EssayQuestion(EssayQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new EssayQuestion(EssayQuestionText.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
 			               				parseStuff(EssayAnswer.getText())));
 			               		break;
 			               	case "Graphics":
-			               		qdb.edit(i, new GraphicsQuestion(GraphicsQuestionText.getText(), "Gene Fisher",
+			               		qdb.edit(i, new GraphicsQuestion(GraphicsQuestionText.getText(), "gfisher",
 			               				Course.getText(), new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()));
 			               		break;
 			               	case "Code":
-			               		qdb.edit(i, new CodeQuestion(CodeQuestionText.getText(), "Gene Fisher", Course.getText(),
+			               		qdb.edit(i, new CodeQuestion(CodeQuestionText.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
 			               				CodeScriptPath.getText()));
@@ -306,6 +306,7 @@ public class EditQuestion extends JMenuBar {
         MCQPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         MCQuestionText = new javax.swing.JTextArea();
+        MCQuestionText.setLineWrap(true);
         MCQuestionLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         MCAnswerCheck1 = new javax.swing.JCheckBox();
@@ -327,12 +328,14 @@ public class EditQuestion extends JMenuBar {
         TFPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TFQuestionText = new javax.swing.JTextArea();
+        TFQuestionText.setLineWrap(true);
         TFQuestion = new javax.swing.JLabel();
         TFAnswer = new javax.swing.JCheckBox();
         SAPanel = new javax.swing.JPanel();
         SAQuestionLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         SAQuestion = new javax.swing.JTextArea();
+        SAQuestion.setLineWrap(true);
         SAAnswer = new javax.swing.JTextField();
         SAAnswerLabel = new javax.swing.JLabel();
         EQPanel = new javax.swing.JPanel();
@@ -340,15 +343,18 @@ public class EditQuestion extends JMenuBar {
         EssayAnswer = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         EssayQuestionText = new javax.swing.JTextArea();
+        EssayQuestionText.setLineWrap(true);
         EssayAnswerLabel = new javax.swing.JLabel();
         GQPanel = new javax.swing.JPanel();
         GraphicsQuestionLabel = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         GraphicsQuestionText = new javax.swing.JTextArea();
+        GraphicsQuestionText.setLineWrap(true);
         CQPanel = new javax.swing.JPanel();
         CodeQuestionLabel = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         CodeQuestionText = new javax.swing.JTextArea();
+        CodeQuestionText.setLineWrap(true);
         CodeScriptPath = new javax.swing.JTextField();
         CodeAnswerLabel = new javax.swing.JLabel();
         CodeUploadButton = new javax.swing.JButton();
