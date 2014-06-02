@@ -24,7 +24,7 @@ import testtool.models.questiondb.*;
 /**
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 16may14
+ * @version 1jun14
  *
  */
 public class AddQuestion extends JMenuBar {
