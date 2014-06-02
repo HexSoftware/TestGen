@@ -38,16 +38,18 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import testtool.models.testdb.Test;
-
+import testtool.models.testdb.TestDatabase;
 
 public class TestSettings {
 	//static testtool.models.userdb.TestSettings testSettings;
 	public static JDialog guiFrame;
+	public static TestDatabase td;
 	static public testtool.models.userdb.TestSettings ts;
 	static JTextField startDateField, endDateField, startTimeField, endTimeField, notesTextField,
 		passwordTextField;
 	static JComboBox gradingTypeList, testTypeList, passwordTypeList;
-    public TestSettings(Test t) {
+    public TestSettings(Test t, TestDatabase tdb) {
+	td = tdb;
     	ts  = new testtool.models.userdb.TestSettings(t);
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -282,6 +284,7 @@ public class TestSettings {
       					ts.publish(startDateField.getText(), endDateField.getText(), startTimeField.getText(), 
       							endTimeField.getText(), notesTextField.getText(), passwordTextField.getText(),
       							testTypeList.getSelectedItem().toString(), gradingTypeList.getSelectedItem().toString());
+						td.save();
       					guiFrame.dispose();
       				}
       			

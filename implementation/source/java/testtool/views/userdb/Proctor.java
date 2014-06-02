@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.instrument.Instrumentation;
 import java.text.ParseException;
+
+import testtool.models.testdb.TestDatabase;
 import testtool.views.commandmenu.*;
 import testtool.views.grader.*;
 
@@ -22,6 +24,7 @@ public class Proctor {
    String[ ] editItems = new String[ ] { "Undo", "Cut", "Copy", "Paste" };
    char[ ] fileShortcuts = { 'N','O','S','X' };
    char[ ] editShortcuts = { 'Z','X','C','V' };
+	
 
    public Proctor() {
    	  proctor = new testtool.models.userdb.Proctor();
@@ -141,12 +144,8 @@ public class Proctor {
 		}
 		public void actionPerformed(ActionEvent e){
 			proctor.listOfTests();
-			try {
-				new ListOfTests();
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			TestDatabase tdb = new TestDatabase();
+			new ListOfTestsGUI(1, tdb);
 		}
 	}
 	static class gradesListener implements ActionListener {
@@ -169,8 +168,8 @@ public class Proctor {
 			proctor.options();
 		}
 	}
-	public static void main(String s[ ]) {
+	/*public static void main(String s[ ]) {
 		new Proctor();
-	}
+	}*/
 
 }

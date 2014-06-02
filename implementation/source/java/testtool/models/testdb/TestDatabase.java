@@ -1,7 +1,7 @@
-/*
+/**
  * The Testdatabase Class holds all instances of test objects
  * @author Grant Pickett, Yuliya Levitskaya
- * @version 5/13/2014
+ * @version 6/1/14
  */
 
 package testtool.models.testdb;
@@ -12,13 +12,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import testtool.models.questiondb.Question;
 import testtool.models.questiondb.QuestionDatabank;
+import testtool.views.questiondb.QuestionDBFrame;
 
 /**
  * This class manages and stores Tests. The test parameter is a selected test.
@@ -26,7 +26,7 @@ import testtool.models.questiondb.QuestionDatabank;
 public class TestDatabase {
 	public Integer idPos = 0;
 	public ArrayList<Test> tests = new ArrayList<Test>();
-
+	public QuestionDatabank qdb= new QuestionDatabank(null);
 	public TestDatabase() {
 		File file = new File("database.txt");
 		try (BufferedReader reader = new BufferedReader(new FileReader(
@@ -34,7 +34,6 @@ public class TestDatabase {
 			String line = null;
 			ArrayList<Question> questions = new ArrayList<Question>();
 			HashMap<String, String> params = new HashMap<String, String>();
-			;
 			String[] parts = new String[4];
 			while ((line = reader.readLine()) != null) {
 				if (line.contains("begintest")) {
@@ -44,18 +43,29 @@ public class TestDatabase {
 				} else {
 					if (line.contains("endtest")) {
 						System.out.println("end of test");
-						createTest(params, questions);
+						// createTest(params, questions);
+						if (params.get("uniqueId") == null) {
+							params.put("uniqueId", idPos.toString());
+						}
+						idPos += 1;
+						Test newTest = new Test(params, questions);
+						tests.add(newTest);
 						continue;
 					}
 					parts = line.split(" ");
-					System.out.println(parts);
 					if (parts[0] != null) {
 						if (parts[0].equals("key:")) {
-							System.out.println("found new param");
-							params.put(parts[1], parts[3]);
+							String val = "";
+							for(int i = 3; i < parts.length; i++){
+								val += parts[i];
+								val += " ";
+							}
+							val = val.substring(0, val.length()-1);
+							params.put(parts[1], val);
+							System.out.println("new param " + parts[1] + " " + val);
 						} else {
-							System.out.println("found new question" + parts[0]);
-							// questions.add(QuestionDatabank.parseQuestion(line));
+							System.out.println("found new question " + parts[0]);
+							questions.add(qdb.parseString(line));
 						}
 					}
 				}
@@ -94,10 +104,11 @@ public class TestDatabase {
 	 * 
 	 * @
 	 */
-	public void editTest(Test t) {
+	public void editTest(Test test) {
 		System.out.println("in TestDatabase.editTest");
+		new QuestionDBFrame(test.questionList);
+		
 		save();
-		//
 	}
 
 	public Integer getIdPos() {
@@ -122,7 +133,7 @@ public class TestDatabase {
 
 		if (column_names.contains(column)) {
 			System.out.println("Number of tests in database: " + tests.size());
-			for (final Test t : tests) {
+			for (Test t : tests) {
 				String val = t.getTestParam(column).toString();
 				if (val != null) {
 					if (val.equals(data)) {
@@ -146,8 +157,9 @@ public class TestDatabase {
 	 * 
 	 * @
 	 */
-	public void publishTest(Test t) {
+	public void publishTest(Test test) {
 		System.out.println("in TestDatabase.publishTest");
+	
 	}
 
 	/**
@@ -160,9 +172,11 @@ public class TestDatabase {
 	 * 
 	 * @
 	 */
-	public Test removeTest(Test t) {
-		Test removed = tests
-				.remove(Integer.parseInt(t.getTestParam("uniqueId")));
+	public Test removeTest(int[] is) {
+		Test removed = tests.get(is[0]);
+		for (int i = is.length - 1; i >= 0; i--) {
+			tests.remove(is[i]);
+		}
 		save();
 		return removed;
 	}
@@ -195,7 +209,6 @@ public class TestDatabase {
 		StringBuilder sb = new StringBuilder();
 		for (Test t : tests) {
 			sb.append(t.toString());
-			sb.append("\n");
 			System.out.println(sb.toString());
 		}
 		File file = new File("database.txt");

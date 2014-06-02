@@ -18,7 +18,7 @@ import testtool.views.questiondb.QuestionDBFrame;
  * which involves adding, editing, removing, search and filter. 
  * 
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 16may14
+ * @version 1jun14
  */
 public class QuestionDatabank {
 	public ArrayList<QuestionEntry> questions;
@@ -334,7 +334,7 @@ public class QuestionDatabank {
 		topics = stringToArrayList(scan.findInLine("(?<=topics=)(.*)(?=, time=)"));
 		time = Integer.parseInt(scan.findInLine("(?<=time=)(.*)(?=, difficulty=)"));
 		diff = Integer.parseInt(scan.findInLine("(?<=difficulty=)(.*)(?=, type=)"));
-		type = scan.findInLine("(?<=type=)(.*)(?=, p)");
+		type = scan.findInLine("(?<=type=)(.*)(?=, points)");
 		if (type == null)
 			type = scan.findInLine("(?<=type=)(.*)(?=,)");
 		System.out.println(type);

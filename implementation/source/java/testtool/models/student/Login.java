@@ -5,7 +5,14 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import testtool.models.userdb.Student;
+import testtool.views.testdb.TestGenUI;
 
+/**
+ * @author Alvin Lam (aqlam@calpoly.edu)
+ * @version 27may14
+ * 
+ * Login is the login screen to authenticate users.
+ */
 public class Login {
 
 		/**
@@ -31,10 +38,14 @@ public class Login {
 	   	if (username.equals("")) {
 	   		return false;
 	   	}
+	   	if (username.equals("gfisher")) {
+	   		new TestGenUI().setVisible(true);
+	   		return true;
+	   	}
 	   	
 	   	MyCourses courseClass = new MyCourses();
 	   	Student curStudent = new Student();
-		   
+
 			try {
 				File file = new File("StudentDB.txt");
 			   Scanner inFile = new Scanner(file);
@@ -54,6 +65,7 @@ public class Login {
 				   	inFile.close();
 				   	
 				   	courseClass.viewCourses(curStudent);
+				   	
 				   	return true;
 				   }
 				   else {
@@ -70,7 +82,7 @@ public class Login {
 				return false;
 			} catch (FileNotFoundException e) {
 				System.out.println("StudentDB not found");
+				return false;
 			}
-	      return false;
 	   }
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu)
- * @version 20apr14
+ * @version 31may14
  * 
  * GUI of the list of tests for a course. The constructor builds the GUI
  * to display. A test can be selected to view its test overview.
@@ -27,7 +27,7 @@ public class TestList {
 	public TestList(Student student, String courseName) {
 		JFrame frame = new JFrame("Tests");
         frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
 
@@ -41,7 +41,6 @@ public class TestList {
         directoryPath.setBounds(20, 20, 500, 25);
         directoryPath.setFont(font1);
         directoryPath.setForeground(Color.BLUE);
-        directoryPath.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel.add(directoryPath);
         
         drawList(student, courseName, panel, font, font1);
@@ -49,6 +48,7 @@ public class TestList {
         panel.setPreferredSize(new Dimension(500,curYposition + 50));
         JScrollPane scrollPane = new JScrollPane(panel);
         scrollPane.setPreferredSize(new Dimension(800, 600));
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         frame.add(scrollPane);
 	}
 	
@@ -63,11 +63,12 @@ public class TestList {
 		courseTests = testMethods.removeUnscheduled(courseTests);
 		int length = courseTests.size();
 		System.out.println("drawing tests, size is " + length);
+		System.out.println("title is : " + courseTests.get(0).getTestParam("testTitle"));
 		   
 		for (int i = 0; i < length; ) {
 
 			String categoryNum = testMethods.getSmallestCategoryNum(courseTests);
-			
+			System.out.println("lowest categorynum: " + categoryNum);
 			boolean first = true;
 			
 			for (int j = 0; j < length; ) {
@@ -84,7 +85,7 @@ public class TestList {
 					
 					System.out.println("Drew category 1");
 					
-					drawTestLink(courseTests.get(j), categoryNum, panel, font1);
+					drawTestLink(curStudent, courseTests.get(j), categoryNum, panel, font1);
 					courseTests.remove(j);
 					length--;
 				}
@@ -95,7 +96,7 @@ public class TestList {
 		}
 	}
 			
-	public void drawTestLink(final Test test, String categoryNum, JPanel panel, Font font) {
+	public void drawTestLink(final Student student, final Test test, String categoryNum, JPanel panel, Font font) {
 		
 		curYposition += 35;
 		
@@ -110,7 +111,7 @@ public class TestList {
 			   int count = e.getClickCount();
 			   if (count == 1) {
 				   System.out.println("In TestList.mouseClicked.");
-				   new TestOverviewUI(test);
+				   new TestOverviewUI(student, test);
 			   }
 		   }
 	   });

@@ -9,7 +9,7 @@ import testtool.models.userdb.*;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu
- * @version 20apr14
+ * @version 27may14
  * 
  * MyTests is a list of tests for a course. It is 
  * derived from Section 2.4 of the requirements.
@@ -30,6 +30,17 @@ import testtool.models.userdb.*;
    */
   Course course;
   
+  /**
+   * Removes unscheduled tests from the list of tests
+   * @param tests - the ArrayList of tests
+   * @return ArrayList<Test> - the updated arraylist after removals
+  */
+  /*@
+   ensures
+   //
+   // An ArrayList of Tests are returned without any unscheduled tests left
+   //
+ @*/
   public ArrayList<Test> removeUnscheduled(ArrayList<Test> tests) {
 	  for (int i = 0; i < tests.size(); i++) {
 		  if (tests.get(i).getTestParam("state").equals("unscheduled")) {
@@ -40,8 +51,21 @@ import testtool.models.userdb.*;
 	  return tests;
   }
   
+  /**
+   * Finds the lowest category number from the list of tests
+   * @param tests - the ArrayList of tests
+   * @return String - return the string value number of the category number
+  */
+  /*@
+   requires
+   //
+   // All tests to have a category number
+   //
+   (for all tests.getTestParam("testCategoryNum") != null)
+ @*/
   public String getSmallestCategoryNum(ArrayList<Test> tests) {
 	  String smallest = tests.get(0).getTestParam("testCategoryNum");
+	  System.out.println("smallest is " + smallest);
 	  for (int i = 0; i < tests.size(); i++) {
 		  if (tests.get(i).getTestParam("testCategoryNum").compareTo(smallest) < 0) {
 			  smallest = tests.get(i).getTestParam("testCategoryNum");
@@ -71,27 +95,4 @@ import testtool.models.userdb.*;
   public void viewTests(Course course, Student student) {
      System.out.println("In MyCourses.viewTests.");
   }
-   
-  /**
-    * Displays a status of a test in a course.
-    * @param test - Test to view overview of
-    * @param student - The student viewing the test
-    */
-  /*@
-    requires
-    //
-    // Test must exist in the test database.
-    // Student must be in the course the test is assigned to.
-    //
-    (\exists Test test; testdb.contains(test); course.students.contains(user);
-      test.course.equals(course))
-
-    ensures
-    //
-    // The test overview to be shown of the test. 
-    //
-  @*/
-   public void viewTestOverview(Test test, Student student) {
-      System.out.println("In MyTests.viewTestOverview.");
-   }
 }

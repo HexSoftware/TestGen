@@ -1,8 +1,8 @@
-/*
+/**
  * The Test class represents a test that lives in the test database
  * It has a list of questions and other needed data
  * @author Grant Pickett, Yuliya Levitskaya
- * @version 5/13/2014
+ * @version 5/31/2014
  */
 
 package testtool.models.testdb;

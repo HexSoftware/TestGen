@@ -1,8 +1,8 @@
-/*
+/**
  * AutomaticGeneration class is used to generate tests using given
  * inputs
  * @author Grant Pickett
- * @version 5/13/2014
+ * @version 5/31/2014
  */
 
 package testtool.models.testdb;
@@ -83,8 +83,9 @@ public class AutomaticGeneration {
 
 	/**
 	 * Lets an instructor finish this step and add the test to the test database
-	 * @param questions2 
-	 * @param params 
+	 * 
+	 * @param questions2
+	 * @param params
 	 */
 	/*
 	 * @ requires (* There is at least one question in the test); ensures (* The
@@ -92,8 +93,28 @@ public class AutomaticGeneration {
 	 * 
 	 * @ enures (* A new test will be added to the testdatabase.
 	 */
-	public Test generate(HashMap<String, String> params, ArrayList<Question> questions2) {
-		System.out.println("in AutomaticGeneration.generate");
+	public Test generate(HashMap<String, String> params,
+			ArrayList<Question> questions2) {
+		if(questions2 == null)
+			questions2 = new ArrayList<Question>();
+		System.out.println("in AutomaticGeneration.generate" +questions2.size());
+		Integer totalTime = 0;
+		for(Question q : questions2) {
+			totalTime += q.time;
+		}
+		Integer totalPoints = 0;
+		for(Question q : questions2) {
+			//totalTime += q.points;
+		}
+		Double avgDifficulty = 0.0;
+		for(Question q : questions2) {
+			avgDifficulty += q.difficulty;
+		}
+		avgDifficulty/=questions2.size();
+
+		params.put("totalQuestions", ((Integer)questions2.size()).toString());
+		params.put("avgDifficulty", avgDifficulty.toString());
+		params.put("totalTime", totalTime.toString());
 		params.put("state", "unscheduled");
 		params.put("uniqueId", tdb.getIdPos().toString());
 		return tdb.createTest(params, questions2);
