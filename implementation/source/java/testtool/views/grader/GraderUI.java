@@ -52,6 +52,7 @@ public class GraderUI extends javax.swing.JFrame {
         listModel2 = new DefaultListModel();
         listModel3 = new DefaultListModel();
         listModel4 = new DefaultListModel();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         names.add("Kevin Pham");
         names.add("RJ Almada");
         names.add("Alvin Lam");
@@ -269,6 +270,7 @@ public class GraderUI extends javax.swing.JFrame {
     private void finishButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
         new ReleaseOptionsUI(new javax.swing.JFrame(), true).setVisible(true);
+        this.dispose();
     }                                            
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
