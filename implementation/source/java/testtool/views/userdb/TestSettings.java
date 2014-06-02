@@ -49,6 +49,7 @@ public class TestSettings {
 		passwordTextField;
 	static JComboBox gradingTypeList, testTypeList, passwordTypeList;
     public TestSettings(Test t, TestDatabase tdb) {
+	td = tdb;
     	ts  = new testtool.models.userdb.TestSettings(t);
         EventQueue.invokeLater(new Runnable() {
             @Override
