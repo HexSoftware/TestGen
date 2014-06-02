@@ -53,10 +53,8 @@ public class TestDatabase {
 						continue;
 					}
 					parts = line.split(" ");
-					System.out.println(parts);
 					if (parts[0] != null) {
 						if (parts[0].equals("key:")) {
-							System.out.println("found new param");
 							String val = "";
 							for(int i = 3; i < parts.length; i++){
 								val += parts[i];
@@ -64,8 +62,9 @@ public class TestDatabase {
 							}
 							val = val.substring(0, val.length()-1);
 							params.put(parts[1], val);
+							System.out.println("new param " + parts[1] + " " + val);
 						} else {
-							System.out.println("found new question" + parts[0]);
+							System.out.println("found new question " + parts[0]);
 							questions.add(qdb.parseString(line));
 						}
 					}
@@ -160,7 +159,7 @@ public class TestDatabase {
 	 */
 	public void publishTest(Test test) {
 		System.out.println("in TestDatabase.publishTest");
-		// TestTaking?
+	
 	}
 
 	/**
