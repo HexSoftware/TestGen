@@ -62,7 +62,7 @@ public class TestDatabase {
 								val += parts[i];
 								val += " ";
 							}
-							val = val.substring(0, val.length());
+							val = val.substring(0, val.length())-1;
 							params.put(parts[1], val);
 						} else {
 							System.out.println("found new question" + parts[0]);
