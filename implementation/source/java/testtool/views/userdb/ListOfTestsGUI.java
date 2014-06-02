@@ -290,8 +290,10 @@ import javax.swing.table.DefaultTableModel;
 import testtool.models.testdb.Test;
 import testtool.models.testdb.TestDatabase;
 import testtool.views.grader.GraderUI;
+import testtool.views.student.TakeTestUI;
 import testtool.views.testdb.GenerateTypeGUI;
 import testtool.models.userdb.ListOfTests;
+import testtool.models.userdb.Student;
 import testtool.views.userdb.TestSettings;
 
 public class ListOfTestsGUI {
@@ -448,8 +450,7 @@ public class ListOfTestsGUI {
 		public void actionPerformed(ActionEvent e) {
 			t = tdb.tests.get(table.getSelectedRow());
 			lt.grade(t);  			
-			GraderUI grader = new GraderUI();
-			grader.createAndShowGUI();
+			new GraderUI().setVisible(true);
 		}
 	}
 
@@ -507,6 +508,7 @@ public class ListOfTestsGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			tdb.takeTest(t);
+			new TakeTestUI(new Student(), t);
 		}
 	}
 	
