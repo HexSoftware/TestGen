@@ -2,14 +2,13 @@ package testtool.views.student;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.Color;
 import java.awt.Font;
 
 import testtool.models.student.*;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu
- * @version 20apr14
+ * @version 1jun14
  * 
  * Login Window. The Login screen is the first to be shown when a student
  * runs the testtool applciation. It takes in a username and password
@@ -69,32 +68,23 @@ public class LoginScreen {
     }
 
    private static class Authentication implements ActionListener {
-   	Font font = new Font("Calibri", Font.ITALIC, 18);
-   	boolean failed = false;
    	
     	Login loginCheck = new Login();
     	
     	JFrame mainframe;
     	JTextField usernameField;
-    	JPanel panel;
     	
     	public Authentication (JFrame frame, JPanel panel, JTextField userText) {
     		mainframe = frame;
     		usernameField = userText;
-    		this.panel = panel;
     	}
     	
     	public void actionPerformed (ActionEvent e) {
     		if (!loginCheck.login(usernameField.getText(), "password")) {
     			System.out.println("failed to login");
-    			if (!failed) {
-    				failed = true;
-    				displayFailedLogin();
-    			}
-    			displayFailedLogin();
-    			mainframe.pack();
-    			mainframe.revalidate();
-    			mainframe.setSize(800, 600);
+
+    			displayFailedLogin(mainframe);
+    			
     		}
     		else {
     			System.out.println("Successfully Logged In");
@@ -104,13 +94,18 @@ public class LoginScreen {
     		}
     	}
     	
-    	private void displayFailedLogin() {
-    		JLabel failedMessage = new JLabel("Invalid username or password.");
-   		failedMessage.setBounds(300, 500, 600, 25);
-   		failedMessage.setFont(font);
-   		failedMessage.setForeground(Color.RED);
-         panel.add(failedMessage);
-         panel.revalidate();
+    	private void displayFailedLogin(JFrame frame) {
+    		JOptionPane.showMessageDialog(frame,
+    			    "Invalid username or password",
+    			    "Login Failed",
+    			    JOptionPane.ERROR_MESSAGE);
+    		
+//    		JLabel failedMessage = new JLabel("Invalid username or password.");
+//   		failedMessage.setBounds(300, 500, 600, 25);
+//   		failedMessage.setFont(font);
+//   		failedMessage.setForeground(Color.RED);
+//         panel.add(failedMessage);
+//         panel.revalidate();
     	}
    }
 }

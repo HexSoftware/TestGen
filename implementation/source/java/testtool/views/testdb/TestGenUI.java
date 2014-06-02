@@ -1,7 +1,9 @@
 package testtool.views.testdb;
 
 import testtool.models.testdb.TestDatabase;
+import testtool.views.grader.GraderUI;
 import testtool.views.questiondb.QuestionDBFrame;
+import testtool.views.userdb.Proctor;
 
 /**
  * 
@@ -101,7 +103,13 @@ public class TestGenUI extends javax.swing.JFrame {
 			}
 		});
 
-		jButton4.setLabel("Options");
+		jButton4.setLabel("Proctor");
+		jButton4.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jButton4ActionPerformed(evt);
+			}
+		});
 
 		jButton5.setLabel("Admin");
 
@@ -462,6 +470,11 @@ public class TestGenUI extends javax.swing.JFrame {
 	}
 
 	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+		new GraderUI();
+	}
+	
+	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+		new Proctor();
 	}
 
 	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {

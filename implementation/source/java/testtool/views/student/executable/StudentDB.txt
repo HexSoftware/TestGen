@@ -2,15 +2,28 @@ rjalmada
 RJ Almada
 Courses 3
 CPE101-01
-CSC430-03
+CSC430-01
 ENGL310-03
 
 aqlam
 Alvin Lam
-Courses 1
+Courses 2
 CPE101-01
+CSC101
 
 nrnord
-Neil Nordhof
-Courses 1
+Neil Nerdhof
+Courses 8
 ENGL310-03
+Course 1
+Course 2
+Course 3
+Course 4
+Course 5
+Course 6
+Course 7
+
+gfisher
+Gene Fisher
+Courses 0
+

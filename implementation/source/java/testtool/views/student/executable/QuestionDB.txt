@@ -1,0 +1,9 @@
+questionText=This is true., author=Gene Fisher, lastUsed=Never, course=CPE101-01, topics=[Testing], time=2, difficulty=2, type=TF, points=0, correctAnswer=true
+questionText=This is false., author=Gene Fisher, lastUsed=Never, course=CPE101, topics=[TEsting], time=3, difficulty=1, type=TF, points=0, correctAnswer=false
+questionText=What is my full name?, author=Gene Fisher, lastUsed=Never, course=CPE101, topics=[CPE101], time=2, difficulty=1, type=SA, points=0, correctKWs=[Alvin, Lam]
+questionText=The answer is: "key1" "key2" and "key50 key51", author=Gene Fisher, lastUsed=Never, course=CPE101, topics=[Testing], time=15, difficulty=5, type=SA, points=0, correctKWs=[key1, key2, key50 key51]
+questionText=copy and paste your helloworld.c code., author=Gene Fisher, lastUsed=Never, course=cpe123, topics=[testsingtesting], time=5, difficulty=1, type=Code, points=0, scriptPath=fakepath :p
+questionText=draw a picture of yourself., author=Gene Fisher, lastUsed=Never, course=cpe101, topics=[test], time=5, difficulty=1, type=Graphic, points=0,
+questionText=This is a super long prompt telling you to write an essay about random things. You must talk about your five fingers and whatever else you want. (key words are index finger, middle finger, ring finger, pinky, and thumb). More words to make prompt even longer just 'cause., author=Gene Fisher, lastUsed=Never, course=cpe, topics=[test], time=45, difficulty=4, type=Essay, points=0, correctKWs=[index finger, middle finger, ring finger, pinky, thumb]
+questionText=3 + 4?, author=Gene Fisher, lastUsed=Never, course=cpe101, topics=[test], time=10, difficulty=1, type=MC, points=0, possibleAnswers=[1, 2, 3, 7], correctAnswerIndices=[4]
+questionText=1 + 2, author=Gene Fisher, lastUsed=Never, course=cpe, topics=[test], time=4, difficulty=2, type=MC, points=0, possibleAnswers=[1, 2, 3, 4, E)], correctAnswerIndices=[3]
