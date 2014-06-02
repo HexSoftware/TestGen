@@ -36,7 +36,7 @@ import testtool.views.testdb.ManualGenerateGUI;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 31may14
+ * @version 1jun14
  * 
  * The main view class for the Question Databank. 
  */
@@ -177,8 +177,15 @@ public class QuestionDBFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//new GenerateTypeGUI();
-				//TODO: Send selected questions to test generator.
 				System.out.println("Generate Pressed");
+				ArrayList<Question> s = parseSelected();
+				new ManualGenerateGUI(null, s);
+				try {
+					qdb.writeDatabase();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+				frame.dispose();
 			}
 		});
 		generateButton.setEnabled(false);
@@ -321,6 +328,12 @@ public class QuestionDBFrame {
 				System.out.println("Generate Pressed");
 				ArrayList<Question> s = parseSelected();
 				new ManualGenerateGUI(null, s);
+				try {
+					qdb.writeDatabase();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				frame.dispose();
 			}
 		});
@@ -465,6 +478,7 @@ public class QuestionDBFrame {
 		public void windowClosing(WindowEvent arg0) {
 			// TODO Auto-generated method stub
 			try {
+				System.out.println("Saving QDB...");
 				qdb.writeDatabase();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
