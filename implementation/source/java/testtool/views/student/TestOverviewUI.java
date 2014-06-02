@@ -16,10 +16,11 @@ import java.util.Date;
 
 import testtool.models.testdb.*;
 import testtool.models.userdb.ListOfTests;
+import testtool.models.userdb.Student;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu)
- * @version 31may14
+ * @version 1jun14
  * 
  * GUI of the test overview displaying the information of a test.
  * A test overview may prompt the user for a password if required.
@@ -27,19 +28,19 @@ import testtool.models.userdb.ListOfTests;
  */
 public class TestOverviewUI {
 
-    public TestOverviewUI(Test curTest) {
+    public TestOverviewUI(Student curStudent, Test curTest) {
         JFrame frame = new JFrame(curTest.getTestParam("testTitle"));
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
         frame.add(panel);
-        placeComponents(frame, panel, curTest);
+        placeComponents(frame, panel, curTest, curStudent);
 
         frame.setVisible(true);
     }
 
-    private static void placeComponents(final JFrame frame, JPanel panel, final Test test) {
+    private static void placeComponents(final JFrame frame, JPanel panel, final Test test, final Student student) {
    	 ListOfTests proctorMethods = new ListOfTests();
         panel.setLayout(new BorderLayout());
         
@@ -63,7 +64,7 @@ public class TestOverviewUI {
 		     		int count = e.getClickCount();
 		     		if (count == 1) {
 		     			frame.dispose();
-		     			new TestOverviewUI(test);
+		     			new TestOverviewUI(student, test);
 		     		}
 		     	}
 		     });
@@ -121,7 +122,7 @@ public class TestOverviewUI {
 					properties2.setText(properties2.getText() + "The test will close on " + 
 							  endDate + " at " + endTime + ".");
 					  state.setText("Scheduled");
-			} else if (proctorMethods.checkStatus(test)){
+			} else if (test.getTestParam("state").equals("opened") || proctorMethods.checkStatus(test)){
 				  properties.setText(properties.getText() + "The test opened on " + startDate + 
 						  " at " + startTime + ".");
 				  properties2.setText(properties2.getText() + "The test will close on " + 
@@ -157,14 +158,20 @@ public class TestOverviewUI {
 			     				if (overview.checkPassword(test, passwordText.getPassword())) {
 			     					overview.beginTest(null);
 			           			System.out.println("Correct Password");
+			           			new TakeTestUI(student, test);
 			     				}
 			     				else {
 			     					System.out.println("Incorrect Password!");
+			     					JOptionPane.showMessageDialog(frame,
+			     	    			    "Invalid password",
+			     	    			    "Error",
+			     	    			    JOptionPane.ERROR_MESSAGE);
 			     				}
 			     			}
 			     			else {
 			        			overview.beginTest(null);
 			        			System.out.println("Start the Test");
+			        			new TakeTestUI(student, test);
 			     			}
 			     			//check state upon action to ensure test is still open
 			     			//new Midterm1();
@@ -173,7 +180,7 @@ public class TestOverviewUI {
 			     });
 			     panel.add(startTest);
 			  }
-			  else if (test.getTestParam("state").equals("closed")) {
+			  else if (test.getTestParam("state").equals("closed") || !proctorMethods.checkStatus(test)) {
 				  properties.setText(properties.getText() + "The test closed on " + endDate +
 						  " at " + endTime + ".");
 				  state.setText("Closed");

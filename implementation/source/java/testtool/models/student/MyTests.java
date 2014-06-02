@@ -65,6 +65,7 @@ import testtool.models.userdb.*;
  @*/
   public String getSmallestCategoryNum(ArrayList<Test> tests) {
 	  String smallest = tests.get(0).getTestParam("testCategoryNum");
+	  System.out.println("smallest is " + smallest);
 	  for (int i = 0; i < tests.size(); i++) {
 		  if (tests.get(i).getTestParam("testCategoryNum").compareTo(smallest) < 0) {
 			  smallest = tests.get(i).getTestParam("testCategoryNum");

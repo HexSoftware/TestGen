@@ -51,6 +51,7 @@ public class CourseList {
         panel.setPreferredSize(new Dimension(500,curYposition));
         JScrollPane scrollPane = new JScrollPane(panel);
         scrollPane.setPreferredSize(new Dimension(800, 600));
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         frame.add(scrollPane);
 	}
 	
