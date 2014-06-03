@@ -1,4 +1,6 @@
 package testtool.models.userdb;
+import junit.framework.TestCase;
+
 
 /****
  *
@@ -19,7 +21,14 @@ package testtool.models.userdb;
  *             100000 elements.
  *									 </pre>
  */
-public class ProctorTEST extends Proctor {
-
+public class ProctorTEST extends TestCase {
+	public ProctorTEST(){
+		super();
+	}
+	public void testListofTests(){
+	}
+	public void testGrade(){
+		
+	}
 
 }
