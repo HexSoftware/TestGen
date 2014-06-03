@@ -90,6 +90,7 @@ public class TestSettings {
                 JLabel endDateLabel = new JLabel("End Date & Time");
                 endDateField = new JTextField(15);
                 endDateField.setText(ts.getEndDate());
+               
                 endTimeField = new JTextField(15);
                 endTimeField.setText(ts.geteTime());
                 JButton publishButton = new JButton("Publish");

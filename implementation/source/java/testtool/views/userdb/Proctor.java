@@ -145,7 +145,7 @@ public class Proctor {
 		public void actionPerformed(ActionEvent e){
 			proctor.listOfTests();
 			TestDatabase tdb = new TestDatabase();
-			new ListOfTestsGUI(1, tdb);
+			new ListOfTestsGUI(tdb);
 		}
 	}
 	static class gradesListener implements ActionListener {
@@ -167,8 +167,8 @@ public class Proctor {
 			proctor.options();
 		}
 	}
-	/*public static void main(String s[ ]) {
+	public static void main(String s[ ]) {
 		new Proctor();
-	}*/
+	}
 
 }
