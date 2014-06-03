@@ -167,8 +167,8 @@ public class Proctor {
 			proctor.options();
 		}
 	}
-	public static void main(String s[ ]) {
+	/*public static void main(String s[ ]) {
 		new Proctor();
-	}
+	}*/
 
 }
