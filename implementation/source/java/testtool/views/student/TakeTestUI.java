@@ -1,29 +1,39 @@
 package testtool.views.student;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
-import javax.swing.JCheckBox;
+
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.Timer;
 
 import testtool.models.userdb.Student;
 import testtool.models.questiondb.Question;
 import testtool.models.testdb.Test;
+import testtool.models.student.TakeTest;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu)
- * @version 31may14
+ * @version 08jun14
  * 
  * GUI of the test taking view allowing students to view
  * and answer questions for a given test
@@ -31,7 +41,13 @@ import testtool.models.testdb.Test;
 public class TakeTestUI {
 	private int curYposition = 25;
 	
-	public TakeTestUI(Student student, Test test) {
+	public TakeTestUI(final Student student, final Test test) {
+		final TakeTest TakeTestModel = new TakeTest();
+		
+		final ArrayList<Question> questionList= new ArrayList<Question>();
+		final ArrayList<JTextArea> textAnswerList = new ArrayList<JTextArea>();
+		final ArrayList<ButtonGroup> TFAnswerList = new ArrayList<ButtonGroup>();
+		
 		JFrame frame = new JFrame(test.getTestParam("testTitle"));
 		frame.setSize(1000, 700);
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -48,13 +64,46 @@ public class TakeTestUI {
       
       Font font = new Font("Calibri", Font.BOLD, 24);
       Font font1 = new Font("Calibri", Font.PLAIN, 18);
-      
+		
       paneltop.setPreferredSize(new Dimension(1000,100));
-      JLabel tempTimer = new JLabel("Temp timer");
-      tempTimer.setBounds(900, 25, 150, 25);
-      tempTimer.setFont(font1);
-      tempTimer.setForeground(Color.RED);
-      mainPanel.add(tempTimer);
+		try {
+			if (TakeTestModel.DateEquals(test.getTestParam("endDate"))) {
+				final JLabel timing = new JLabel();
+				timing.setBounds(865, 25, 150, 25);
+				timing.setFont(font1);
+				timing.setForeground(Color.RED);
+				final Timer t = new Timer(1000, new ActionListener() {
+				    private long time = TakeTestModel.GetTimeDifferenceInSec(test.getTestParam("endTime")) * 1000; //10 seconds, for example
+				
+				    public void actionPerformed(ActionEvent e) {
+				        if (time >= 0) {
+				            long s = ((time / 1000) % 60);
+				            long m = (((time / 1000) / 60) % 60);
+				            long h = ((((time / 1000) / 60) / 60) % 60);
+				            timing.setText(h + "h : " + m + "m : " + s + "s");
+				            timing.repaint();
+				            time -= 1000;
+				        }
+				        else {
+				      	  TakeTestModel.submitAnswers(test, student, questionList, textAnswerList, TFAnswerList);
+				      	  System.out.println("Answers submitted due to time limit");
+				        }
+				    }
+				});
+				t.setInitialDelay(0);
+				t.start();
+				mainPanel.add(timing);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+      
+      
+//      JLabel tempTimer = new JLabel("Temp timer");
+//      tempTimer.setBounds(900, 25, 150, 25);
+//      tempTimer.setFont(font1);
+//      tempTimer.setForeground(Color.RED);
+//      mainPanel.add(tempTimer);
       frame.add(mainPanel);
       
       JLabel description = new JLabel(test.getTestParam("testTitle"));
@@ -64,30 +113,37 @@ public class TakeTestUI {
       mainPanel.add(description); 
       //mainPanel.add(panel);
       
-      drawQuestions(frame, panel, student, test);
+      drawQuestions(frame, panel, student, test, questionList, textAnswerList, TFAnswerList);
       
       panel.setPreferredSize(new Dimension(500,curYposition));
-      JScrollPane scrollPane = new JScrollPane(panel);
+      final JScrollPane scrollPane = new JScrollPane(panel);
       scrollPane.setPreferredSize(new Dimension(900, 600));
       scrollPane.getVerticalScrollBar().setUnitIncrement(16);
       scrollPane.setBounds(75, 75, 900, 575);
+      javax.swing.SwingUtilities.invokeLater(new Runnable() {
+         public void run() { 
+             scrollPane.getVerticalScrollBar().setValue(0);
+         }
+      });
       //scrollPane.setBorder(null);
       mainPanel.add(scrollPane);
 	}
 	
-	public void drawQuestions(JFrame mainFrame, JPanel panel, Student student, Test test) {
+	public void drawQuestions(final JFrame mainFrame, JPanel panel, Student student, Test test, 
+			ArrayList<Question> questions, ArrayList<JTextArea> textAnswers, ArrayList<ButtonGroup> TFAnswers) {
 		Font font = new Font("Calibri", Font.BOLD, 24);
       Font font1 = new Font("Calibri", Font.PLAIN, 18);
 		
-		ArrayList<Question> questionList= new ArrayList<Question>();
-		ArrayList<JTextArea> textAnswerList = new ArrayList<JTextArea>();
-		ArrayList<JCheckBox> TFAnswerList = new ArrayList<JCheckBox>();
+		ArrayList<Question> questionList = questions;
+		ArrayList<JTextArea> textAnswerList = textAnswers;
+		ArrayList<ButtonGroup> TFAnswerList = TFAnswers;
 		
 		questionList = test.getQuestionList();
 		System.out.println("number of questions: " + questionList.size());
 		
 		for (int i = 0; i < questionList.size(); i++) {
 			curYposition += 50;
+			
 			JLabel questionNumLabel = new JLabel("Question " + Integer.toString(i + 1));
 			questionNumLabel.setBounds(100, curYposition, 900, 25);
 			questionNumLabel.setFont(font);
@@ -112,11 +168,21 @@ public class TakeTestUI {
 				//MC check boxes
 			}
 			else if (questionList.get(i).type.equals("TF")) {
-				TFAnswerList.add(new JCheckBox("true"));
-				JCheckBox trueChoice = TFAnswerList.get(TFAnswerList.size() - 1);
-				trueChoice.setBounds(150, curYposition, 100, 25);
-				trueChoice.setFont(font1);
-				panel.add(trueChoice);
+//				TFAnswerList.add(new JCheckBox("true"));
+//				JCheckBox trueChoice = TFAnswerList.get(TFAnswerList.size() - 1);
+//				trueChoice.setBounds(150, curYposition, 100, 25);
+//				trueChoice.setFont(font1);
+//				panel.add(trueChoice);
+				ButtonGroup group = new ButtonGroup();
+				JRadioButton trueButton = new JRadioButton("true");
+				JRadioButton falseButton = new JRadioButton("false");
+				group.add(trueButton);
+				group.add(falseButton);
+				trueButton.setBounds(150, curYposition, 100, 25);
+				falseButton.setBounds(150, curYposition + 25, 100, 25);
+				panel.add(trueButton);
+				panel.add(falseButton);
+				TFAnswerList.add(group);
 				curYposition += 25;
 			}
 			else if (questionList.get(i).type.equals("SA")) {
@@ -137,6 +203,50 @@ public class TakeTestUI {
 				myAnswerText.setFont(font1);
 				panel.add(myAnswerText);
 				curYposition += 150;
+			}
+			curYposition += 100;
+		}
+		JButton submitButton = new JButton("Submit");
+		submitButton.setBounds(0, curYposition, 900, 40);
+		submitButton.setFont(font);
+		submitButton.addActionListener(new SubmitButtonAction(mainFrame, student, test, questionList, textAnswerList, TFAnswerList));
+		curYposition += 50;
+		panel.add(submitButton);
+	}
+	
+	private static class SubmitButtonAction implements ActionListener {
+		
+		JFrame mainframe;
+		Student curStudent;
+		Test curTest;
+		ArrayList<Question> questionList;
+		ArrayList<JTextArea> textAnswersList;
+		ArrayList<ButtonGroup> mcAnswersList;
+		
+		public SubmitButtonAction(JFrame frame, Student student, Test test, ArrayList<Question> questions, 
+				ArrayList<JTextArea> textAnswers, ArrayList<ButtonGroup> mcAnswers) {
+			mainframe = frame;
+			curStudent = student;
+			curTest = test;
+			questionList = questions;
+			textAnswersList = textAnswers;
+			mcAnswersList = mcAnswers;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			TakeTest takeTestMethods = new TakeTest();
+			int choice = JOptionPane.showConfirmDialog(
+			    mainframe,
+			    "Make sure you have answered all questions before submitting.\n" +
+			    "Are you sure you would like to submit your answers?",
+			    "Submit Confirmation",
+			    JOptionPane.YES_NO_OPTION);
+			if (choice == 1) {
+				System.out.println("Cancel Submit");
+			} else {
+				takeTestMethods.submitAnswers(curTest, curStudent, questionList, textAnswersList, mcAnswersList);
+				mainframe.dispose();
 			}
 		}
 	}
