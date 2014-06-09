@@ -45,5 +45,6 @@ public class JUT_Login extends TestCase {
 		assertTrue(LoginModel.login("aqlam", "password"));
 		assertTrue(LoginModel.login("nrnord", "password"));
 		assertTrue(LoginModel.login("rjalmada", "password"));
+		assertTrue(LoginModel.login("gfisher", "password"));
 	}
 }
