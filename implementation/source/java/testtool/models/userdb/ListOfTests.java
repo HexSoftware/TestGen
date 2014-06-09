@@ -173,4 +173,7 @@ public class ListOfTests {
 		System.out.println("In ListOfTest.grade.");
 		return true;
 	}
+	public ArrayList<Test> getListOfTests(TestDatabase tdb) {	
+		return tdb.tests;
+	}
 }
