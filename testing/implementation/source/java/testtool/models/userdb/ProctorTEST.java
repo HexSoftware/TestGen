@@ -1,11 +1,11 @@
 package testtool.models.userdb;
+import java.text.ParseException;
+
+import testtool.models.testdb.Test;
+
 import junit.framework.TestCase;
 
-/*
-* Yuliya Levitskaya
-*/
-
-
+/*Yuliya Levitskaya*/
 /****
  *
  * Class ProctorTEST is the companion testing class for 
@@ -15,23 +15,34 @@ import junit.framework.TestCase;
  *									  <pre>
  *    Phase 1: Unit test the constructor.
  *
- *    Phase 2: Unit test listOfTests method
+ *    Phase 2: Unit test checkStatus
  *
- *    Phase 3: Unit test grade method.
- *
- *    Phase 4: Unit test options method.
- *
- *    Phase 5: Stress test by constructing and destructing items collection of 
+ *    Phase 3: Stress test by constructing and destructing items collection of 
  *             100000 elements.
  *									 </pre>
  */
 public class ProctorTEST extends TestCase {
+	ListOfTests lt;
+	Test t;
 	public ProctorTEST(){
 		super();
+		lt = new ListOfTests();
+		t = new Test();
 	}
-	public void testListofTests(){
-	}
-	public void testGrade(){
+	public void testCheckStatus() throws ParseException{
+		t.setTestParam("startDate", "06/01/2013");
+		t.setTestParam("endDate", "06/01/2015");
+		t.setTestParam("startTime", "1:00am");
+		t.setTestParam("endTime", "11:00pm");
+		assertTrue(lt.checkStatus(t));
+		
+		t.setTestParam("startDate", "06/01/2013");
+		t.setTestParam("endDate", "06/01/2014");
+		assertFalse(lt.checkStatus(t));
+		
+		t.setTestParam("startDate", "06/01/2015");
+		t.setTestParam("endDate", "06/01/2015");
+		assertFalse(lt.checkStatus(t));
 		
 	}
 
