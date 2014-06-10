@@ -1,0 +1,163 @@
+
+<html>
+<head>
+<title>
+Acceptance Testing
+</title>
+</head>
+<body bgcolor=white>
+<p align=center>
+<font size=+2>
+<strong>User Acceptance Testing</strong>
+</font>
+</p>
+<br>
+<br>
+<h3>
+Acceptance Test Plan
+</h3>
+<p>
+<blockquote>
+<table align=center border=1 cellpadding=4>
+  <tr>
+    <td valign=top><strong>Case No.</strong>
+    <td valign=top><strong>User Inputs and Commands</strong>
+    <td valign=top><strong>Expected Output</strong>
+    <td valign=top><strong>Remarks</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <td valign=top><strong>Results</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <tr>
+    <td valign=top>1
+    <td valign=top>
+The user provides all test setting parameters filled in and clicks publish
+    <td valign=top>
+The user needs to fill in all the test settings. It saves the settings so if the user tries to edit them again the saved parametered would be filled in
+    <td valign=top>
+It's testing that the parameters get saved to the database correctly
+    <td valign=top>
+It passes since we can visually see that the settings persist.
+  <tr>
+ <tr>
+    <td valign=top>2
+    <td valign=top>
+The user provides the test.
+    <td valign=top>
+It's a get method so user doesn't see anything.
+    <td valign=top>
+It's testing that the user recieves the right information from the database for a particular test
+    <td valign=top>
+It passes since i'm manually entering values so i know what they should be.
+  <tr>
+ <tr>
+    <td valign=top>3
+    <td valign=top>
+The user provides the test and the what they want to change the value to.
+    <td valign=top>
+The user will see data persist.
+    <td valign=top>
+It's testing that the database saves the right information to the right test
+    <td valign=top>
+It passes since i can get the info from the database and compare.
+  <tr>
+ <tr>
+    <td valign=top>4
+    <td valign=top>
+The user provides the system time of their computer
+    <td valign=top>
+The user will see their test open if the system time is in the range of the start and end date.
+    <td valign=top>
+It's testing if the test should be open or closed based on the system time
+    <td valign=top>
+It passes since the test opens and closes in the proper time.
+  <tr>
+ <tr>
+    <td valign=top>5
+    <td valign=top>
+The user clicks on a test and clicks to open it for the students
+    <td valign=top>
+The database is updated and the chart updates with the appropriate value.
+    <td valign=top>
+It's testing that the database changes appropriately.
+    <td valign=top>
+It passes since the values in the chart change.
+  <tr>
+ <tr>
+    <td valign=top>6
+    <td valign=top>
+The user clicks on a test and clicks to close it for the students
+    <td valign=top>
+The database is updated and the chart updates with the appropriate value.
+    <td valign=top>
+It's testing that the database changes appropriately.
+    <td valign=top>
+It passes since the values in the chart change.
+ <tr>
+    <td valign=top>7
+    <td valign=top>
+The user clicks on a test and clicks to grade it
+    <td valign=top>
+The database is updated and the chart updates with the appropriate value. and the grade window pops up
+    <td valign=top>
+It's testing that the database changes appropriately.
+    <td valign=top>
+It passes since the values in the chart change.
+  <tr>
+ <tr>
+    <td valign=top>8
+    <td valign=top>
+The user retrieving the start date of the test.
+    <td valign=top>
+Accesses the database and retrieves the information. It is shown on the start page of the test.
+    <td valign=top>
+It's testing that information from  the database retrieves correctly.
+    <td valign=top>
+It passes since the values are the same as in the database.
+  <tr>
+<tr>
+    <td valign=top>9
+    <td valign=top>
+The user tests if the test is open depending on the system time. 
+    <td valign=top>The test will be open or closed for the students depending on the user's system time.
+    <td valign=top>
+It's testing that information is retrieved from the database correctly.
+    <td valign=top>
+It passes since the values are the same as in the database.
+  <tr>
+<tr>
+    <td valign=top>10
+    <td valign=top>
+The user whats to get the end date of the test.
+    <td valign=top>
+The database retrieves the information and it is shown at the start of the test.
+    <td valign=top>
+It's testing that the system tim eis between the start and end of the time. 
+    <td valign=top>
+It passes since we know what time the tests open and close.
+  <tr>
+<tr>
+    <td valign=top>11
+    <td valign=top>
+The user whats to get the start time of the test.
+    <td valign=top>
+The database retrieves the information and it is shown at the start of the test.
+    <td valign=top>
+It's testing that information is retrieved from the database correctly.
+    <td valign=top>
+It passes since the values are the same as in the database.
+  <tr>
+<tr>
+    <td valign=top>12
+    <td valign=top>
+The user whats to get the end time of the test.
+    <td valign=top>
+The database retrieves the information and it is shown at the start of the test.
+    <td valign=top>
+It's testing that information is retrieved from the database correctly.
+    <td valign=top>
+It passes since the values are the same as in the database.
+  <tr>
+<br>
+</table>
+</blockquote>
+</p><p>
+</body>
+</html>
