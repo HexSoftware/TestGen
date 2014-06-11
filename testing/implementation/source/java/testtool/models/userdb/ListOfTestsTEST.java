@@ -34,22 +34,6 @@ public class ListOfTestsTEST extends TestCase {
 		lt = new ListOfTests();
 		t = new Test();
 	}
-	public void testCheckStatus() throws ParseException{
-		t.setTestParam("startDate", "06/01/2013");
-		t.setTestParam("endDate", "06/01/2015");
-		t.setTestParam("startTime", "1:00am");
-		t.setTestParam("endTime", "11:00pm");
-		assertTrue(lt.checkStatus(t));
-		
-		t.setTestParam("startDate", "06/01/2013");
-		t.setTestParam("endDate", "06/01/2014");
-		assertFalse(lt.checkStatus(t));
-		
-		t.setTestParam("startDate", "06/01/2015");
-		t.setTestParam("endDate", "06/01/2015");
-		assertFalse(lt.checkStatus(t));
-		
-	}
 	public void TestOpen(){
 		lt.open(t);
 		assertEquals("Open", t.getTestParam("state"));	
