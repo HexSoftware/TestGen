@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * the student will simply specify whether or not a statement was true
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 16may14
+ * @version 10jun14
  *
  */
 public class TFQuestion extends Question {
@@ -40,7 +40,7 @@ public class TFQuestion extends Question {
 	 		 *);	  
 	 @*/
 	public TFQuestion(String qt, String auth, String course,
-		ArrayList<String> topics, int time, int diff, boolean corAns) throws EmptyBoxException {
+		ArrayList<String> topics, int time, int diff, boolean corAns, int points) throws EmptyBoxException {
 		if (qt.equals("")) {
 			throw new EmptyBoxException("Question Text must be filled in.");
 		} else {
@@ -67,7 +67,22 @@ public class TFQuestion extends Question {
 		
 		this.correctAnswer = corAns;
 		this.type = "TF";
+		this.points = points;
 	}
+
+	
+	
+	public boolean isCorrectAnswer() {
+		return correctAnswer;
+	}
+
+
+
+	public void setCorrectAnswer(boolean correctAnswer) {
+		this.correctAnswer = correctAnswer;
+	}
+
+
 
 	@Override
 	public String toString() {
