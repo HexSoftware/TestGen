@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * This type of question must be graded manually
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 16may14
+ * @version 10jun14
  *
  */
 public class GraphicsQuestion extends Question {
@@ -37,7 +37,7 @@ public class GraphicsQuestion extends Question {
 	 		 *);	  
 	 @*/
 	public GraphicsQuestion(String qt, String auth, String course,
-			ArrayList<String> topics, int time, int diff) throws EmptyBoxException {
+			ArrayList<String> topics, int time, int diff, int points) throws EmptyBoxException {
 		if (qt.equals("")) {
 			throw new EmptyBoxException("Question Text must be filled in.");
 		} else {
@@ -63,6 +63,7 @@ public class GraphicsQuestion extends Question {
 		this.difficulty = diff;
 		
 		this.type = "Graphic";
+		this.points = points;
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * instructor defined correct answers
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 16may14
+ * @version 10jun14
  *
  */
 public class MCQuestion extends Question {
@@ -50,7 +50,7 @@ public class MCQuestion extends Question {
 	 @*/
 	public MCQuestion(String qt, String auth, String course,
 		ArrayList<String> topics, int time, int diff, ArrayList<String> pa,
-		ArrayList<Integer> cai) throws EmptyBoxException {
+		ArrayList<Integer> cai, int points) throws EmptyBoxException {
 		if (qt.equals("")) {
 			throw new EmptyBoxException("Question Text must be filled in.");
 		} else {
@@ -88,7 +88,34 @@ public class MCQuestion extends Question {
 		}
 		
 		this.type = "MC";
+		this.points = points;
 	}
+
+	
+	
+	public ArrayList<String> getPossibleAnswers() {
+		return possibleAnswers;
+	}
+
+
+
+	public void setPossibleAnswers(ArrayList<String> possibleAnswers) {
+		this.possibleAnswers = possibleAnswers;
+	}
+
+
+
+	public ArrayList<Integer> getCorrectAnswerIndices() {
+		return correctAnswerIndices;
+	}
+
+
+
+	public void setCorrectAnswerIndices(ArrayList<Integer> correctAnswerIndices) {
+		this.correctAnswerIndices = correctAnswerIndices;
+	}
+
+
 
 	@Override
 	public String toString() {

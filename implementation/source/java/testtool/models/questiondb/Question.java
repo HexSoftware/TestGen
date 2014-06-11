@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * The Question class is the superclass of all question types
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 31may14
+ * @version 10jun14
  * 
  */
 public class Question {
@@ -13,6 +13,7 @@ public class Question {
 	 * a question
 	 */
 	public String questionText;
+
 	/**
 	 * The author is the instructor that wrote and added the question to the
 	 * databank
@@ -79,9 +80,83 @@ public class Question {
 	 	case 5: return new Integer(time).toString();
 	 	case 6: return lastUsed;
 	 	case 7: return author;
+	 	case 8: return new Integer(points).toString();
 	 	default: return "error: invalid field";
 	 	}
 	 }
+	
+	public String getQuestionText() {
+		return questionText;
+	}
+
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getLastUsed() {
+		return lastUsed;
+	}
+
+	public void setLastUsed(String lastUsed) {
+		this.lastUsed = lastUsed;
+	}
+
+	public String getCourse() {
+		return course;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
+	}
+
+	public ArrayList<String> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(ArrayList<String> topics) {
+		this.topics = topics;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
 
 	@Override
 	public String toString() {

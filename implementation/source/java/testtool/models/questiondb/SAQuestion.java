@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * matter for this question.
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 16may14
+ * @version 10jun14
  *
  */
 public class SAQuestion extends Question {
@@ -42,7 +42,7 @@ public class SAQuestion extends Question {
 	 		 *);	  
 	 @*/
 	public SAQuestion(String qt, String auth, String course,
-		ArrayList<String> topics, int time, int diff, ArrayList<String> ckws) throws EmptyBoxException {
+		ArrayList<String> topics, int time, int diff, ArrayList<String> ckws, int points) throws EmptyBoxException {
 		if (qt.equals("")) {
 			throw new EmptyBoxException("Question Text must be filled in.");
 		} else {
@@ -73,7 +73,22 @@ public class SAQuestion extends Question {
 			this.correctKWs = ckws;
 		}
 		this.type = "SA";
+		this.points = points;
 	}
+	
+	
+
+	public ArrayList<String> getCorrectKWs() {
+		return correctKWs;
+	}
+
+
+
+	public void setCorrectKWs(ArrayList<String> correctKWs) {
+		this.correctKWs = correctKWs;
+	}
+
+
 
 	@Override
 	public String toString() {

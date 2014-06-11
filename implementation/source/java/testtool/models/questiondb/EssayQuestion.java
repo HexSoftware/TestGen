@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * order of those words in the answer
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 16may14
+ * @version 10jun14
  *
  */
 public class EssayQuestion extends Question {
@@ -43,7 +43,7 @@ public class EssayQuestion extends Question {
 	 		 *);	  
 	 @*/
 	public EssayQuestion(String qt, String auth, String course,
-		ArrayList<String> topics, int time, int diff, ArrayList<String> ckws) throws EmptyBoxException {
+		ArrayList<String> topics, int time, int diff, ArrayList<String> ckws, int points) throws EmptyBoxException {
 		if (qt.equals("")) {
 			throw new EmptyBoxException("Question Text must be filled in.");
 		} else {
@@ -74,7 +74,22 @@ public class EssayQuestion extends Question {
 			this.correctKWs = ckws;
 		}
 		this.type = "Essay";
+		this.points = points;
 	}
+	
+	
+
+	public ArrayList<String> getCorrectKWs() {
+		return correctKWs;
+	}
+
+
+
+	public void setCorrectKWs(ArrayList<String> correctKWs) {
+		this.correctKWs = correctKWs;
+	}
+
+
 
 	@Override
 	public String toString() {
