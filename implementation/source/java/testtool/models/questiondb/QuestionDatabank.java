@@ -3,8 +3,6 @@ package testtool.models.questiondb;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -18,25 +16,33 @@ import testtool.views.questiondb.QuestionDBFrame;
  * which involves adding, editing, removing, search and filter. 
  * 
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 1jun14
+ * @version 12jun14
  */
 public class QuestionDatabank {
 	public ArrayList<QuestionEntry> questions;
 	public ArrayList<QuestionEntry> filteredQs;
+	public ArrayList<QuestionEntry> testQs;
 	public ArrayList<Filter> filters;
 	public QuestionEntry newestQ;
 	public Filter newestF;
 	public QuestionDBFrame qdbf;
 
-	public QuestionDatabank(QuestionDBFrame qdbf) {
-		//a null qdbFrame indicates testing for now. Will change later.
+	public QuestionDatabank(QuestionDBFrame qdbf, boolean rff, ArrayList<Question> tqs) {
+		//rff = read from file. if false, will create an empty databank. 
+		//otherwise, questions will be loaded form QustionDB.txt
 		questions = new ArrayList<QuestionEntry>();
 		filteredQs = new ArrayList<QuestionEntry>();
+		testQs = new ArrayList<QuestionEntry>();
 		filters = new ArrayList<Filter>();
 		this.qdbf = qdbf;
-		if (qdbf != null) {
+		
+		if(tqs == null) {
+			tqs = new ArrayList<Question>();
+		}
+		
+		if (rff) {
 			try {
-				loadDatabase();
+				loadDatabase(tqs);
 			} catch (FileNotFoundException e) {
 				System.out.println("No database found. Creating Empty Database");
 			}
@@ -156,7 +162,8 @@ public class QuestionDatabank {
 	 * 
 	 * @
 	 */
-	public void filter(Filter fil) {
+	public ArrayList<Question> filter(Filter fil) {
+		ArrayList<Question> filtered = new ArrayList<Question>();
 		for (int i = filteredQs.size() - 1; i >= 0; i--) {
 			QuestionEntry qe = filteredQs.get(i);
 			if (checkFiltered(fil, qe.question))
@@ -175,6 +182,9 @@ public class QuestionDatabank {
 		filters.add(fil);
 		newestF = fil;
 		System.out.println("In QuestionDatabank.filter");
+		for (QuestionEntry qe : questions)
+			filtered.add(qe.question);
+		return filtered;
 	}
 
 	/**
@@ -249,6 +259,52 @@ public class QuestionDatabank {
 		return false;
 	}
 	
+	public ArrayList<Question> getAllByType(Filter fil) {
+		ArrayList<Question> qs = new ArrayList<Question>();
+		
+		for (QuestionEntry qe : questions) {
+			if (checkFiltered(fil, qe.question)) {
+				qs.add(qe.question);
+			}
+		}
+		for (QuestionEntry qe : filteredQs) {
+			if (checkFiltered(fil, qe.question)) {
+				qs.add(qe.question);
+			}
+		}
+		
+		return qs;
+	}
+	
+	public void shiftQuestions(int[] indices, int dir) {
+		QuestionEntry temp;
+		System.out.println("Length " + indices.length);
+		
+		if (dir == 0) {
+			for (int i = 0; i < indices.length; i++) {
+				temp = questions.get(indices[i]);
+				if (!testQs.contains(temp))
+					testQs.add(temp);
+				System.out.println(" Index " + indices[i]);
+			}
+		}
+		
+		else {
+			int idx = questions.size();
+			for (int i = indices.length - 1; i >= 0; i--) {
+				temp = testQs.remove(indices[i]);
+				System.out.println(" Index " + indices[i]);
+			}
+		}
+		if (qdbf != null) {
+			qdbf.questionModel.fireTableDataChanged();
+			qdbf.testQModel.fireTableDataChanged();
+			if (testQs.size() > 0)
+				qdbf.generateButton.setEnabled(true);
+			else
+				qdbf.generateButton.setEnabled(false);
+		}
+	}
 	/**
 	 * question popup will bring up the question popup dialogue when a 
 	 * QuestionEntry q moused over for a long enough amount of time. This will 
@@ -271,34 +327,19 @@ public class QuestionDatabank {
 	public void questionPopup(QuestionEntry q) {
 		System.out.println("In QuestionDatabank.questionPopup");
 	}
-	
-	/**
-	 * toggleQuestionSelect will toggle the QuestionEntry q as (un)marked, 
-	 * either for editing/removal or for being added to a test. 
-	 * @param q - question to select or deselect
-	 */
-	/*@
-		requires
-			(*
-			 * That QuestionEntry q is a valid QuestionEntry and is in the 
-			 * databank.
-			 *);
-		ensures
-			(*
-			 * That a valid questionEntry in the databank has its selection 
-			 * toggled.
-			 *);
-	@*/
-	public void toggleQuestionSelect(QuestionEntry q) {
-		System.out.println("In QuestionDatabank.toggleQuestionSelect");
-	}
 
-	public void loadDatabase() throws FileNotFoundException {
+	public void loadDatabase(ArrayList<Question> tqs) throws FileNotFoundException {
 		File inFile = new File("QuestionDB.txt");
 		Scanner scanner = new Scanner(inFile);
 		System.out.println("loading database");
 		while (scanner.hasNextLine()) {
-			questions.add(new QuestionEntry(parseString(scanner.nextLine()), false, new ArrayList<Filter>()));
+			Question q = parseString(scanner.nextLine());
+			if (tqs.contains(q)) {
+				testQs.add(new QuestionEntry(q, false, new ArrayList<Filter>()));
+			}
+			else {
+				questions.add(new QuestionEntry(q, false, new ArrayList<Filter>()));
+			}
 		}
 		scanner.close();
 		System.out.println("database loaded");
@@ -335,8 +376,6 @@ public class QuestionDatabank {
 		time = Integer.parseInt(scan.findInLine("(?<=time=)(.*)(?=, difficulty=)"));
 		diff = Integer.parseInt(scan.findInLine("(?<=difficulty=)(.*)(?=, type=)"));
 		type = scan.findInLine("(?<=type=)(.*)(?=, points)");
-		if (type == null)
-			type = scan.findInLine("(?<=type=)(.*)(?=,)");
 		System.out.println(type);
 		try {
 			switch (type) {

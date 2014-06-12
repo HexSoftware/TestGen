@@ -36,7 +36,7 @@ import testtool.views.testdb.ManualGenerateGUI;
 
 /**
  * @author Neil Nordhof (nnordhof@calpoly.edu), RJ Almada (rjalmada@calpoly.edu)
- * @version 1jun14
+ * @version 12jun14
  * 
  * The main view class for the Question Databank. 
  */
@@ -46,70 +46,64 @@ public class QuestionDBFrame {
 
 	final private QuestionDatabank qdb;
 	
-	final private JFrame frame;
-	final private JTable table;
-	final private JButton editButton, removeButton, generateButton;
+	public final JFrame frame;
+	private JTable questionTable, testQTable;
+	final private JButton editButton, removeButton;
+
+	public final JButton generateButton;
+
+	private final JButton q2tButton;
+
+	private final JButton t2qButton;
 	final private JPanel filterPanel;
-	final private AbstractTableModel dataModel;
+	public AbstractTableModel questionModel;
+
+	public AbstractTableModel testQModel;
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event-dispatching thread.
 	 */
-	public QuestionDBFrame() {
-		qdb = new QuestionDatabank(this);
+	public QuestionDBFrame(ArrayList<Question> testQs) {
+		qdb = new QuestionDatabank(this, true, testQs);
 		// Create and set up the window.
 		frame = new JFrame("QuestionDB");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setJMenuBar(CMBuilder.createMenuBar(new JMenuBar()));
 		frame.setLayout(new BorderLayout());
 
-		JPanel qdbpanel = new JPanel();
+		JPanel qdbpanel = new JPanel(new BorderLayout());
 		// qdbpanel.setPreferredSize(new Dimension(800, 600));
-
-		// Add a table
-		dataModel = new AbstractTableModel() {
-
-			public int getColumnCount() {
-				return 8;
-			}
-
-			public int getRowCount() {
-				return qdb.questions.size();
-			}
-
-			public Object getValueAt(int row, int col) {
-				return qdb.questions.get(row).question.get(col);
-			}
-		};
-		//dataModel.addTableModelListener(new DatabankDataListener());
-		table = new JTable(dataModel);
-		table.setPreferredSize(new Dimension(700, 400));
 		
-		table.getColumnModel().getColumn(0).setPreferredWidth(60);
-		table.getColumnModel().getColumn(1).setPreferredWidth(200);
-		table.getColumnModel().getColumn(2).setPreferredWidth(65);
-		table.getColumnModel().getColumn(3).setPreferredWidth(320);
-		table.getColumnModel().getColumn(4).setPreferredWidth(60);
-		table.getColumnModel().getColumn(5).setPreferredWidth(55);
-		table.getColumnModel().getColumn(6).setPreferredWidth(70);
-		table.getColumnModel().getColumn(7).setPreferredWidth(60);
+		setUpQuestionTable();
+		JScrollPane questionScrollpane = new JScrollPane(questionTable);
+		questionScrollpane.setPreferredSize(new Dimension(750, 200));
+		qdbpanel.add(questionScrollpane, BorderLayout.NORTH);		
 
-		table.getColumnModel().getColumn(0).setHeaderValue(new String("Course"));
-		table.getColumnModel().getColumn(1).setHeaderValue(new String("Topic"));
-		table.getColumnModel().getColumn(2).setHeaderValue(new String("Type"));
-		table.getColumnModel().getColumn(3).setHeaderValue(new String("Question Text"));
-		table.getColumnModel().getColumn(4).setHeaderValue(new String("Difficulty"));
-		table.getColumnModel().getColumn(5).setHeaderValue(new String("Time"));
-		table.getColumnModel().getColumn(6).setHeaderValue(new String("Last"));
-		table.getColumnModel().getColumn(7).setHeaderValue(new String("Author"));
+		setUpTestQTable();
+		JScrollPane testQScrollpane = new JScrollPane(testQTable);
+		testQScrollpane.setPreferredSize(new Dimension(750, 200));
+		qdbpanel.add(testQScrollpane, BorderLayout.SOUTH);
 		
-		DefaultListSelectionModel selector = new DefaultListSelectionModel();
-		selector.addListSelectionListener(new DatabankListener());
-		table.setSelectionModel(selector);
-		
-		JScrollPane scrollpane = new JScrollPane(table);
-		scrollpane.setPreferredSize(new Dimension(750, 400));
-		qdbpanel.add(scrollpane);
+		JPanel listSwapPanel = new JPanel(new FlowLayout());
+		q2tButton = new JButton("Add to test");
+		q2tButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				qdb.shiftQuestions(questionTable.getSelectedRows(), 0);
+			}
+		});
+		q2tButton.setEnabled(false);
+		t2qButton = new JButton("Remove from test");
+		t2qButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				qdb.shiftQuestions(testQTable.getSelectedRows(), 1);
+			}
+		});
+		t2qButton.setEnabled(false);
+		listSwapPanel.add(q2tButton);
+		listSwapPanel.add(t2qButton);
+		qdbpanel.add(listSwapPanel, BorderLayout.CENTER);
 
 		JPanel topPanel = new JPanel(new BorderLayout());
 		JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -135,7 +129,7 @@ public class QuestionDBFrame {
 		addButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new AddQuestion(qdb, dataModel);
+				new AddQuestion(qdb, questionModel);
 				//frame.setEnabled(false);
 			}
 		});
@@ -145,7 +139,7 @@ public class QuestionDBFrame {
 		editButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditQuestion(qdb, table.getSelectedRow(), dataModel);
+				new EditQuestion(qdb, questionTable.getSelectedRow(), questionModel);
 			}
 		});
 		editButton.setEnabled(false);
@@ -155,156 +149,8 @@ public class QuestionDBFrame {
 		removeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int[] i = table.getSelectedRows();
-				new RemoveFrame(qdb, i, dataModel);
-				System.out.println("136");
-			}
-		});
-		removeButton.setEnabled(false);
-		buttonPanel.add(removeButton);
-		
-		JButton filterButton = new JButton("Filter");
-		filterButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new FilterFrame(qdb);
-			}
-		});
-		buttonPanel.add(filterButton);
-		
-		generateButton = new JButton("Generate");
-		generateButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//new GenerateTypeGUI();
-				System.out.println("Generate Pressed");
-				ArrayList<Question> s = parseSelected();
-				new ManualGenerateGUI(null, s);
-				try {
-					qdb.writeDatabase();
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-				frame.dispose();
-			}
-		});
-		generateButton.setEnabled(false);
-		buttonPanel.add(generateButton);
-
-		frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-		frame.getContentPane().add(topPanel, BorderLayout.NORTH);
-		frame.getContentPane().add(qdbpanel, BorderLayout.CENTER);
-		
-		frame.addWindowListener(new qdbWindowListener());
-		// frame.setMinimumSize(new Dimension(800, 600));
-		// Display the window.
-		frame.pack();
-		frame.setVisible(true);
-	}
-	
-	public QuestionDBFrame(ArrayList<Question> q) {
-		qdb = new QuestionDatabank(this);
-		// Create and set up the window.
-		frame = new JFrame("QuestionDB");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setJMenuBar(CMBuilder.createMenuBar(new JMenuBar()));
-		frame.setLayout(new BorderLayout());
-
-		JPanel qdbpanel = new JPanel();
-		// qdbpanel.setPreferredSize(new Dimension(800, 600));
-
-		// Add a table
-		dataModel = new AbstractTableModel() {
-
-			public int getColumnCount() {
-				return 8;
-			}
-
-			public int getRowCount() {
-				return qdb.questions.size();
-			}
-
-			public Object getValueAt(int row, int col) {
-				return qdb.questions.get(row).question.get(col);
-			}
-		};
-		//dataModel.addTableModelListener(new DatabankDataListener());
-		table = new JTable(dataModel);
-		table.setPreferredSize(new Dimension(700, 400));
-		
-		table.getColumnModel().getColumn(0).setPreferredWidth(60);
-		table.getColumnModel().getColumn(1).setPreferredWidth(200);
-		table.getColumnModel().getColumn(2).setPreferredWidth(65);
-		table.getColumnModel().getColumn(3).setPreferredWidth(320);
-		table.getColumnModel().getColumn(4).setPreferredWidth(60);
-		table.getColumnModel().getColumn(5).setPreferredWidth(55);
-		table.getColumnModel().getColumn(6).setPreferredWidth(70);
-		table.getColumnModel().getColumn(7).setPreferredWidth(60);
-
-		table.getColumnModel().getColumn(0).setHeaderValue(new String("Course"));
-		table.getColumnModel().getColumn(1).setHeaderValue(new String("Topic"));
-		table.getColumnModel().getColumn(2).setHeaderValue(new String("Type"));
-		table.getColumnModel().getColumn(3).setHeaderValue(new String("Question Text"));
-		table.getColumnModel().getColumn(4).setHeaderValue(new String("Difficulty"));
-		table.getColumnModel().getColumn(5).setHeaderValue(new String("Time"));
-		table.getColumnModel().getColumn(6).setHeaderValue(new String("Last"));
-		table.getColumnModel().getColumn(7).setHeaderValue(new String("Author"));
-		
-		DefaultListSelectionModel selector = new DefaultListSelectionModel();
-		selector.addListSelectionListener(new DatabankListener());
-		table.setSelectionModel(selector);
-		
-		JScrollPane scrollpane = new JScrollPane(table);
-		scrollpane.setPreferredSize(new Dimension(750, 400));
-		qdbpanel.add(scrollpane);
-
-		JPanel topPanel = new JPanel(new BorderLayout());
-		JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		final JTextField searchField = new JTextField(20);
-		searchPanel.add(searchField);
-		JButton searchButton = new JButton("Search");
-		searchButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				qdb.search(searchField.getText());
-			}
-		});
-		searchPanel.add(searchButton);
-		
-		filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		filterPanel.setMaximumSize(new Dimension(400,30));
-		
-		topPanel.add(filterPanel, BorderLayout.WEST);
-		topPanel.add(searchPanel, BorderLayout.EAST);
-
-		JPanel buttonPanel = new JPanel(new GridLayout());
-		JButton addButton = new JButton("Add");
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				new AddQuestion(qdb, dataModel);
-				//frame.setEnabled(false);
-			}
-		});
-		buttonPanel.add(addButton);
-		
-		editButton = new JButton("Edit");
-		editButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new EditQuestion(qdb, table.getSelectedRow(), dataModel);
-			}
-		});
-		editButton.setEnabled(false);
-		buttonPanel.add(editButton);
-		
-		removeButton = new JButton("Remove");
-		removeButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int[] i = table.getSelectedRows();
-				new RemoveFrame(qdb, i, dataModel);
-				System.out.println("136");
+				int[] i = questionTable.getSelectedRows();
+				new RemoveFrame(qdb, i, questionModel);
 			}
 		});
 		removeButton.setEnabled(false);
@@ -326,12 +172,13 @@ public class QuestionDBFrame {
 				//new GenerateTypeGUI();
 				//TODO: Send selected questions to test generator.
 				System.out.println("Generate Pressed");
-				ArrayList<Question> s = parseSelected();
+				ArrayList<Question> s = new ArrayList<Question>();
+				for (QuestionEntry qe : qdb.testQs)
+					s.add(qe.question);
 				new ManualGenerateGUI(null, s);
 				try {
 					qdb.writeDatabase();
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				frame.dispose();
@@ -344,9 +191,7 @@ public class QuestionDBFrame {
 		frame.getContentPane().add(topPanel, BorderLayout.NORTH);
 		frame.getContentPane().add(qdbpanel, BorderLayout.CENTER);
 		
-		frame.addWindowListener(new qdbWindowListener());
-		
-		setSelectedTestQuestions(qdb.questions, q);
+		frame.addWindowListener(new qdbWindowListener());		
 
 		// frame.setMinimumSize(new Dimension(800, 600));
 		// Display the window.		
@@ -354,31 +199,91 @@ public class QuestionDBFrame {
 		frame.setVisible(true);
 	}
 	
-	public ArrayList<Question> parseSelected() {
-		ArrayList<Question> s = new ArrayList<Question>();
-		int[] i = table.getSelectedRows();
+	public void setUpQuestionTable() {
+		// Add a table
+		questionModel = new AbstractTableModel() {
+
+			public int getColumnCount() {
+				return 8;
+			}
+
+			public int getRowCount() {
+				return qdb.questions.size();
+			}
+
+			public Object getValueAt(int row, int col) {
+				return qdb.questions.get(row).question.get(col);
+			}
+		};
+		//dataModel.addTableModelListener(new DatabankDataListener());
+		questionTable = new JTable(questionModel);
+		questionTable.setPreferredSize(new Dimension(700, 400));
 		
-		for (int j = 0; j < i.length; j++)
-			s.add(qdb.questions.get(i[j]).question);
+		questionTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+		questionTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+		questionTable.getColumnModel().getColumn(2).setPreferredWidth(65);
+		questionTable.getColumnModel().getColumn(3).setPreferredWidth(320);
+		questionTable.getColumnModel().getColumn(4).setPreferredWidth(60);
+		questionTable.getColumnModel().getColumn(5).setPreferredWidth(55);
+		questionTable.getColumnModel().getColumn(6).setPreferredWidth(70);
+		questionTable.getColumnModel().getColumn(7).setPreferredWidth(60);
+
+		questionTable.getColumnModel().getColumn(0).setHeaderValue(new String("Course"));
+		questionTable.getColumnModel().getColumn(1).setHeaderValue(new String("Topic"));
+		questionTable.getColumnModel().getColumn(2).setHeaderValue(new String("Type"));
+		questionTable.getColumnModel().getColumn(3).setHeaderValue(new String("Question Text"));
+		questionTable.getColumnModel().getColumn(4).setHeaderValue(new String("Difficulty"));
+		questionTable.getColumnModel().getColumn(5).setHeaderValue(new String("Time"));
+		questionTable.getColumnModel().getColumn(6).setHeaderValue(new String("Last"));
+		questionTable.getColumnModel().getColumn(7).setHeaderValue(new String("Author"));
 		
-		return s;
+		DefaultListSelectionModel selector = new DefaultListSelectionModel();
+		selector.addListSelectionListener(new DatabankListener());
+		questionTable.setSelectionModel(selector);
 	}
 	
-	private void setSelectedTestQuestions(ArrayList<QuestionEntry> dbq, ArrayList<Question> tq) {
-		ArrayList<String> dbquestions = new ArrayList<String>();
-		int ndx;
+	public void setUpTestQTable() {
+		// Add a table
+		testQModel = new AbstractTableModel() {
+
+			public int getColumnCount() {
+				return 8;
+			}
+
+			public int getRowCount() {
+				return qdb.testQs.size();
+			}
+
+			public Object getValueAt(int row, int col) {
+				return qdb.testQs.get(row).question.get(col);
+			}
+		};
+		//dataModel.addTableModelListener(new DatabankDataListener());
+		testQTable = new JTable(testQModel);
+		testQTable.setPreferredSize(new Dimension(700, 400));
 		
-		for(int i = 0; i < dbq.size(); i++) {
-			dbquestions.add(dbq.get(i).question.toString());
-		}
+		testQTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+		testQTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+		testQTable.getColumnModel().getColumn(2).setPreferredWidth(65);
+		testQTable.getColumnModel().getColumn(3).setPreferredWidth(320);
+		testQTable.getColumnModel().getColumn(4).setPreferredWidth(60);
+		testQTable.getColumnModel().getColumn(5).setPreferredWidth(55);
+		testQTable.getColumnModel().getColumn(6).setPreferredWidth(70);
+		testQTable.getColumnModel().getColumn(7).setPreferredWidth(60);
+
+		testQTable.getColumnModel().getColumn(0).setHeaderValue(new String("Course"));
+		testQTable.getColumnModel().getColumn(1).setHeaderValue(new String("Topic"));
+		testQTable.getColumnModel().getColumn(2).setHeaderValue(new String("Type"));
+		testQTable.getColumnModel().getColumn(3).setHeaderValue(new String("Question Text"));
+		testQTable.getColumnModel().getColumn(4).setHeaderValue(new String("Difficulty"));
+		testQTable.getColumnModel().getColumn(5).setHeaderValue(new String("Time"));
+		testQTable.getColumnModel().getColumn(6).setHeaderValue(new String("Last"));
+		testQTable.getColumnModel().getColumn(7).setHeaderValue(new String("Author"));
 		
-		for(int i = 0; i < tq.size(); i++) {
-			ndx = dbquestions.indexOf(tq.get(i).toString());
-			table.addRowSelectionInterval(ndx, ndx);
-		}
+		DefaultListSelectionModel selector = new DefaultListSelectionModel();
+		selector.addListSelectionListener(new DatabankListener());
+		testQTable.setSelectionModel(selector);
 	}
-	
-	
 	
 	public void addFilterButton() {
 		final FilterButton tempButton = new FilterButton(qdb.newestF);
@@ -388,7 +293,7 @@ public class QuestionDBFrame {
 			public void actionPerformed(ActionEvent e) {
 				qdb.unfilter(tempButton.filter);
 				filterPanel.remove(tempButton);
-				dataModel.fireTableDataChanged();
+				questionModel.fireTableDataChanged();
 				frame.pack();
 			}
 		});
@@ -429,22 +334,32 @@ public class QuestionDBFrame {
 	private class DatabankListener implements ListSelectionListener {
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
-			if (table.getSelectedRowCount() == 1) {
+			if (questionTable.getSelectedRowCount() + testQTable.getSelectedRowCount() == 1){
 				removeButton.setEnabled(true);
 				editButton.setEnabled(true);
-				generateButton.setEnabled(true);
 			}
-			else if (table.getSelectedRowCount() > 1) {
+			else if (questionTable.getSelectedRowCount() > 1 || testQTable.getSelectedRowCount() > 1) {
 				removeButton.setEnabled(true);
 				editButton.setEnabled(false);
-				generateButton.setEnabled(true);
 			}
 			else {
 				removeButton.setEnabled(false);
 				editButton.setEnabled(false);
-				generateButton.setEnabled(false);
 			}
-			table.revalidate();
+			
+			if (testQTable.getSelectedRowCount() > 0) 
+				t2qButton.setEnabled(true);
+			else
+				t2qButton.setEnabled(false);
+			
+			if (questionTable.getSelectedRowCount() > 0)
+				q2tButton.setEnabled(true);
+			else
+				q2tButton.setEnabled(false);
+			
+			
+			questionTable.revalidate();
+			testQTable.revalidate();
 		}
 	}
 	
