@@ -1,7 +1,4 @@
-/**
- * @author Grant Picket
- * @version 6/1/14
- */
+
 package testtool.views.testdb;
 
 import java.awt.BorderLayout;
@@ -28,9 +25,15 @@ import testtool.models.testdb.Test;
 import testtool.models.testdb.TestDatabase;
 import testtool.models.userdb.Student;
 import testtool.views.userdb.TestSettings;
+import testtool.views.questiondb.QuestionDBFrame;
 import testtool.views.student.TakeTestUI;
 import testtool.views.testdb.GenerateTypeGUI.testsListener;
-
+/**
+ * The TestDatabaseGui is the main gui for test manipulation. It is paired with the 
+ * testdatabase model.
+ * @author Grant Pickett (gpickett@calpoly.edu)
+ * @version 6/1/14
+ */
 public class TestDatabaseGUI {
 	public Test t;
 	public TestDatabase tdb;
@@ -61,7 +64,8 @@ public class TestDatabaseGUI {
 				String[] col = { "Test", "Class", "Topics", "Difficulty",
 						"Time", "Last Used", "Points", "Author", "Questions",
 						"Status" };
-				dataModel = new DefaultTableModel(col,(tdb.tests.size()<10)?10: tdb.tests.size());
+				dataModel = new DefaultTableModel(col,
+						(tdb.tests.size() < 10) ? 10 : tdb.tests.size());
 				table = new JTable(dataModel);
 				for (int i = 0; i < tdb.tests.size(); i++) {
 					table.setValueAt(
@@ -208,7 +212,7 @@ public class TestDatabaseGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			tdb.editTest(tdb.tests.get(table.getSelectedRow()));
+			new QuestionDBFrame(tdb.tests.get(table.getSelectedRow()).questionList);
 			guiFrame.dispose();
 		}
 	}
@@ -224,6 +228,7 @@ public class TestDatabaseGUI {
 			guiFrame.dispose();
 		}
 	}
+
 	private class DatabankListener implements ListSelectionListener {
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
@@ -233,8 +238,7 @@ public class TestDatabaseGUI {
 
 				publishButton.setEnabled(true);
 				takeButton.setEnabled(true);
-			}
-			else {
+			} else {
 				removeButton.setEnabled(false);
 				editButton.setEnabled(false);
 				publishButton.setEnabled(false);
