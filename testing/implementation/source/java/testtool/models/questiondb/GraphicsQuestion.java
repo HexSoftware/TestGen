@@ -14,6 +14,10 @@ import java.util.ArrayList;
  */
 public class GraphicsQuestion extends Question {
 	
+	public GraphicsQuestion() {
+		
+	}
+	
 	/**
 	 * The constructor will do data validation when creating a new Graphic
 	 * Question
@@ -53,7 +57,7 @@ public class GraphicsQuestion extends Question {
 			this.course = course;
 		}
 		
-		if (topics.equals("") || topics.equals("Topic")) {
+		if (topics.isEmpty() || topics.equals("Topic")) {
 			throw new EmptyBoxException("Topic must be filled in.");
 		} else {
 			this.topics = topics;
