@@ -1,3 +1,8 @@
+/**
+ * @author Grant Picket
+ * @version 6/1/14
+ */
+
 package testtool.views.testdb;
 
 import java.awt.BorderLayout;
@@ -27,20 +32,15 @@ import javax.swing.UnsupportedLookAndFeelException;
 import testtool.models.questiondb.Question;
 import testtool.models.testdb.AutomaticGeneration;
 import testtool.models.testdb.TestDatabase;
-/**
- * GeneratingGUI is used in AutomaticGeneration using an existing testdatabase
- * it has an algorithm to generate tests using questions in the question databank
- * @author Grant Pickett (gpickett@calpoly.edu)
- * @version 6/8/14
- */
+
 public class GeneratingGUI {
-   JButton	generateButton = new JButton("Generate");;
+	static JButton generateButton;
 
 	public void actionPerformed(ActionEvent e) {
 		JComboBox cb = (JComboBox) e.getSource();
-		String className = (String) cb.getSelectedItem();
+		String petName = (String) cb.getSelectedItem();
 	}
-	/**data fields*/
+
 	AutomaticGeneration ag = null;
 	TestDatabase tdb;
 	JLabel classlabel = new JLabel("Class:");
@@ -63,18 +63,8 @@ public class GeneratingGUI {
 	JTextField passField = new JTextField(20);
 	JTextField diffField = new JTextField(20);
 	JTextField keyField = new JTextField(20);
-	JTextField type1Field = new JTextField(5);
-	JTextField type2Field = new JTextField(5);
-	JTextField type3Field = new JTextField(5);
-	JTextField type4Field = new JTextField(5);
-	JTextField type5Field = new JTextField(5);
-	JTextField type6Field = new JTextField(5);
-	JTextField amnt1Field = new JTextField(5);
-	JTextField amnt2Field = new JTextField(5);
-	JTextField amnt3Field = new JTextField(5);
-	JTextField amnt4Field = new JTextField(5);
-	JTextField amnt5Field = new JTextField(5);
-	JTextField amnt6Field = new JTextField(5);
+	JTextField typeField = new JTextField(20);
+	JTextField amntField = new JTextField(20);
 	JTextField startField = new JTextField(20);
 	JTextField totalField = new JTextField(20);
 	JTextField lastUsedField = new JTextField(20);
@@ -84,32 +74,40 @@ public class GeneratingGUI {
 	JTextField testCategoryNum = new JTextField(20);
 	JComboBox classList = null;
 	JFrame guiFrame;
-
-	public GeneratingGUI(TestDatabase td) {
-		/**initialization*/
+	public GeneratingGUI(TestDatabase td, ArrayList<Question> qs) {
+		questions = qs;
 		ag = new AutomaticGeneration(td);
 		tdb = td;
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					UIManager.setLookAndFeel(UIManager
+							.getSystemLookAndFeelClassName());
 				} catch (ClassNotFoundException | InstantiationException
 						| IllegalAccessException
 						| UnsupportedLookAndFeelException ex) {
 				}
-				guiFrame = new JFrame();
+
+				 guiFrame = new JFrame();
+
 				JPanel guiPanel = new JPanel(new GridBagLayout());
 				JPanel guiPanel2 = new JPanel(new GridBagLayout());
-				String[] classStrings = { "CSC101", "CSC102", "CSC103","CPE308", "CPE309" };
+				String[] classStrings = { "CSC101", "CSC102", "CSC103",
+						"CPE308", "CPE309" };
 				String[] authorStrings = { "G. Fisher" };
+
 				classList = new JComboBox(classStrings);
+				classList.setSelectedIndex(3);
 				JComboBox authorList = new JComboBox(authorStrings);
+				authorList.setSelectedIndex(0);
+
 				guiFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				guiFrame.setTitle("Generating A Test");
 				guiFrame.setSize(400, 400);
 				guiFrame.setLocationRelativeTo(null);
 				GridBagConstraints gbc = new GridBagConstraints();
+
 				gbc.gridwidth = GridBagConstraints.REMAINDER;
 				guiPanel.add(classlabel);
 				guiPanel.add(classList, gbc);
@@ -120,19 +118,9 @@ public class GeneratingGUI {
 				guiPanel.add(timeTlabel);
 				guiPanel.add(totalField, gbc);
 				guiPanel.add(typelabel);
-				guiPanel.add(type1Field);
-				guiPanel.add(type2Field);
-				guiPanel.add(type3Field);
-				guiPanel.add(type4Field);
-				guiPanel.add(type5Field);
-				guiPanel.add(type6Field, gbc);
+				guiPanel.add(typeField, gbc);
 				guiPanel.add(amntlabel);
-				guiPanel.add(amnt1Field);
-				guiPanel.add(amnt2Field);
-				guiPanel.add(amnt3Field);
-				guiPanel.add(amnt4Field);
-				guiPanel.add(amnt5Field);
-				guiPanel.add(amnt6Field, gbc);
+				guiPanel.add(amntField, gbc);
 				guiPanel.add(difficultylabel);
 				guiPanel.add(diffField, gbc);
 				guiPanel.add(passlabel);
@@ -148,9 +136,13 @@ public class GeneratingGUI {
 				guiPanel.add(catLabel);
 				guiPanel.add(testCategory, gbc);
 				guiPanel.add(catNumLabel);
+				guiPanel.add(testCategoryNum, gbc);
+				generateButton = new JButton("Generate");
 				generateButton.addActionListener(new genListener());
+
 				guiPanel2.add(generateButton);
 				guiPanel.add(fields);
+
 				guiFrame.add(guiPanel, BorderLayout.NORTH);
 				guiFrame.add(guiPanel2);
 				guiFrame.setJMenuBar(Menu());
@@ -163,6 +155,7 @@ public class GeneratingGUI {
 	String[] editItems = new String[] { "Undo", "Cut", "Copy", "Paste" };
 	char[] fileShortcuts = { 'N', 'O', 'S', 'X' };
 	char[] editShortcuts = { 'Z', 'X', 'C', 'V' };
+	public ArrayList<Question> questions = new ArrayList<Question>();
 
 	public JMenuBar Menu() {
 		JMenuBar menuBar = new JMenuBar();
@@ -214,7 +207,6 @@ public class GeneratingGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			/** set test params as specified*/
 			HashMap<String, String> params = new HashMap<String, String>();
 			if (pointsField.getText() != null
 					&& !pointsField.getText().equals(""))
@@ -232,52 +224,26 @@ public class GeneratingGUI {
 			if (diffField.getText() != null && !diffField.getText().equals(""))
 				params.put("avgDifficulty", diffField.getText());
 			params.put("course", classList.getSelectedItem().toString());
-			HashMap<String, String> qparams = new HashMap<String, String>();
-			if (type1Field.getText() != null
-					&& !type1Field.getText().equals(""))
-				if (amnt1Field.getText() != null
-						&& !type1Field.getText().equals(""))
-					qparams.put(type1Field.getText(), amnt1Field.getText());
-			if (type2Field.getText() != null
-					&& !type2Field.getText().equals(""))
-				if (amnt2Field.getText() != null
-						&& !type2Field.getText().equals(""))
-					qparams.put(type2Field.getText(), amnt2Field.getText());
-			if (type3Field.getText() != null
-					&& !type3Field.getText().equals(""))
-				if (amnt3Field.getText() != null
-						&& !type3Field.getText().equals(""))
-					qparams.put(type3Field.getText(), amnt3Field.getText());
-			if (type4Field.getText() != null
-					&& !type4Field.getText().equals(""))
-				if (amnt4Field.getText() != null
-						&& !type4Field.getText().equals(""))
-					qparams.put(type4Field.getText(), amnt4Field.getText());
-			if (type5Field.getText() != null
-					&& !type5Field.getText().equals(""))
-				if (amnt5Field.getText() != null
-						&& !type5Field.getText().equals(""))
-					qparams.put(type5Field.getText(), amnt5Field.getText());
-			if (type6Field.getText() != null
-					&& !type6Field.getText().equals(""))
-				if (amnt6Field.getText() != null
-						&& !type6Field.getText().equals(""))
-					qparams.put(type6Field.getText(), amnt6Field.getText());
+			// params.put("gradeType", );
+			if (typeField.getText() != null && !typeField.getText().equals(""))
+				params.put("gradeType", typeField.getText());
 			if (passField.getText() != null && !passField.getText().equals(""))
 				params.put("password", passField.getText());
-			if (additField.getText() != null
-					&& !additField.getText().equals(""))
+			if (additField.getText() != null && !additField.getText().equals(""))
 				params.put("notes", additField.getText());
 			if (totalField.getText() != null
 					&& !totalField.getText().equals(""))
 				params.put("endTime", totalField.getText());
+			if (typeField.getText() != null && !typeField.getText().equals(""))
+				params.put("testType", typeField.getText());
 			if (testCategory.getText() != null
 					&& !testCategory.getText().equals(""))
 				params.put("testCategory", testCategoryNum.getText());
 			if (testCategoryNum.getText() != null
 					&& !testCategoryNum.getText().equals(""))
 				params.put("testCategoryNumber", testCategoryNum.getText());
-			new TestCreationResultGUI(tdb, ag.makeQuestionList(params, qparams));
+			ag.generate(params, questions);
+			new TestCreationResultGUI(tdb);
 			guiFrame.dispose();
 		}
 	}

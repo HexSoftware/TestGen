@@ -1,4 +1,7 @@
-
+/**
+ * @author Grant Picket
+ * @version 6/1/14
+ */
 package testtool.views.testdb;
 
 import java.awt.Component;
@@ -7,7 +10,6 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -21,13 +23,11 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
 import testtool.models.testdb.TestDatabase;
-/**
- * @author Grant Pickett (gpickett@calpoly.edu)
- * @version 6/1/14
- */
+
 public class TestCreationResultGUI extends JMenuBar {
-	/**
-	 * data fields
+	/*
+	 * public static void main (String[] args){ new
+	 * TestCreationResultGUI().setVisible(true); }
 	 */
 	TestDatabase tdb;
 	JFrame frame;
@@ -38,7 +38,8 @@ public class TestCreationResultGUI extends JMenuBar {
 			"Suggestion" };
 	static Object[][] data = {
 			{ "Warning", "Question Type",
-					"Not enough applicable MC questions "},
+					"Not enough applicable MC questions ",
+					"Add more MC questions, change parameters" },
 			{ "", "", "", "" }, { "", "", "", "" }, { "", "", "", "" },
 			{ "", "", "", "" }, { "", "", "", "" }, };
 	String[] fileItems = new String[] { "New", "Open", "Save", "Main Menu",
@@ -47,7 +48,7 @@ public class TestCreationResultGUI extends JMenuBar {
 	char[] fileShortcuts = { 'N', 'O', 'S', 'M', 'X' };
 	char[] editShortcuts = { 'Z', 'X', 'C', 'V' };
 
-	public TestCreationResultGUI(TestDatabase td, ArrayList<String> errors) {
+	public TestCreationResultGUI(TestDatabase td) {
 		tdb = td;
 		JMenu fileMenu = new JMenu("File");
 		JMenu editMenu = new JMenu("Edit");

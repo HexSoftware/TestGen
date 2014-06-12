@@ -3,6 +3,7 @@ package testtool.views.student;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.Font;
+import java.io.FileNotFoundException;
 
 import testtool.models.student.*;
 
@@ -80,17 +81,22 @@ public class LoginScreen {
     	}
     	
     	public void actionPerformed (ActionEvent e) {
-    		if (!loginCheck.login(usernameField.getText(), "password")) {
-    			System.out.println("failed to login");
-
-    			displayFailedLogin(mainframe);
-    			
+    		try {
+	    		if (!loginCheck.login(usernameField.getText(), "password")) {
+	    			System.out.println("failed to login");
+	
+	    			displayFailedLogin(mainframe);
+	    			
+	    		}
+	    		else {
+	    			System.out.println("Successfully Logged In");
+	    			
+	    			mainframe.dispose();
+	    			System.out.println("In Login.actionPerformed.");
+	    		}
     		}
-    		else {
-    			System.out.println("Successfully Logged In");
+    		catch (FileNotFoundException e2){
     			
-    			mainframe.dispose();
-            System.out.println("In Login.actionPerformed.");
     		}
     	}
     	
