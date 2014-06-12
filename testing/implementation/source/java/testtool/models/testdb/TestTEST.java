@@ -17,25 +17,35 @@
  */
 package test;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Test;
 
 import testtool.models.questiondb.Question;
+import testtool.models.testdb.TestDatabase;
 
 public class TestTest { 
 
 	@Test
 	public final void testTest() {
 		testtool.models.testdb.Test t = new testtool.models.testdb.Test();
-		assert (t instanceof testtool.models.testdb.Test);
+		assertTrue (t instanceof testtool.models.testdb.Test);
+	}
+
+	@Test
+	public final void testTest2() {
+		testtool.models.testdb.Test t = new testtool.models.testdb.Test(new HashMap<String, String>(), new ArrayList<Question>());
+		assertTrue (t instanceof testtool.models.testdb.Test);
 	}
 
 	@Test
 	public final void testGetTestParam() {
 		testtool.models.testdb.Test t = new testtool.models.testdb.Test();
 		t.testParams.put("author", "gpickett");
-		assert (t.getTestParam("author").equals("gpickett"));
+		assertTrue (t.getTestParam("author").equals("gpickett"));
 	}
 
 	@Test
@@ -43,20 +53,33 @@ public class TestTest {
 		testtool.models.testdb.Test t = new testtool.models.testdb.Test();
 
 		t.setTestParam("author", "gpickett");
-		assert (t.getTestParam("author").equals("gpickett"));
+		assertTrue (t.getTestParam("author").equals("gpickett"));
 	}
 
 	@Test
 	public final void testGetQuestionList() {
 		testtool.models.testdb.Test t = new testtool.models.testdb.Test();
 		ArrayList<Question> qs = new ArrayList<Question>();
-		assert ((t.getQuestionList()).getClass().equals(qs.getClass())); // TODO
+		assertTrue((t.getQuestionList()).getClass().equals(qs.getClass())); // TODO
+	}
+
+	@Test
+	public final void testGetIdPos() {
+		TestDatabase tdb = new TestDatabase();
+		tdb.tests.clear();
+		assertTrue (tdb.getIdPos() == 1);
 	}
 
 	@Test
 	public final void testToString() {
-		testtool.models.testdb.Test t = new testtool.models.testdb.Test();
-		assert (t.toString().equals("test"));
+		/** The parameters (settings) of a test. Used by the program. */
+		HashMap<String, String> testParams = new HashMap<String, String>();
+		testParams.put("author", "gpickett");
+		/** The questions a student takes */
+		ArrayList<Question> questionList = new ArrayList<Question>();
+		questionList.add(new Question());
+		testtool.models.testdb.Test t = new testtool.models.testdb.Test(testParams, questionList);
+		assertTrue(t.toString() instanceof String);
 	}
 
 }

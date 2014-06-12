@@ -18,6 +18,8 @@
 
 package test;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +36,7 @@ public class TestDatabaseTest {
 		TestDatabase tdb = new TestDatabase();
 		tdb.tests.clear();
 		tdb.save();
-		assert (tdb instanceof TestDatabase);
+		assertTrue(tdb instanceof TestDatabase);
 	}
 
 	@Test 
@@ -43,17 +45,11 @@ public class TestDatabaseTest {
 		tdb.tests.clear();
 		tdb.save();
 		ArrayList<Question> questionL = new ArrayList<Question>();
+		//questionL.add(new Question());
 		HashMap<String, String> data = new HashMap<String, String>();
-		assert (tdb.createTest(data, questionL).equals(tdb.tests.get(tdb.tests
-				.size())));
-	}
-
-	@Test
-	public final void testEditTest() {
-		TestDatabase tdb = new TestDatabase();
-		tdb.tests.clear();
-		tdb.save();
-		assert (false);// unimplemented
+		data.put("author", "gpickett");
+		tdb.createTest(data, questionL);
+		assertTrue (tdb.tests.size() > 0);
 	}
 
 	@Test
@@ -62,7 +58,7 @@ public class TestDatabaseTest {
 		tdb.tests.clear();
 		tdb.save();
 		tdb.idPos = 0;
-		assert (tdb.getIdPos() == 0);
+		assertTrue (tdb.getIdPos() == 0);
 	}
 
 	@Test
@@ -74,24 +70,20 @@ public class TestDatabaseTest {
 		ArrayList<Question> questionL = new ArrayList<Question>();
 		HashMap<String, String> data = new HashMap<String, String>();
 		tdb.createTest(data, questionL);
-		assert (tdb.getIdPos() == 1);
+		assertTrue (tdb.getIdPos() == 1);
 	}
 
 	@Test
 	public final void testGetTest() {
 		TestDatabase tdb = new TestDatabase();
 		tdb.tests.clear();
+		ArrayList<Question> questionL = new ArrayList<Question>();
+		HashMap<String, String> data = new HashMap<String, String>();
+		testtool.models.testdb.Test r = tdb.createTest(data, questionL);
 		tdb.save();
-		assert (tdb.getTest("uniqueId", "0").equals(tdb.tests.get(0)));
+		assertTrue (tdb.getTest("uniqueId", "0").contains(tdb.tests.get(0)));
 	}
-
-	@Test
-	public final void testPublishTest() {
-		TestDatabase tdb = new TestDatabase();
-		tdb.tests.clear();
-		tdb.save();
-		assert (false);// unimplemented
-	}
+	
 
 	@Test
 	public final void testRemoveTest() {
@@ -102,15 +94,8 @@ public class TestDatabaseTest {
 		HashMap<String, String> data = new HashMap<String, String>();
 		testtool.models.testdb.Test r = tdb.createTest(data, questionL);
 		tdb.createTest(data, questionL);
-		assert (tdb.removeTest(r).equals(r));
-	}
-
-	@Test
-	public final void testTakeTest() {
-		TestDatabase tdb = new TestDatabase();
-		tdb.tests.clear();
-		tdb.save();
-		assert (false);// unimplemented
+		int[] a = {0};
+		assertTrue(tdb.removeTest(a).equals(r));
 	}
 
 	@Test
@@ -122,8 +107,10 @@ public class TestDatabaseTest {
 		ArrayList<Question> questionL = new ArrayList<Question>();
 		HashMap<String, String> data = new HashMap<String, String>();
 		testtool.models.testdb.Test r = tdb.createTest(data, questionL);
-		tdb.removeTest(r);
-		assert (tdb.save().getName().equals("database.txt"));
+		int[] a = {0};
+		tdb.removeTest(a);
+		tdb.save();
+		assertTrue(tdb.tests.size() == 0);
 	}
 
 }
