@@ -34,7 +34,7 @@ public class Login {
 	    //
 	    result password.equals(user.password)
 	  @*/
-	   public boolean login (String username, String password) {
+	   public boolean login (String username, String password) throws FileNotFoundException {
 	   	if (username.equals("")) {
 	   		return false;
 	   	}
@@ -46,43 +46,38 @@ public class Login {
 	   	MyCourses courseClass = new MyCourses();
 	   	Student curStudent = new Student();
 
-			try {
-				File file = new File("StudentDB.txt");
-			   Scanner inFile = new Scanner(file);
-				
-				while (inFile.hasNextLine()) {
-				   curStudent.setStudentUsername(inFile.nextLine());
-				   
-				   if (curStudent.getStudentUsername().equals(username)) {
-				   	System.out.println("User exists");
-				   	curStudent.setStudentName(inFile.nextLine());
-				   	inFile.next();
-				   	int i = inFile.nextInt();
-				   	System.out.println(i);
-				   	for (inFile.nextLine(); i > 0; i--) {
-				   		curStudent.addCourse(inFile.nextLine());
-				   	}
-				   	inFile.close();
-				   	
-				   	courseClass.viewCourses(curStudent);
-				   	
-				   	return true;
-				   }
-				   else {
-				   	System.out.println(inFile.nextLine());
-				   	System.out.println(inFile.next());
-				   	for (int i = inFile.nextInt(); i >= 0; i--) {
-				   		System.out.println(inFile.nextLine());
-				   	}
-				   	System.out.println(inFile.nextLine());
-				   }
+			File file = new File("StudentDB.txt");
+		    Scanner inFile = new Scanner(file);
+			
+			while (inFile.hasNextLine()) {
+			   curStudent.setStudentUsername(inFile.nextLine());
+			   
+			   if (curStudent.getStudentUsername().equals(username)) {
+			   	System.out.println("User exists");
+			   	curStudent.setStudentName(inFile.nextLine());
+			   	inFile.next();
+			   	int i = inFile.nextInt();
+			   	System.out.println(i);
+			   	for (inFile.nextLine(); i > 0; i--) {
+			   		curStudent.addCourse(inFile.nextLine());
+			   	}
+			   	inFile.close();
+			   	
+			   	courseClass.viewCourses(curStudent);
+			   	
+			   	return true;
 			   }
-				
-				inFile.close();
-				return false;
-			} catch (FileNotFoundException e) {
-				System.out.println("StudentDB not found");
-				return false;
-			}
+			   else {
+			   	System.out.println(inFile.nextLine());
+			   	System.out.println(inFile.next());
+			   	for (int i = inFile.nextInt(); i >= 0; i--) {
+			   		System.out.println(inFile.nextLine());
+			   	}
+			   	System.out.println(inFile.nextLine());
+			   }
+		   }
+			
+			inFile.close();
+			return false;
 	   }
 }
