@@ -1,7 +1,3 @@
-/**
- * @author Grant Picket
- * @version 6/1/14
- */
 package testtool.views.testdb;
 
 import java.awt.Component;
@@ -23,6 +19,13 @@ import javax.swing.KeyStroke;
 
 import testtool.models.testdb.TestDatabase;
 
+/****
+ * The GenerateTypeGUI is a simple class for the user to choose which type of test 
+ * the instructor wants to generate. It does not have a companion model class since this class
+ * is just for work flow control.
+ * @author Grant Pickett (gpickett@calpoly.edu)
+ * @version 6/8/14
+ */
 public class GenerateTypeGUI extends JMenuBar {
 	private static final int WIDTH = 300;
 	private static final int HEIGHT = 300;
@@ -34,7 +37,10 @@ public class GenerateTypeGUI extends JMenuBar {
 	char[] editShortcuts = { 'Z', 'X', 'C', 'V' };
 	public TestDatabase tdb;
 	JFrame frame;
-
+	/**
+	 * This constructor takes in a testdatabase to pass to the next gui.
+	 * @param td The TestDatabase used throughout
+	 */
 	public GenerateTypeGUI(TestDatabase td) {
 		tdb = td;
 		JMenu fileMenu = new JMenu("File");
@@ -121,7 +127,7 @@ public class GenerateTypeGUI extends JMenuBar {
 		JButton optionsButton = new JButton("Automatic");
 		optionsButton.setPreferredSize(new Dimension(2500, 100));
 		optionsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		optionsButton.addActionListener(new optionsListener());
+		optionsButton.addActionListener(new autoListener());
 		guiPanel.add(testsButton);
 		guiPanel.add(optionsButton);
 		panel.add(guiPanel);
@@ -138,14 +144,14 @@ public class GenerateTypeGUI extends JMenuBar {
 		}
 	}
 
-	class optionsListener implements ActionListener {
+	class autoListener implements ActionListener {
 
-		public optionsListener() {
+		public autoListener() {
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new GeneratingGUI(tdb, null);
+			new GeneratingGUI(tdb);
 			frame.dispose();
 		}
 	}

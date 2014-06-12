@@ -466,7 +466,7 @@ public class TestGenUI extends javax.swing.JFrame {
 	}
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-		new TestDatabaseGUI(1, tdb);
+		new TestDatabaseGUI(1, new TestDatabase());
 	}
 
 	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {

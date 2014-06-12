@@ -1,8 +1,3 @@
-/**
- * @author Grant Picket
- * @version 6/1/14
- */
-
 package testtool.views.testdb;
 
 import java.awt.BorderLayout;
@@ -12,10 +7,10 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,19 +24,31 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import testtool.models.courses.Course;
 import testtool.models.questiondb.Question;
-import testtool.models.testdb.AutomaticGeneration;
+import testtool.models.student.MyCourses;
+import testtool.models.testdb.ManualGeneration;
 import testtool.models.testdb.TestDatabase;
 
-public class ManualGeneratingGUI {
-	static JButton generateButton;
+/**
+ * The ManualGenerateGUI2 is used to generate a test when the instructor chooses the details
+ * and question parameters manually. This gui is used to set parameters of the test.
+ * 
+ * This class references the companion model class ManualGenerate as well as 
+ * returning to the test database.
+ * @author Grant Picket
+ * @version 6/8/14
+ */
 
+public class ManualGenerateGUI2 {
+    JButton generateButton = new JButton("Generate");
+	/** updates the Class name held by the JcomboBox */
 	public void actionPerformed(ActionEvent e) {
 		JComboBox cb = (JComboBox) e.getSource();
 		String petName = (String) cb.getSelectedItem();
 	}
-
-	AutomaticGeneration ag = null;
+    /** data fields*/
+	ManualGeneration mg = null;
 	TestDatabase tdb;
 	JLabel classlabel = new JLabel("Class:");
 	JLabel authorlabel = new JLabel("Author:");
@@ -76,44 +83,39 @@ public class ManualGeneratingGUI {
 	JFrame guiFrame = new JFrame();
 	JComboBox classList = null;
 
-	public ManualGeneratingGUI(TestDatabase td, ArrayList<Question> qs) {
-		questions = qs;
-		if (td == null) {
-			questions = new ArrayList<Question>();
-		}
-		tdb = td;
-		if (td == null) {
-			tdb = new TestDatabase();
-		}
-		ag = new AutomaticGeneration(tdb);
+	public ManualGenerateGUI2(TestDatabase td, ArrayList<Question> qs) {
+		questions = (qs == null) ? new ArrayList<Question>() : qs;
+		tdb = (td == null) ? tdb = new TestDatabase() : td;
+		mg = new ManualGeneration(tdb);
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					UIManager.setLookAndFeel(UIManager
-							.getSystemLookAndFeelClassName());
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (ClassNotFoundException | InstantiationException
-						| IllegalAccessException
-						| UnsupportedLookAndFeelException ex) {
+						| IllegalAccessException| UnsupportedLookAndFeelException ex) {
 				}
-
 				JPanel guiPanel = new JPanel(new GridBagLayout());
 				JPanel guiPanel2 = new JPanel(new GridBagLayout());
-				String[] classStrings = { "CSC101", "CSC102", "CSC103",
-						"CPE308", "CPE309" };
+				MyCourses c = new MyCourses();
+				ArrayList<String> clst = new ArrayList<String>();
+				ArrayList<Course> crst = new ArrayList<Course>();
+				try {
+					crst.addAll(c.getAllCourses());
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+				for(Course x : crst) 
+					clst.add(x.getCourseName());
+				String[] classStrings = (String[]) clst.toArray();
 				String[] authorStrings = { "G. Fisher" };
-
 				classList = new JComboBox(classStrings);
-				classList.setSelectedIndex(3);
 				JComboBox authorList = new JComboBox(authorStrings);
-				authorList.setSelectedIndex(0);
-
 				guiFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				guiFrame.setTitle("Generating A Test");
 				guiFrame.setSize(400, 400);
 				guiFrame.setLocationRelativeTo(null);
 				GridBagConstraints gbc = new GridBagConstraints();
-
 				gbc.gridwidth = GridBagConstraints.REMAINDER;
 				guiPanel.add(classlabel);
 				guiPanel.add(classList, gbc);
@@ -131,12 +133,9 @@ public class ManualGeneratingGUI {
 				guiPanel.add(testCategory, gbc);
 				guiPanel.add(catNumLabel);
 				guiPanel.add(testCategoryNum, gbc);
-				generateButton = new JButton("Generate");
 				generateButton.addActionListener(new genListener());
-
 				guiPanel2.add(generateButton);
 				guiPanel.add(fields);
-
 				guiFrame.add(guiPanel, BorderLayout.NORTH);
 				guiFrame.add(guiPanel2);
 				guiFrame.setJMenuBar(Menu());
@@ -193,6 +192,7 @@ public class ManualGeneratingGUI {
 		menuBar.add(viewMenu);
 		return menuBar;
 	}
+
 	class genListener implements ActionListener {
 
 		public genListener() {
@@ -219,8 +219,6 @@ public class ManualGeneratingGUI {
 					&& !additField.getText().equals(""))
 				params.put("notes", additField.getText());
 			params.put("course", classList.getSelectedItem().toString());
-			// params.put("gradeType", );
-			// params.put("password", );
 			if (totalField.getText() != null
 					&& !totalField.getText().equals(""))
 				params.put("endTime", totalField.getText());
@@ -232,7 +230,7 @@ public class ManualGeneratingGUI {
 			if (testCategoryNum.getText() != null
 					&& !testCategoryNum.getText().equals(""))
 				params.put("testCategoryNum", testCategoryNum.getText());
-			ag.generate(params, questions);
+			mg.generate(params, questions);
 			new TestDatabaseGUI(2, tdb);
 			guiFrame.dispose();
 		}
