@@ -58,7 +58,7 @@ public class SAQuestion extends Question {
 			this.course = course;
 		}
 		
-		if (topics.equals("") || topics.equals("Topic")) {
+		if (topics.isEmpty() || topics.equals("Topic")) {
 			throw new EmptyBoxException("Topic must be filled in.");
 		} else {
 			this.topics = topics;

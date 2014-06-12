@@ -18,6 +18,10 @@ public class EssayQuestion extends Question {
 	 */
 	public ArrayList<String> correctKWs;
 	
+	public EssayQuestion() {
+		
+	}
+	
 	/**
 	 * The constructor will do data validation when creating a new Essay
 	 * Question
@@ -59,7 +63,7 @@ public class EssayQuestion extends Question {
 			this.course = course;
 		}
 		
-		if (topics.equals("") || topics.equals("Topic")) {
+		if (topics.isEmpty() || topics.equals("Topic")) {
 			throw new EmptyBoxException("Topic must be filled in.");
 		} else {
 			this.topics = topics;

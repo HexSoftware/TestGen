@@ -115,7 +115,7 @@ public class AddQuestion extends JMenuBar {
 					JOptionPane.showMessageDialog(frame, e.getMessage());
 				}
 				catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(frame, "Estimated Time must be a number.");
+					JOptionPane.showMessageDialog(frame, "Estimated Time and Points must be numbers.");
 				}
 				tm.fireTableDataChanged();
 			}
