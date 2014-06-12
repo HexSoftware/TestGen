@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import testtool.models.userdb.*;
 import testtool.models.courses.*;
-
+//import testtool.views.courses.CourseList;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu)
@@ -17,10 +17,6 @@ import testtool.models.courses.*;
  * derived from Section 2.1.3 of the requirements.
  */
  public class MyCourses {
-   /**
-    * The current student user
-   */
-   Student user;
    
    /**
     * Scans the CourseDB.txt and returns an arraylist of all the courses
@@ -64,7 +60,7 @@ import testtool.models.courses.*;
     // A list of courses the student is in is displayed.
     //
   @*/
-   public void viewCourses (Student student) {
+   public boolean viewCourses (Student student) {
    	ArrayList<String> courseNames = new ArrayList<String>();
    	courseNames = student.getStudentCourses();
    	ArrayList<Course> studentCourses = new ArrayList<Course>();
@@ -74,14 +70,17 @@ import testtool.models.courses.*;
 			
 			int numCourses = allCourses.size();
 			for (int i = 0; i < numCourses; i++) {
-	   		if (courseNames.contains(allCourses.get(i).getCourseName())) {
-	   			studentCourses.add(allCourses.get(i));
-	   		}
-	   	}
+		   		if (courseNames.contains(allCourses.get(i).getCourseName())) {
+		   			studentCourses.add(allCourses.get(i));
+		   		}
+			}	
 	   } catch (FileNotFoundException e1) {
 			System.out.println("No Course Database");
+			return false;
 		}
 		
+   	//new CourseList(student, studentCourses);
       System.out.println("In MyCourses.viewCourses.");
+      return true;
    }
 }

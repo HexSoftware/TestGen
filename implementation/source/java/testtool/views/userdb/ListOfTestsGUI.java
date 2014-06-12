@@ -272,6 +272,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -290,8 +291,10 @@ import javax.swing.table.DefaultTableModel;
 import testtool.models.testdb.Test;
 import testtool.models.testdb.TestDatabase;
 import testtool.views.grader.GraderUI;
+import testtool.views.student.TakeTestUI;
 import testtool.views.testdb.GenerateTypeGUI;
 import testtool.models.userdb.ListOfTests;
+import testtool.models.userdb.Student;
 import testtool.views.userdb.TestSettings;
 
 public class ListOfTestsGUI {
@@ -305,8 +308,9 @@ public class ListOfTestsGUI {
 	ListSelectionModel listSelectionModel;
 	JTextArea output;
 	String newline = "\n";
+	ArrayList<Test> testList;
 	
-	public ListOfTestsGUI(final int setting, TestDatabase td) {
+	public ListOfTestsGUI(TestDatabase td) {
 		tdb = td;
 		lt = new ListOfTests();
 		
@@ -332,29 +336,29 @@ public class ListOfTestsGUI {
 				listSelectionModel = table.getSelectionModel();
 				listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
 				table.setSelectionModel(listSelectionModel);
-		   
-				for (int i = 0; i < tdb.tests.size(); i++) {
+				testList = lt.getListOfTests(tdb);
+				for (int i = 0; i < testList.size(); i++) {
 					table.setValueAt(
-							tdb.tests.get(i).getTestParam("testTitle"), i, 0);
-					table.setValueAt(tdb.tests.get(i).getTestParam("course"),
+							testList.get(i).getTestParam("testTitle"), i, 0);
+					table.setValueAt(testList.get(i).getTestParam("course"),
 							i, 1);
-					table.setValueAt(tdb.tests.get(i).getTestParam("name"), i,
+					table.setValueAt(testList.get(i).getTestParam("name"), i,
 							2);
 					table.setValueAt(
-							tdb.tests.get(i).getTestParam("avgDifficulty"), i,
+							testList.get(i).getTestParam("avgDifficulty"), i,
 							3);
 					table.setValueAt(
-							tdb.tests.get(i).getTestParam("totalTime"), i, 4);
-					table.setValueAt(tdb.tests.get(i).getTestParam("lastUsed"),
+							testList.get(i).getTestParam("totalTime"), i, 4);
+					table.setValueAt(testList.get(i).getTestParam("lastUsed"),
 							i, 5);
 					table.setValueAt(
-							tdb.tests.get(i).getTestParam("totalPoints"), i, 6);
-					table.setValueAt(tdb.tests.get(i).getTestParam("author"),
+							testList.get(i).getTestParam("totalPoints"), i, 6);
+					table.setValueAt(testList.get(i).getTestParam("author"),
 							i, 7);
 					table.setValueAt(
-							tdb.tests.get(i).getTestParam("totalQuestions"), i,
+							testList.get(i).getTestParam("totalQuestions"), i,
 							8);
-					table.setValueAt(tdb.tests.get(i).getTestParam("state"), i,
+					table.setValueAt(testList.get(i).getTestParam("state"), i,
 							9);
 				}
 
@@ -446,10 +450,9 @@ public class ListOfTestsGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			t = tdb.tests.get(table.getSelectedRow());
+			t = testList.get(table.getSelectedRow());
 			lt.grade(t);  			
-			GraderUI grader = new GraderUI();
-			grader.createAndShowGUI();
+			new GraderUI().setVisible(true);
 		}
 	}
 
@@ -460,7 +463,7 @@ public class ListOfTestsGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			t = tdb.tests.get(table.getSelectedRow());
+			t = testList.get(table.getSelectedRow());
 			new TestSettings(t, tdb);
 		}
 	}
@@ -472,7 +475,7 @@ public class ListOfTestsGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			t = tdb.tests.get(table.getSelectedRow());
+			t = testList.get(table.getSelectedRow());
 			String status = t.getTestParam("state");
 			if(status.equalsIgnoreCase("Open")){
    				Dialog d = new Dialog("Close");	
@@ -507,6 +510,7 @@ public class ListOfTestsGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			tdb.takeTest(t);
+			new TakeTestUI(new Student(), t);
 		}
 	}
 	
@@ -522,7 +526,7 @@ public class ListOfTestsGUI {
 	    	if (lsm.isSelectionEmpty()) {
 	    	}
 	    	else {
-	    		t = tdb.tests.get(currentIndex);
+	    		t = testList.get(currentIndex);
 	    		String status = t.getTestParam("state");
 				if(!status.equalsIgnoreCase("Open")){
 					statusButton.setText("Open");

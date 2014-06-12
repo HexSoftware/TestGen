@@ -137,36 +137,36 @@ public class EditQuestion extends JMenuBar {
 			               		qdb.edit(i, new MCQuestion(MCQuestionText.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
-			               				collectMCAnswers(), collectMCCorAnswers()));
+			               				collectMCAnswers(), collectMCCorAnswers(), Integer.parseInt(Points.getText())));
 			               		break;
 			               	case "True/False":
 			               		qdb.edit(i, new TFQuestion(TFQuestionText.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
-			               				TFAnswer.isSelected()));
+			               				TFAnswer.isSelected(), Integer.parseInt(Points.getText())));
 			               		break;
 			               	case "Short Answer":
 			               		qdb.edit(i, new SAQuestion(SAQuestion.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(),
-			               				parseStuff(SAAnswer.getText())));
+			               				parseStuff(SAAnswer.getText()), Integer.parseInt(Points.getText())));
 			               		break;
 			               	case "Essay":
 			               		qdb.edit(i, new EssayQuestion(EssayQuestionText.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
-			               				parseStuff(EssayAnswer.getText())));
+			               				parseStuff(EssayAnswer.getText()), Integer.parseInt(Points.getText())));
 			               		break;
 			               	case "Graphics":
 			               		qdb.edit(i, new GraphicsQuestion(GraphicsQuestionText.getText(), "gfisher",
 			               				Course.getText(), new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
-			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex()));
+			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), Integer.parseInt(Points.getText())));
 			               		break;
 			               	case "Code":
 			               		qdb.edit(i, new CodeQuestion(CodeQuestionText.getText(), "gfisher", Course.getText(),
 			               				new ArrayList<String>(Arrays.asList(Topic.getText().split(","))),
 			               				Integer.parseInt(EstTime.getText()), Difficulty.getSelectedIndex(), 
-			               				CodeScriptPath.getText()));
+			               				CodeScriptPath.getText(), Integer.parseInt(Points.getText())));
 			               		break;
 					}
 					frame.dispose();
@@ -358,6 +358,8 @@ public class EditQuestion extends JMenuBar {
         CodeScriptPath = new javax.swing.JTextField();
         CodeAnswerLabel = new javax.swing.JLabel();
         CodeUploadButton = new javax.swing.JButton();
+        Points = new javax.swing.JTextField();
+        PointsLabel = new javax.swing.JLabel();
 
         QuestionType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Multiple Choice", "True/False", "Short Answer", "Essay", "Graphics", "Code"}));
         QuestionType.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -719,6 +721,10 @@ public class EditQuestion extends JMenuBar {
                     .addComponent(CodeUploadButton))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
+        
+        Points.setText("Points");
+
+        PointsLabel.setText("Points");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -746,7 +752,10 @@ public class EditQuestion extends JMenuBar {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(EstTimeLabel)
-                            .addComponent(CourseLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(CourseLabel)
+                                .addGap(237, 237, 237)
+                                .addComponent(PointsLabel))
                             .addComponent(OptImageLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -768,7 +777,12 @@ public class EditQuestion extends JMenuBar {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(DifficultyLabel)
                                     .addComponent(Difficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(47, 47, 47))))))
+                                .addGap(47, 47, 47))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(Course, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Points, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(46, 46, 46))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -784,9 +798,13 @@ public class EditQuestion extends JMenuBar {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(CourseLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CourseLabel)
+                    .addComponent(PointsLabel))
                 .addGap(2, 2, 2)
-                .addComponent(Course, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Course, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Points, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addComponent(TopicLabel)
                 .addGap(1, 1, 1)
@@ -961,5 +979,8 @@ public class EditQuestion extends JMenuBar {
     private javax.swing.JTextField SAAnswer;
     private javax.swing.JTextField EssayAnswer;
     private javax.swing.JLabel minLabel;
+    private javax.swing.JTextField Points;
+    private javax.swing.JLabel PointsLabel;
+
     // End of variables declaration//GEN-END:variables
 }

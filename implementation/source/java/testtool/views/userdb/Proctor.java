@@ -31,7 +31,7 @@ public class Proctor {
 	 JFrame frame = new JFrame("Simple Menu Example");
       frame.setSize(WIDTH, HEIGHT);
       frame.setTitle(TITLE);
-      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        JMenuBar menu = new JMenuBar();
       frame.setJMenuBar(new CMBuilder().createMenuBar(menu));    
       
@@ -145,7 +145,7 @@ public class Proctor {
 		public void actionPerformed(ActionEvent e){
 			proctor.listOfTests();
 			TestDatabase tdb = new TestDatabase();
-			new ListOfTestsGUI(1, tdb);
+			new ListOfTestsGUI(tdb);
 		}
 	}
 	static class gradesListener implements ActionListener {
@@ -155,8 +155,7 @@ public class Proctor {
 		}
 		public void actionPerformed(ActionEvent e){
 			proctor.grade();
-			GraderUI grader = new GraderUI();
-			grader.createAndShowGUI();
+			new GraderUI().setVisible(true);
 		}
 	}
 	static class optionsListener implements ActionListener {

@@ -8,7 +8,7 @@ public class testGraderUI {
 	 */
 	public static void main(String[] args) {
 		GraderUI grader = new GraderUI();
-		grader.createAndShowGUI();
+		//grader.createAndShowGUI();
 
 	}
 

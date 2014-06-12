@@ -26,7 +26,9 @@ import javax.swing.table.DefaultTableModel;
 
 import testtool.models.testdb.Test;
 import testtool.models.testdb.TestDatabase;
+import testtool.models.userdb.Student;
 import testtool.views.userdb.TestSettings;
+import testtool.views.student.TakeTestUI;
 import testtool.views.testdb.GenerateTypeGUI.testsListener;
 
 public class TestDatabaseGUI {
@@ -250,6 +252,7 @@ public class TestDatabaseGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			tdb.takeTest(tdb.tests.get(table.getSelectedRow()));
+			new TakeTestUI(new Student(), tdb.tests.get(table.getSelectedRow()));
 			guiFrame.dispose();
 		}
 	}

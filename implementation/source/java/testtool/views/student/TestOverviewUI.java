@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.HeadlessException;
 
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
@@ -11,6 +12,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import java.awt.event.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -41,7 +43,7 @@ public class TestOverviewUI {
     }
 
     private static void placeComponents(final JFrame frame, JPanel panel, final Test test, final Student student) {
-   	 ListOfTests proctorMethods = new ListOfTests();
+   	 final ListOfTests proctorMethods = new ListOfTests();
         panel.setLayout(new BorderLayout());
         
         Font font = new Font("Calibri", Font.BOLD, 24);
@@ -158,7 +160,22 @@ public class TestOverviewUI {
 			     				if (overview.checkPassword(test, passwordText.getPassword())) {
 			     					overview.beginTest(null);
 			           			System.out.println("Correct Password");
-			           			new TakeTestUI(student, test);
+			           			try {
+										if (proctorMethods.checkStatus(test)) {
+											frame.dispose();
+											new TakeTestUI(student, test);
+										}
+										else {
+											JOptionPane.showMessageDialog(frame,
+												    "The test is no longer open",
+												    "Test Closed!",
+												    JOptionPane.ERROR_MESSAGE);
+										}
+									} catch (HeadlessException e1) {
+										e1.printStackTrace();
+									} catch (ParseException e1) {
+										e1.printStackTrace();
+									}
 			     				}
 			     				else {
 			     					System.out.println("Incorrect Password!");

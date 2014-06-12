@@ -1,0 +1,7 @@
+begintest 
+key: 
+key: author value: gfisher 
+key: state value: unscheduled 
+key: avgDifficulty value: 6 
+key: uniqueId value: 0 
+endtest 
