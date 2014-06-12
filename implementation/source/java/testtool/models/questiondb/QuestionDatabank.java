@@ -66,7 +66,7 @@ public class QuestionDatabank {
 				qFils.add(f);
 			}
 		}
-		QuestionEntry qe = new QuestionEntry(q, false, qFils);
+		QuestionEntry qe = new QuestionEntry(q, qFils);
 		newestQ = qe;		
 		if (qFils.isEmpty())
 			questions.add(qe);
@@ -96,7 +96,7 @@ public class QuestionDatabank {
 				qFils.add(f);
 			}
 		}
-		QuestionEntry qe = new QuestionEntry(q, false, qFils);
+		QuestionEntry qe = new QuestionEntry(q, qFils);
 		newestQ = qe;		
 		if (qFils.isEmpty())
 			questions.set(i, qe);
@@ -167,12 +167,12 @@ public class QuestionDatabank {
 		for (int i = filteredQs.size() - 1; i >= 0; i--) {
 			QuestionEntry qe = filteredQs.get(i);
 			if (checkFiltered(fil, qe.question))
-				qe.filters.add(fil);
+				qe.addFilter(fil);
 		}
 		for (int i = questions.size() - 1; i >= 0; i--) {
 			QuestionEntry qe = questions.get(i);
 			if (checkFiltered(fil, qe.question)) {
-				qe.filters.add(fil);
+				qe.addFilter(fil);
 			}
 			else {
 				questions.remove(qe);
@@ -207,12 +207,12 @@ public class QuestionDatabank {
 		for (int i = questions.size() - 1; i >= 0; i--) {
 			QuestionEntry qe = questions.get(i);
 			if (qe.filters.contains(fil))
-				qe.filters.remove(fil);
+				qe.removeFilter(fil);
 		}
 		for (int i = filteredQs.size() - 1; i >= 0; i--) {
 			QuestionEntry qe = filteredQs.get(i);
 			if (qe.filters.contains(fil))
-				qe.filters.remove(fil);
+				qe.removeFilter(fil);
 			if (qe.filters.size() == filters.size()) {
 				filteredQs.remove(qe);
 				questions.add(qe);
@@ -296,14 +296,6 @@ public class QuestionDatabank {
 				System.out.println(" Index " + indices[i]);
 			}
 		}
-		if (qdbf != null) {
-			qdbf.questionModel.fireTableDataChanged();
-			qdbf.testQModel.fireTableDataChanged();
-			if (testQs.size() > 0)
-				qdbf.generateButton.setEnabled(true);
-			else
-				qdbf.generateButton.setEnabled(false);
-		}
 	}
 	/**
 	 * question popup will bring up the question popup dialogue when a 
@@ -335,10 +327,10 @@ public class QuestionDatabank {
 		while (scanner.hasNextLine()) {
 			Question q = parseString(scanner.nextLine());
 			if (tqs.contains(q)) {
-				testQs.add(new QuestionEntry(q, false, new ArrayList<Filter>()));
+				testQs.add(new QuestionEntry(q, new ArrayList<Filter>()));
 			}
 			else {
-				questions.add(new QuestionEntry(q, false, new ArrayList<Filter>()));
+				questions.add(new QuestionEntry(q, new ArrayList<Filter>()));
 			}
 		}
 		scanner.close();
@@ -365,7 +357,7 @@ public class QuestionDatabank {
 		
 		Question q;
 		String qText, author, course,  type;
-		int time, diff;
+		int time, diff, points;
 		ArrayList<String> topics;
 		Scanner scan = new Scanner(s);
 		
@@ -376,6 +368,7 @@ public class QuestionDatabank {
 		time = Integer.parseInt(scan.findInLine("(?<=time=)(.*)(?=, difficulty=)"));
 		diff = Integer.parseInt(scan.findInLine("(?<=difficulty=)(.*)(?=, type=)"));
 		type = scan.findInLine("(?<=type=)(.*)(?=, points)");
+		points = Integer.parseInt(scan.findInLine("(?<=points=)(.*)(?=,)"));
 		System.out.println(type);
 		try {
 			switch (type) {
@@ -385,26 +378,26 @@ public class QuestionDatabank {
 				ArrayList<Integer> cai = new ArrayList<Integer>();
 				for (String cai_s : cai_strings)
 					cai.add(Integer.valueOf(cai_s));
-				q = new MCQuestion(qText, author, course, topics, time, diff, pa, cai);
+				q = new MCQuestion(qText, author, course, topics, time, diff, pa, cai, points);
 				break;
 			case "TF" :
 				boolean ca = Boolean.parseBoolean(scan.findInLine("(?<=correctAnswer=)(.*)"));
-				q = new TFQuestion(qText, author, course, topics, time, diff, ca);
+				q = new TFQuestion(qText, author, course, topics, time, diff, ca, points);
 				break;
 			case "SA" :
 				ArrayList<String> sa_kws = stringToArrayList(scan.findInLine("(?<=correctKWs=)(.*)"));
-				q = new SAQuestion(qText, author, course, topics, time, diff, sa_kws);
+				q = new SAQuestion(qText, author, course, topics, time, diff, sa_kws, points);
 				break;
 			case "Essay" :
 				ArrayList<String> essay_kws = stringToArrayList(scan.findInLine("(?<=correctKWs=)(.*)"));
-				q = new EssayQuestion(qText, author, course, topics, time, diff, essay_kws);
+				q = new EssayQuestion(qText, author, course, topics, time, diff, essay_kws, points);
 				break;
 			case "Code" :
 				String path = scan.findInLine("(?<=scriptPath=)(.*)");
-				q = new CodeQuestion(qText, author, course, topics, time, diff, path);
+				q = new CodeQuestion(qText, author, course, topics, time, diff, path, points);
 				break;
 			default:
-				q = new GraphicsQuestion(qText, author, course, topics, time, diff);
+				q = new GraphicsQuestion(qText, author, course, topics, time, diff, points);
 			}
 		}
 		catch (EmptyBoxException e) {
