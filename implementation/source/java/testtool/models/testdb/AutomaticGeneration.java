@@ -1,8 +1,8 @@
 /**
  * AutomaticGeneration class is used to generate tests using given
  * inputs
- * @author Grant Pickett
- * @version 5/31/2014
+ * @author Grant Pickett (gpickett@calpoly.edu)
+ * @version 6/11/2014
  */
 
 package testtool.models.testdb;
@@ -173,7 +173,7 @@ public class AutomaticGeneration {
 		qd.unfilter(temp);
 		int time = 0;
 		for (int i = 0; i < clist.size(); i++) {
-			if (time < Integer.parseInt(params.get("totalTime"))){
+			if (time > Integer.parseInt(params.get("totalTime"))){
 				break;
 			}
 			qs.add(clist.get(i));
