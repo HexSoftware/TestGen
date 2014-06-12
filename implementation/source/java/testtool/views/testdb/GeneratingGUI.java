@@ -111,6 +111,11 @@ public class GeneratingGUI {
 				guiFrame.setLocationRelativeTo(null);
 				GridBagConstraints gbc = new GridBagConstraints();
 				gbc.gridwidth = GridBagConstraints.REMAINDER;
+
+				type1Field.setText("MC");type2Field.setText("TF");type3Field.setText("essay");
+				type4Field.setText("short");type5Field.setText("code");type6Field.setText("image");
+				amnt1Field.setText("0");amnt2Field.setText("0");amnt3Field.setText("0");
+				amnt4Field.setText("0");amnt5Field.setText("0");amnt6Field.setText("0");
 				guiPanel.add(classlabel);
 				guiPanel.add(classList, gbc);
 				guiPanel.add(authorlabel);
@@ -233,36 +238,12 @@ public class GeneratingGUI {
 				params.put("avgDifficulty", diffField.getText());
 			params.put("course", classList.getSelectedItem().toString());
 			HashMap<String, String> qparams = new HashMap<String, String>();
-			if (type1Field.getText() != null
-					&& !type1Field.getText().equals(""))
-				if (amnt1Field.getText() != null
-						&& !type1Field.getText().equals(""))
-					qparams.put(type1Field.getText(), amnt1Field.getText());
-			if (type2Field.getText() != null
-					&& !type2Field.getText().equals(""))
-				if (amnt2Field.getText() != null
-						&& !type2Field.getText().equals(""))
-					qparams.put(type2Field.getText(), amnt2Field.getText());
-			if (type3Field.getText() != null
-					&& !type3Field.getText().equals(""))
-				if (amnt3Field.getText() != null
-						&& !type3Field.getText().equals(""))
-					qparams.put(type3Field.getText(), amnt3Field.getText());
-			if (type4Field.getText() != null
-					&& !type4Field.getText().equals(""))
-				if (amnt4Field.getText() != null
-						&& !type4Field.getText().equals(""))
-					qparams.put(type4Field.getText(), amnt4Field.getText());
-			if (type5Field.getText() != null
-					&& !type5Field.getText().equals(""))
-				if (amnt5Field.getText() != null
-						&& !type5Field.getText().equals(""))
-					qparams.put(type5Field.getText(), amnt5Field.getText());
-			if (type6Field.getText() != null
-					&& !type6Field.getText().equals(""))
-				if (amnt6Field.getText() != null
-						&& !type6Field.getText().equals(""))
-					qparams.put(type6Field.getText(), amnt6Field.getText());
+			qparams.put(type1Field.getText(), amnt1Field.getText());
+			qparams.put(type2Field.getText(), amnt2Field.getText());
+			qparams.put(type3Field.getText(), amnt3Field.getText());
+			qparams.put(type4Field.getText(), amnt4Field.getText());
+			qparams.put(type5Field.getText(), amnt5Field.getText());
+			qparams.put(type6Field.getText(), amnt6Field.getText());
 			if (passField.getText() != null && !passField.getText().equals(""))
 				params.put("password", passField.getText());
 			if (additField.getText() != null
@@ -277,7 +258,7 @@ public class GeneratingGUI {
 			if (testCategoryNum.getText() != null
 					&& !testCategoryNum.getText().equals(""))
 				params.put("testCategoryNumber", testCategoryNum.getText());
-			new TestCreationResultGUI(tdb, ag.makeQuestionList(params, qparams));
+			new TestCreationResultGUI(tdb, ag.makeQuestionList(qparams, params));
 			guiFrame.dispose();
 		}
 	}

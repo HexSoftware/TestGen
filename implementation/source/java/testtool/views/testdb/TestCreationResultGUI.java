@@ -19,6 +19,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
 
 import testtool.models.testdb.TestDatabase;
 /**
@@ -36,11 +37,6 @@ public class TestCreationResultGUI extends JMenuBar {
 	private static final String TITLE = "Generation Results";
 	static String[] columnNames = { "Severity", "Type", "Specifics",
 			"Suggestion" };
-	static Object[][] data = {
-			{ "Warning", "Question Type",
-					"Not enough applicable MC questions "},
-			{ "", "", "", "" }, { "", "", "", "" }, { "", "", "", "" },
-			{ "", "", "", "" }, { "", "", "", "" }, };
 	String[] fileItems = new String[] { "New", "Open", "Save", "Main Menu",
 			"Exit" };
 	String[] editItems = new String[] { "Undo", "Cut", "Copy", "Paste" };
@@ -58,9 +54,14 @@ public class TestCreationResultGUI extends JMenuBar {
 		frame.setTitle(TITLE);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setJMenuBar(Menu());
-
+		String col[] = { "Error" };
+		DefaultTableModel dataModel = new DefaultTableModel(col, 10);
+		JTable table = new JTable(dataModel);
+		table.setValueAt("Errors", 0, 0);
+		for (int i = 1; i < errors.size(); i++) {
+			table.setValueAt(errors.get(i), i, 0);
+		}
 		JPanel resultPanel = new JPanel();
-		JTable table = new JTable(data, columnNames);
 		resultPanel.add(table);
 		resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
 		resultPanel.add(Box.createVerticalGlue());

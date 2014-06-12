@@ -7,7 +7,7 @@ import testtool.views.userdb.Proctor;
 
 /**
  * 
- * @author Kevin, Grant
+ * @author Kevin, Grant Pickett (gpickett@calpoly.edu)
  * @version 5/30/2014
  */
 
@@ -466,13 +466,13 @@ public class TestGenUI extends javax.swing.JFrame {
 	}
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-		new TestDatabaseGUI(1, new TestDatabase());
+		new TestDatabaseGUI(1,  new TestDatabase());
 	}
 
 	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 		new GraderUI();
 	}
-	
+
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 		new Proctor();
 	}

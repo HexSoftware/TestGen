@@ -107,7 +107,7 @@ public class ManualGenerateGUI2 {
 				}
 				for(Course x : crst) 
 					clst.add(x.getCourseName());
-				String[] classStrings = (String[]) clst.toArray();
+				Object[] classStrings = clst.toArray();
 				String[] authorStrings = { "G. Fisher" };
 				classList = new JComboBox(classStrings);
 				JComboBox authorList = new JComboBox(authorStrings);

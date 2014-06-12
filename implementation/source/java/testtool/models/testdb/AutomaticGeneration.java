@@ -132,62 +132,53 @@ public class AutomaticGeneration {
 	public ArrayList<String> makeQuestionList(HashMap<String, String> qparams, HashMap<String, String> params) {
 		ArrayList<Question> qs = new ArrayList<Question>();
 		ArrayList<Question> qlist = new ArrayList<Question>();
+		ArrayList<Question> clist = new ArrayList<Question>();
 		QuestionDatabank qd = new QuestionDatabank(null);
 		Filter temp = new Filter("Type", "TF");
-		qd.filter(new Filter("Course", params.get("course")));		
-		//qlist = qd.filter(temp);
+		clist = qd.filter(new Filter("Course", params.get("course")));		
+		qlist = qd.filter(temp);
 		if(qlist.size() < Integer.parseInt(qparams.get("TF"))) {
 			errors.add("insufficent TF questions");
 		}
-		for(int i = 0; i < Integer.parseInt(qparams.get("TF"));i++) {
-			//get q from qd result and test if fits
-		}
 		qd.unfilter(temp);
 		temp = new Filter("Type", "MC");
-		qd.filter(temp);
+		qlist = qd.filter(temp);
 		if(qlist.size() < Integer.parseInt(qparams.get("MC"))) {
 			errors.add("insufficent MC questions");
 		}
-		for(int i = 0; i < Integer.parseInt(qparams.get("MC"));i++) {
-			//get q from qd result and test if fits
-		}
 		qd.unfilter(temp);
 		temp = new Filter("Type", "code");
-		//qlist = qd.filter(temp);
+		qlist = qd.filter(temp);
 		if(qlist.size() < Integer.parseInt(qparams.get("code"))) {
 			errors.add("insufficent code questions");
 		}
-		for(int i = 0; i < Integer.parseInt(qparams.get("code"));i++) {
-			//get q from qd result and test if fits
-		}
 		qd.unfilter(temp);
 		temp = new Filter("Type", "short");
-		//qlist = qd.filter(temp);
+		qlist = qd.filter(temp);
 		if(qlist.size() < Integer.parseInt(qparams.get("short"))) {
 			errors.add("insufficent short answer questions");
 		}
-		for(int i = 0; i < Integer.parseInt(qparams.get("short"));i++) {
-			//get q from qd result and test if fits
-		}
 		qd.unfilter(temp);
 		temp = new Filter("Type", "essay");
-		//qlist = qd.filter(temp);
+		qlist = qd.filter(temp);
 		if(qlist.size() < Integer.parseInt(qparams.get("essay"))) {
 			errors.add("insufficent essay questions");
 		}
-		for(int i = 0; i < Integer.parseInt(qparams.get("essay"));i++) {
-			//get q from qd result and test if fits
-		}
 		qd.unfilter(temp);
 		temp = new Filter("Type", "image");
-		//qlist = qd.filter(temp);
+		qlist = qd.filter(temp);
 		if(qlist.size() < Integer.parseInt(qparams.get("image"))) {
 			errors.add("insufficent image questions");
 		}
-		for(int i = 0; i < Integer.parseInt(qparams.get("image"));i++) {
-			//get q from qd result and test if fits
-		}
 		qd.unfilter(temp);
+		int time = 0;
+		for (int i = 0; i < clist.size(); i++) {
+			if (time < Integer.parseInt(params.get("totalTime"))){
+				break;
+			}
+			qs.add(clist.get(i));
+			time += clist.get(i).time;
+		}
 		generate(params, qparams, qs);
 		return errors;
 	}
