@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,7 +25,9 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import testtool.models.courses.Course;
 import testtool.models.questiondb.Question;
+import testtool.models.student.MyCourses;
 import testtool.models.testdb.AutomaticGeneration;
 import testtool.models.testdb.TestDatabase;
 /**
@@ -101,7 +104,17 @@ public class GeneratingGUI {
 				guiFrame = new JFrame();
 				JPanel guiPanel = new JPanel(new GridBagLayout());
 				JPanel guiPanel2 = new JPanel(new GridBagLayout());
-				String[] classStrings = { "CSC101", "CSC102", "CSC103","CPE308", "CPE309" };
+				MyCourses c = new MyCourses();
+				ArrayList<String> clst = new ArrayList<String>();
+				ArrayList<Course> crst = new ArrayList<Course>();
+				try {
+					crst.addAll(c.getAllCourses());
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+				for(Course x : crst) 
+					clst.add(x.getCourseName());
+				Object[] classStrings = clst.toArray();
 				String[] authorStrings = { "G. Fisher" };
 				classList = new JComboBox(classStrings);
 				JComboBox authorList = new JComboBox(authorStrings);
