@@ -16,8 +16,28 @@ public class QuestionEntry {
 	public Question question;
 	public ArrayList<Filter> filters;
 	
-	public QuestionEntry(Question q, boolean s, ArrayList<Filter> f) {
+	public QuestionEntry(Question q, ArrayList<Filter> f) {
 		question = q;
 		filters = f;
+	}
+	
+	public Question getQuestion() {
+		return question;
+	}
+	
+	public void addFilter(Filter fil) {
+		filters.add(fil);
+	}
+	
+	public ArrayList<Filter> getFilters() {
+		return filters;
+	}
+	
+	public Filter getFilter(int idx) {
+		return filters.get(idx);
+	}
+	
+	public void removeFilter(Filter fil) {
+		filters.remove(fil);
 	}
 }
