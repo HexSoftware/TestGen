@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * The Question class is the superclass of all question types
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 10jun14
+ * @version 11jun14
  * 
  */
 public class Question {
@@ -64,7 +64,7 @@ public class Question {
 	 		 * A string is returned
 	 		 *);
 	 @*/
-	public String get(int i) {
+	protected String get(int i) {
 		switch (i) {
 		case 0: return course;
 		case 1:
