@@ -64,7 +64,7 @@ public class Question {
 	 		 * A string is returned
 	 		 *);
 	 @*/
-	protected String get(int i) {
+	public String get(int i) {
 		switch (i) {
 		case 0: return course;
 		case 1:

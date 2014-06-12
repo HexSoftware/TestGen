@@ -90,6 +90,12 @@ public class QuestionDBFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				qdb.shiftQuestions(questionTable.getSelectedRows(), 0);
+				questionModel.fireTableDataChanged();
+				testQModel.fireTableDataChanged();
+				if (qdb.testQs.size() > 0)
+					generateButton.setEnabled(true);
+				else
+					generateButton.setEnabled(false);
 			}
 		});
 		q2tButton.setEnabled(false);
@@ -98,6 +104,12 @@ public class QuestionDBFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				qdb.shiftQuestions(testQTable.getSelectedRows(), 1);
+				questionModel.fireTableDataChanged();
+				testQModel.fireTableDataChanged();
+				if (qdb.testQs.size() > 0)
+					generateButton.setEnabled(true);
+				else
+					generateButton.setEnabled(false);
 			}
 		});
 		t2qButton.setEnabled(false);
