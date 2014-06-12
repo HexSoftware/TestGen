@@ -32,7 +32,7 @@ public class JUT_MyCourses extends TestCase {
 		    inFile.close();
 		}
 		catch (FileNotFoundException e) {
-			System.out.println("no file found");
+			
 		}
 	}
 	

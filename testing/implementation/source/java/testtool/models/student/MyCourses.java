@@ -60,27 +60,22 @@ import testtool.models.courses.*;
     // A list of courses the student is in is displayed.
     //
   @*/
-   public boolean viewCourses (Student student) {
-   	ArrayList<String> courseNames = new ArrayList<String>();
-   	courseNames = student.getStudentCourses();
-   	ArrayList<Course> studentCourses = new ArrayList<Course>();
-
-		try {
-			ArrayList<Course> allCourses = getAllCourses();
-			
-			int numCourses = allCourses.size();
-			for (int i = 0; i < numCourses; i++) {
-		   		if (courseNames.contains(allCourses.get(i).getCourseName())) {
-		   			studentCourses.add(allCourses.get(i));
-		   		}
-			}	
-	   } catch (FileNotFoundException e1) {
-			System.out.println("No Course Database");
-			return false;
-		}
+   public boolean viewCourses (Student student) throws FileNotFoundException {
+		ArrayList<String> courseNames = new ArrayList<String>();
+		courseNames = student.getStudentCourses();
+		ArrayList<Course> studentCourses = new ArrayList<Course>();
 		
-   	//new CourseList(student, studentCourses);
-      System.out.println("In MyCourses.viewCourses.");
-      return true;
-   }
+		ArrayList<Course> allCourses = getAllCourses();
+		
+		int numCourses = allCourses.size();
+		for (int i = 0; i < numCourses; i++) {
+			if (courseNames.contains(allCourses.get(i).getCourseName())) {
+				studentCourses.add(allCourses.get(i));
+			}
+		}
+			
+		//new CourseList(student, studentCourses);
+		System.out.println("In MyCourses.viewCourses.");
+		   return true;
+		}
 }

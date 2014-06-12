@@ -1,4 +1,7 @@
-
+/**
+ * @author Grant Picket
+ * @version 6/1/14
+ */
 package testtool.views.testdb;
 
 import java.awt.BorderLayout;
@@ -25,35 +28,20 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 import testtool.models.questiondb.Question;
+import testtool.models.questiondb.QuestionDatabank;
 import testtool.models.testdb.ManualGeneration;
 import testtool.models.testdb.TestDatabase;
 import testtool.views.questiondb.QuestionDBFrame;
 
-/*****
- * Class ManualGenerateGUI1 is a top level view class used to manually
- * add questions to a test. Test paramaters will be set later.
- * This class references the Questiondatabank and Testdatabank model classes for information.
- * This class passes information on to the ManualGeneration model class 
- * and the next gui to construct a test.
- * @author Grant Pickett (gpickett@calpoly.edu)
- * @version 6/8/14
- */
 public class ManualGenerateGUI {
-	/*-*
-	 * The Data fields below are initialized by the constructor and used by 
-	 * actionListener subclasses.
-	 */
-	
+	JButton takeButton;
 	TestDatabase tdb;
 	ManualGeneration mg;
 	DefaultTableModel dataModel;
 	private ArrayList<Question> qList;
 	JTable table;
 	JFrame guiFrame;
-	 /*
-     * ManualGenerateGUI1 can be accessed from GenerateTypeGUI and QuestionDatabank.generate();
-     * Constructor is defensive and generally one of the two parameters will come in as null.
-     */
+
 	public ManualGenerateGUI(TestDatabase td, ArrayList<Question> qs) {
 		tdb = td;
 		qList = qs;
@@ -107,6 +95,8 @@ public class ManualGenerateGUI {
 				editButton.setSize(30, 10);
 				editButton.addActionListener(new editListener());
 
+				takeButton = new JButton("Take");
+				takeButton.addActionListener(new takeListener());
 				JButton finishButton = new JButton("Next");
 				finishButton.addActionListener(new finishListener());
 				fields.add(table.getTableHeader(), BorderLayout.PAGE_START);
@@ -118,6 +108,7 @@ public class ManualGenerateGUI {
 				buttonPanel.add(Box.createVerticalGlue());
 				buttonPanel.add(editButton);
 				JPanel fields3 = new JPanel(new GridBagLayout());
+				fields3.add(takeButton);
 				fields3.add(finishButton);
 				GridBagConstraints gbc = new GridBagConstraints();
 				gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -194,6 +185,16 @@ public class ManualGenerateGUI {
 		}
 	}
 
+	class takeListener implements ActionListener {
+
+		public takeListener() {
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
+
 	class finishListener implements ActionListener {
 
 		public finishListener() {
@@ -201,7 +202,8 @@ public class ManualGenerateGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new ManualGenerateGUI2(tdb, qList);
+			// mg.generate();
+			new ManualGeneratingGUI(tdb, qList);
 			guiFrame.dispose();
 		}
 	}
