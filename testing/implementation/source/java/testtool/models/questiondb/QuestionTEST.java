@@ -20,7 +20,7 @@ public class QuestionTEST extends TestCase {
 		q.setAuthor("Robert Almada");
 		q.setCourse("CPE309");
 		q.setDifficulty(3);
-		q.setLastUsed("never");
+		q.setLastUsed("Never");
 		q.setPoints(100);
 		q.setQuestionText("Hello, world!");
 		q.setTime(10);
@@ -34,7 +34,7 @@ public class QuestionTEST extends TestCase {
 		assertEquals(q.getAuthor(), "Robert Almada");
 		assertEquals(q.getCourse(), "CPE309");
 		assertEquals(q.getDifficulty(), 3);
-		assertEquals(q.getLastUsed(), "never");
+		assertEquals(q.getLastUsed(), "Never");
 		assertEquals(q.getPoints(), 100);
 		assertEquals(q.getQuestionText(), "Hello, world!");
 		assertEquals(q.getTime(), 10);
@@ -49,14 +49,14 @@ public class QuestionTEST extends TestCase {
 		assertEquals(q.get(3), "Hello, world!");
 		assertEquals(q.get(4), "3");
 		assertEquals(q.get(5), "10");
-		assertEquals(q.get(6), "never");
+		assertEquals(q.get(6), "Never");
 		assertEquals(q.get(7), "Robert Almada");
 		assertEquals(q.get(8), "100");
 		assertEquals(q.get(100), "error: invalid field");
 	}
 	
 	public void testToString() {
-		String g = "questionText=Hello, world!, author=Robert Almada, lastUsed=never, course=CPE309, topics=[hello, world!], time=10, difficulty=3, type=MC, points=100";
+		String g = "questionText=Hello, world!, author=Robert Almada, lastUsed=Never, course=CPE309, topics=[hello, world!], time=10, difficulty=3, type=MC, points=100";
 		assertEquals(q.toString(), g);
 	}
 }

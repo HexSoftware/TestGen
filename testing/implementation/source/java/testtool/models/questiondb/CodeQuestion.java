@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * which will run and output a number from 0-100
  *
  * @author RJ Almada (rjalmada@calpoly.edu), Neil Nordhof (nnordhof@calpoly.edu)
- * @version 10jun14
+ * @version 11jun14
  *
  */
 public class CodeQuestion extends Question {
@@ -42,6 +42,10 @@ public class CodeQuestion extends Question {
 	 		(* a new question is made and that all fields are non-empty
 	 		 *);	  
 	 @*/
+	public CodeQuestion() {
+		
+	}
+	
 	public CodeQuestion(String qt, String auth, String course,
 			ArrayList<String> topics, int time, int diff, String path, int points) throws EmptyBoxException {
 		if (qt.equals("")) {
@@ -59,7 +63,7 @@ public class CodeQuestion extends Question {
 			this.course = course;
 		}
 		
-		if (topics.equals("") || topics.equals("Topic")) {
+		if (topics.isEmpty() || topics.equals("Topic") || topics == null) {
 			throw new EmptyBoxException("Topic must be filled in.");
 		} else {
 			this.topics = topics;
