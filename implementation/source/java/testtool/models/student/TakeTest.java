@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 
 import testtool.models.questiondb.*;
@@ -98,55 +99,15 @@ public class TakeTest {
   }
 
   /**
-  * Submits the selected or inputed answer to the currently selected 
-  * question.
-  * @param answer - String to submit
-  */
-  /*@
-   requires
-    //
-    // the currentquestion for which the answer is for must a valid index
-    // 
-    (\exists Test test; currentQuestion > 0 && currentQuestion <= test.totalQuestions)
-   ensures
-    //
-    // the answer is submitted to the AnswerDB
-    //
-    (\exists AnswerDB.contains(answer))
-  @*/
-  public void submitAnswer(Answer answer) {
-	  System.out.println("In TakeTest.submitAnswer.");
-  }
-
-  /**
-  * Submits the StudentAnswers to be graded.
-  * @param studentanswer - is the list of answers to be submitted
-  */
-  /*@
-   requires
-    //
-    // at least one answer to be submitted
-    //
-    (StudentAnswers != null)
-   ensures
-    //
-    // the StudentAnswer to be submitted to the Answer database
-    //
-    (\exists AnswerDB.studentAnswers.contains(studentanswer))
-  @*/
-  public void submitTest(StudentAnswers studentanswer) {
-	  System.out.println("In TakeTest.submitTest.");
-  }
-  /**
    * Submits the students answer for a test in a file "<testTitle>.<studentusername>.txt"
    * @param test - the test to submit the answers for
    * @param student - the student who is submitting the answers
    * @param questionList - the arraylist of questions
    * @param textAnswersList - the arraylist of code, shortanswer, and essay answers
-   * @param mcAnswersList - the arraylist of multiple choice and true/false answers
+   * @param tfAnswersList - the arraylist of of true/false answers
    */
   public void submitAnswers(Test test, Student student, ArrayList<Question> questionList,
-			ArrayList<JTextArea> textAnswersList, ArrayList<ButtonGroup> mcAnswersList) {
+			ArrayList<JTextArea> textAnswersList, ArrayList<ButtonGroup> tfAnswersList, ArrayList<JCheckBox> mcAnswersList) {
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter(test.getTestParam("testTitle") + "." + student.getStudentUsername() + ".txt", "UTF-8");
@@ -158,11 +119,12 @@ public class TakeTest {
 		writer.println(student.getStudentName());
 		
 		int textAnswerIdx = 0;
+		int tfAnswersIdx = 0;
 		int mcAnswersIdx = 0;
 		for (int i = 0; i < questionList.size(); i++) {
 			if (questionList.get(i).type.equals("TF")) {
 				System.out.println(i + " is TF");
-				ButtonGroup buttonGroup = mcAnswersList.get(mcAnswersIdx);
+				ButtonGroup buttonGroup = tfAnswersList.get(tfAnswersIdx);
 				Enumeration<AbstractButton> group = buttonGroup.getElements();
 				int answer = 0;
 				while (group.hasMoreElements()) {
@@ -181,7 +143,7 @@ public class TakeTest {
 				if (answer == 2) {
 					writer.println("<NULL>");
 				}
-				mcAnswersIdx++;
+				tfAnswersIdx++;
 			}
 			else if (questionList.get(i).type.equals("SA") || 
 					questionList.get(i).type.equals("Essay") || questionList.get(i).type.equals("Code")) {
@@ -192,6 +154,24 @@ public class TakeTest {
 					writer.println("<< " + answer + " >>");
 				}
 				textAnswerIdx++;
+			}
+			else if (questionList.get(i).type.equals("MC")) {
+				String mcAnswer = "";
+				System.out.println("mc question has this many answers:" + ((MCQuestion)questionList.get(i)).possibleAnswers.size());
+				for (int j = 0; j < ((MCQuestion)questionList.get(i)).possibleAnswers.size(); j++) {
+					
+					if (mcAnswersList.get(mcAnswersIdx).isSelected()) {
+						System.out.println("selected");
+						mcAnswer = mcAnswer + j;
+					}
+					mcAnswersIdx++;
+				}
+				if (mcAnswer.equals("")) {
+					writer.println("<NULL>");
+				}
+				else {
+					writer.println(mcAnswer);
+				}
 			}
 			else {
 				writer.println("<< Unimplemented! >>");
