@@ -85,74 +85,146 @@ public class Question {
 	 	}
 	 }
 	
+	/**
+	 * 
+	 * @return question text
+	 */
 	public String getQuestionText() {
 		return questionText;
 	}
 
+	/**
+	 * sets question text to passed in string
+	 * @param questionText
+	 */
 	public void setQuestionText(String questionText) {
 		this.questionText = questionText;
 	}
 
+	/**
+	 * 
+	 * @return author
+	 */
 	public String getAuthor() {
 		return author;
 	}
 
+	/**
+	 * set author to passed in string
+	 * @param author
+	 */
 	public void setAuthor(String author) {
 		this.author = author;
 	}
 
+	/**
+	 * 
+	 * @return last time used
+	 */
 	public String getLastUsed() {
 		return lastUsed;
 	}
 
+	/**
+	 * set last used to passed in string
+	 * @param lastUsed
+	 */
 	public void setLastUsed(String lastUsed) {
 		this.lastUsed = lastUsed;
 	}
 
+	/**
+	 * 
+	 * @return course that the question belongs to
+	 */
 	public String getCourse() {
 		return course;
 	}
 
+	/**
+	 * sets the course to the passed in string
+	 * @param course
+	 */
 	public void setCourse(String course) {
 		this.course = course;
 	}
 
+	/**
+	 * 
+	 * @return topics that the question pertains to
+	 */
 	public ArrayList<String> getTopics() {
 		return topics;
 	}
 
+	/**
+	 * sets the topics to the passed in list
+	 * @param topics
+	 */
 	public void setTopics(ArrayList<String> topics) {
 		this.topics = topics;
 	}
 
+	/**
+	 * 
+	 * @return length of time to question
+	 */
 	public int getTime() {
 		return time;
 	}
 
+	/**
+	 * sets length of time of question to passed in int
+	 * @param time
+	 */
 	public void setTime(int time) {
 		this.time = time;
 	}
 
+	/**
+	 * 
+	 * @return difficulty level of question
+	 */
 	public int getDifficulty() {
 		return difficulty;
 	}
-
+	
+	/**
+	 * sets difficult level to the number passed in
+	 * @param difficulty
+	 */
 	public void setDifficulty(int difficulty) {
 		this.difficulty = difficulty;
 	}
 
+	/**
+	 * 
+	 * @return type of question
+	 */
 	public String getType() {
 		return type;
 	}
 
+	/**
+	 * sets type of question to string passed in
+	 * @param type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	/**
+	 * 
+	 * @return points that a question is worth
+	 */
 	public int getPoints() {
 		return points;
 	}
 
+	/**
+	 * sets points a question is worth to the passed in int
+	 * @param points
+	 */
 	public void setPoints(int points) {
 		this.points = points;
 	}
