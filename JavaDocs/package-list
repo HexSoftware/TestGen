@@ -7,6 +7,7 @@ testtool.models.questiondb
 testtool.models.student
 testtool.models.testdb
 testtool.models.userdb
+testtool.views
 testtool.views.commandmenu
 testtool.views.courses
 testtool.views.grader
