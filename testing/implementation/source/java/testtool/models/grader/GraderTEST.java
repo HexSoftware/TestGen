@@ -1,11 +1,6 @@
 package testtool.models.grader;
 
-import static org.junit.Assert.*;
 import junit.framework.TestCase;
-
-import org.junit.Test;
-//import org.testng.*;
-//import org.testng.annotations.*;
 
 /****
  *

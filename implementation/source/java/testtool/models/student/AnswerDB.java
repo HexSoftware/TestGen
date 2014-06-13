@@ -1,8 +1,10 @@
 package testtool.models.student;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu
+ * @author Kevin Pham 
  * @version 20apr14
  * 
  * StudentAnswers is a class designed to store a collection of answers
@@ -10,14 +12,19 @@ import java.util.Collection;
  * studentAnswers is the collection of answers submitted by the students
  */
 public class AnswerDB {
-   Collection<StudentAnswers> studentAnswers;
+   ArrayList<StudentAnswers> studentAnswers;
 
+   public AnswerDB() {
+	   studentAnswers = new ArrayList<StudentAnswers>();
+   }
+   
+   
    /**
     * adds a StudentAnswer to the Collections of StudentAsnwers
     * @param answer - the Student answer to add
     */
    public void addStudentAnswer(StudentAnswers answer) {
-	   System.out.println("In AnswerDB.addStudentAnswer");
+	  studentAnswers.add(answer);
    }
 
    /**
@@ -25,14 +32,18 @@ public class AnswerDB {
     * @param answer - the Student answer to remove
     */
    public void removeStudentAnswer(StudentAnswers answer) {
-	   System.out.println("In AnswerDB.removeStudentAnswer");
+	  studentAnswers.remove(answer);
    }
 
-   /**
-    * updates the existing StudentAnswer in the the Collections of StudentAsnwers
-    * @param answer - the Student answer to update
+  
+   /*
+    * Returns the size of the Database
     */
-   public void updateStudentAnswer(StudentAnswers answer) {
-	   System.out.println("In AnswerDB.updateStudentAnswer");
+   public int getSize() {
+	   return studentAnswers.size();
+   }
+   
+   public StudentAnswers getStudentAnswer(int index) {
+	   return studentAnswers.get(index);
    }
 }

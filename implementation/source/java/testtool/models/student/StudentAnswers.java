@@ -1,4 +1,5 @@
 package testtool.models.student;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import testtool.models.testdb.Test;
@@ -6,6 +7,8 @@ import testtool.models.userdb.Student;
 
 /**
  * @author Alvin Lam (aqlam@calpoly.edu
+ * @author Kevin Pham
+ * 
  * @version 20apr14
  * 
  * StudentAnswers is a class designed to store a collection of answers
@@ -15,16 +18,24 @@ import testtool.models.userdb.Student;
  * test is the test for which the answers are for
  */
 public class StudentAnswers {
-   Collection<Answer> answers;
+   ArrayList<Answer> answers;
    Student student;
    Test test;
 
+   
+   public StudentAnswers() {
+	   answers = new ArrayList<Answer>();
+   }
+   
+   
    /**
     * adds an answer to the Collection of answers
     * @param answer - the answer to add to the collection
     */
    public void addAnswer(Answer answer) {
-	   System.out.println("In StudentAnswers.addAnswer");
+	   answer.index = answers.size();
+	   answers.add(answer);
+	   
    }
 
    /**
@@ -32,14 +43,26 @@ public class StudentAnswers {
     * @param answer - the answer to remove from the collection
     */
    public void removeAnswer(Answer answer) {
-	   System.out.println("In StudentAnswers.removeAnswer");
+	   answers.remove(answer);
    }
 
    /**
     * updates the existing answer from the collection of answers
     * @param answer - the answer to update
     */
-   public void updateAnswer(Answer answer) {
-	   System.out.println("In StudentAnswers.updateAnswer");
+   public void updateAnswer(Answer answer, Answer newAnswer) {
+	   int old = answers.indexOf(answer);
+	   answers.set(old, newAnswer);
    }
+   
+   
+   /**
+    * 
+    * @return the ArrayList of answers
+    */
+   public ArrayList<Answer> getAnswers() {
+	   return answers;
+   }
+   
+   
 }
